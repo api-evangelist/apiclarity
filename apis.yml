@@ -1,34 +1,67 @@
 aid: apiclarity
 name: APIClarity
 description: >-
-  APIClarity is an open source tool for API traffic analysis and OpenAPI
-  specification reconstruction from observed traffic.
+  APIClarity is an open source API security and observability tool that analyzes
+  API traffic to reconstruct OpenAPI specifications, detect shadow and zombie
+  APIs, identify API differences and changes, and provide API security alerts.
+  It is part of the OpenClarity project and works with service meshes and API
+  gateways.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - API Analysis
-  - API Traffic
+  - API Security
+  - API Traffic Analysis
+  - OpenAPI Reconstruction
+  - Shadow APIs
+  - Open Source
+  - API Observability
+  - Service Mesh
 url: >-
   https://raw.githubusercontent.com/api-evangelist/apiclarity/refs/heads/main/apis.yml
 created: '2026-03-26'
 modified: '2026-03-26'
 specificationVersion: '0.19'
 apis:
-  - aid: apiclarity:apiclarity
-    name: APIClarity
+  - aid: apiclarity:apiclarity-api
+    name: APIClarity API
     description: >-
-      APIClarity is an open source tool for API traffic analysis and OpenAPI
-      specification reconstruction from observed traffic.
-    humanURL: https://apiclarity.io
+      The APIClarity API provides programmatic access to API traffic analysis,
+      reconstructed OpenAPI specifications, API inventory, and security findings.
+      It allows users to query discovered APIs, review spec diffs, and manage
+      API security alerts.
+    humanURL: https://github.com/openclarity/apiclarity
     tags:
-      - API Analysis
-      - API Traffic
+      - API Traffic Analysis
+      - OpenAPI Reconstruction
+      - API Security
+      - Shadow APIs
+      - API Inventory
     properties:
+      - type: Documentation
+        url: https://github.com/openclarity/apiclarity#readme
+      - type: OpenAPI
+        url: https://github.com/openclarity/apiclarity/blob/master/api/server/restapi/spec.json
+      - type: GettingStarted
+        url: https://github.com/openclarity/apiclarity#getting-started
       - type: GitHubOrg
         url: https://github.com/openclarity/apiclarity
 common:
   - type: Website
-    url: https://apiclarity.io
+    url: https://openclarity.io
+  - type: GitHub
+    url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: Issues
+    url: https://github.com/openclarity/apiclarity/issues
+  - type: Releases
+    url: https://github.com/openclarity/apiclarity/releases
+  - type: License
+    url: https://github.com/openclarity/apiclarity/blob/master/LICENSE
+  - type: Helm
+    url: https://github.com/openclarity/apiclarity#install-apiclarity-in-a-k8s-cluster
+  - type: Slack
+    url: https://outshift.slack.com
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
