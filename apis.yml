@@ -9,13 +9,13 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
+  - API Observability
   - API Security
   - API Traffic Analysis
-  - OpenAPI Reconstruction
-  - Shadow APIs
   - Open Source
-  - API Observability
+  - OpenAPI Reconstruction
   - Service Mesh
+  - Shadow APIs
 url: >-
   https://raw.githubusercontent.com/api-evangelist/apiclarity/refs/heads/main/apis.yml
 created: '2026-03-26'
@@ -31,11 +31,11 @@ apis:
       API security alerts.
     humanURL: https://github.com/openclarity/apiclarity
     tags:
+      - API Inventory
+      - API Security
       - API Traffic Analysis
       - OpenAPI Reconstruction
-      - API Security
       - Shadow APIs
-      - API Inventory
     properties:
       - type: Documentation
         url: https://github.com/openclarity/apiclarity#readme
