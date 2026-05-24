@@ -1,0 +1,1466 @@
+openapi: 3.1.0
+info:
+  title: APIClarity API
+  description: APIClarity is an open source API security and observability tool that analyzes API traffic to reconstruct OpenAPI specifications, detect shadow and zombie APIs, identify API differences and changes, and provide API security alerts. This is the REST API exposed by an APIClarity deployment.
+  version: 1.0.0
+  contact:
+    name: OpenClarity
+    url: https://github.com/openclarity/apiclarity
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:8080/api
+  description: Local APIClarity deployment
+tags:
+- name: API Inventory
+  description: Discovered APIs and their reconstructed specifications.
+- name: API Events
+  description: Captured API traffic events.
+- name: Dashboard
+  description: Aggregated metrics for the APIClarity dashboard.
+- name: Control
+  description: Control-plane endpoints for trace sources and discovered APIs.
+- name: Features
+  description: Enabled features in the deployment.
+paths:
+  /apiEvents:
+    get:
+      summary: Get API events
+      tags:
+      - API Events
+      parameters:
+      - $ref: '#/components/parameters/startTime'
+      - $ref: '#/components/parameters/endTime'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/apiEventSortKey'
+      - $ref: '#/components/parameters/sortDir'
+      - $ref: '#/components/parameters/showNonApi'
+      - $ref: '#/components/parameters/apiInfoIdIsFilter'
+      - $ref: '#/components/parameters/methodIsFilter'
+      - $ref: '#/components/parameters/pathIsFilter'
+      - $ref: '#/components/parameters/pathIsNotFilter'
+      - $ref: '#/components/parameters/pathStartsWithFilter'
+      - $ref: '#/components/parameters/pathEndsWithFilter'
+      - $ref: '#/components/parameters/pathContainsFilter'
+      - $ref: '#/components/parameters/statusCodeIsFilter'
+      - $ref: '#/components/parameters/statusCodeIsNotFilter'
+      - $ref: '#/components/parameters/statusCodeGteFilter'
+      - $ref: '#/components/parameters/statusCodeLteFilter'
+      - $ref: '#/components/parameters/sourceIPIsFilter'
+      - $ref: '#/components/parameters/sourceIPIsNotFilter'
+      - $ref: '#/components/parameters/destinationIPIsFilter'
+      - $ref: '#/components/parameters/destinationIPIsNotFilter'
+      - $ref: '#/components/parameters/destinationPortIsFilter'
+      - $ref: '#/components/parameters/destinationPortIsNotFilter'
+      - $ref: '#/components/parameters/hasSpecDiffFilter'
+      - $ref: '#/components/parameters/specDiffTypeIsFilter'
+      - $ref: '#/components/parameters/specIsFilter'
+      - $ref: '#/components/parameters/specIsNotFilter'
+      - $ref: '#/components/parameters/specStartsWithFilter'
+      - $ref: '#/components/parameters/specEndsWithFilter'
+      - $ref: '#/components/parameters/specContainsFilter'
+      - $ref: '#/components/parameters/alertIsFilter'
+      - $ref: '#/components/parameters/alertIsType'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - total
+                properties:
+                  total:
+                    type: integer
+                    description: Total events count in the given time range and filters
+                  items:
+                    type: array
+                    description: List of API events in the given time range, filters and page. List length must be lower or equal to pageSize
+                    items:
+                      $ref: '#/components/schemas/ApiEvent'
+        default:
+          description: Response
+  /apiEvents/{eventId}:
+    get:
+      summary: Get API event
+      tags:
+      - API Events
+      parameters:
+      - name: eventId
+        in: path
+        required: true
+        description: API event ID
+        schema:
+          type: integer
+          format: uint32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiEvent'
+        default:
+          description: Response
+  /apiEvents/{eventId}/reconstructedSpecDiff:
+    get:
+      summary: Get API event reconstructed spec diff
+      tags:
+      - API Events
+      parameters:
+      - name: eventId
+        in: path
+        required: true
+        description: API event ID
+        schema:
+          type: integer
+          format: uint32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiEventSpecDiff'
+        default:
+          description: Response
+  /apiEvents/{eventId}/providedSpecDiff:
+    get:
+      summary: Get API event provided spec diff
+      tags:
+      - API Events
+      parameters:
+      - name: eventId
+        in: path
+        required: true
+        description: API event ID
+        schema:
+          type: integer
+          format: uint32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiEventSpecDiff'
+        default:
+          description: Response
+  /apiInventory:
+    get:
+      summary: Get API inventory
+      tags:
+      - API Inventory
+      parameters:
+      - $ref: '#/components/parameters/apiType'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/apiInventorySortKey'
+      - $ref: '#/components/parameters/sortDir'
+      - $ref: '#/components/parameters/apiNameIsFilter'
+      - $ref: '#/components/parameters/apiNameIsNotFilter'
+      - $ref: '#/components/parameters/apiNameStartsWithFilter'
+      - $ref: '#/components/parameters/apiNameEndsWithFilter'
+      - $ref: '#/components/parameters/apiNameContainsFilter'
+      - $ref: '#/components/parameters/portIsFilter'
+      - $ref: '#/components/parameters/portIsNotFilter'
+      - $ref: '#/components/parameters/hasProvidedSpecFilter'
+      - $ref: '#/components/parameters/hasReconstructedSpecFilter'
+      - $ref: '#/components/parameters/apiIdFilter'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - total
+                properties:
+                  total:
+                    type: integer
+                    description: Total filtered APIs count
+                  items:
+                    type: array
+                    description: List of filtered APIs in the given page. List length must be lower or equal to pageSize
+                    items:
+                      $ref: '#/components/schemas/ApiInfo'
+        default:
+          description: Response
+    post:
+      summary: Create API inventory item
+      tags:
+      - API Inventory
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiInfoWithType'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiInfo'
+        default:
+          description: Response
+  /dashboard/apiUsage:
+    get:
+      summary: Get API usage
+      tags:
+      - API Inventory
+      parameters:
+      - $ref: '#/components/parameters/startTime'
+      - $ref: '#/components/parameters/endTime'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiUsages'
+        default:
+          description: Response
+  /dashboard/apiUsage/mostUsed:
+    get:
+      summary: Get most used APIs
+      tags:
+      - API Inventory
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ApiCount'
+        default:
+          description: Response
+  /dashboard/apiUsage/latestDiffs:
+    get:
+      summary: Get latest spec diffs
+      tags:
+      - API Inventory
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SpecDiffTime'
+        default:
+          description: Response
+  /features:
+    get:
+      summary: Get the list of APIClarity features and for each feature the list of API hosts (in the form 'host:port') the feature requires to get trace for
+      tags:
+      - Features
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIClarityFeatureList'
+  /apiInventory/{apiId}/specs:
+    get:
+      summary: Get provided and reconstructed open api specs for a specific API
+      tags:
+      - API Inventory
+      parameters:
+      - $ref: '#/components/parameters/apiId'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenApiSpecs'
+        default:
+          description: Response
+  /apiInventory/{apiId}/specs/providedSpec:
+    put:
+      summary: Add or edit a spec for a specific API
+      tags:
+      - API Inventory
+      parameters:
+      - $ref: '#/components/parameters/apiId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              description: Json or Yaml representing openapi spec V2
+              $ref: '#/components/schemas/rawSpec'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rawSpec'
+        '400':
+          description: Spec validation failure
+          content:
+            application/json:
+              schema:
+                type: string
+        default:
+          description: Response
+    delete:
+      summary: Unset a provided spec for a specific API
+      tags:
+      - API Inventory
+      parameters:
+      - $ref: '#/components/parameters/apiId'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/responses/Success'
+        default:
+          description: Response
+  /apiInventory/{apiId}/specs/reconstructedSpec:
+    delete:
+      summary: Unset a reconstructed spec for a specific API
+      tags:
+      - API Inventory
+      parameters:
+      - $ref: '#/components/parameters/apiId'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/responses/Success'
+        default:
+          description: Response
+  /apiInventory/{apiId}/reconstructed_swagger.json:
+    get:
+      summary: Get reconstructed API spec json file
+      tags:
+      - API Inventory
+      parameters:
+      - $ref: '#/components/parameters/apiId'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                description: spec in json format
+                type: object
+        default:
+          description: Response
+  /apiInventory/{apiId}/apiInfo:
+    get:
+      summary: Get api info from apiId
+      tags:
+      - API Inventory
+      parameters:
+      - $ref: '#/components/parameters/apiId'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiInfoWithType'
+        default:
+          description: Response
+  /apiInventory/apiId/fromHostAndPort:
+    get:
+      summary: Get apiId from host and port
+      tags:
+      - API Inventory
+      parameters:
+      - $ref: '#/components/parameters/host'
+      - $ref: '#/components/parameters/port'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                description: api id
+                type: integer
+                format: uint32
+        '404':
+          description: API ID Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        default:
+          description: Response
+  /apiInventory/apiId/fromHostAndPortAndTraceSourceID:
+    get:
+      summary: Get apiId from host and port and Trace Source ID
+      tags:
+      - API Inventory
+      parameters:
+      - $ref: '#/components/parameters/host'
+      - $ref: '#/components/parameters/port'
+      - $ref: '#/components/parameters/traceSourceIdQuery'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                description: api id
+                type: integer
+                format: uint32
+        '404':
+          description: API ID Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        default:
+          description: Response
+  /apiInventory/{apiId}/provided_swagger.json:
+    get:
+      summary: Get provided API spec json file
+      tags:
+      - API Inventory
+      parameters:
+      - $ref: '#/components/parameters/apiId'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                description: spec in json format
+                type: object
+        default:
+          description: Response
+  /apiUsage/hitCount:
+    get:
+      summary: Get a hit count within a selected timeframe for the filtered API events
+      tags:
+      - API Inventory
+      parameters:
+      - $ref: '#/components/parameters/startTime'
+      - $ref: '#/components/parameters/endTime'
+      - $ref: '#/components/parameters/showNonApi'
+      - $ref: '#/components/parameters/methodIsFilter'
+      - $ref: '#/components/parameters/providedPathIDIsFilter'
+      - $ref: '#/components/parameters/reconstructedPathIDIsFilter'
+      - $ref: '#/components/parameters/pathIsFilter'
+      - $ref: '#/components/parameters/pathIsNotFilter'
+      - $ref: '#/components/parameters/pathStartsWithFilter'
+      - $ref: '#/components/parameters/pathEndsWithFilter'
+      - $ref: '#/components/parameters/pathContainsFilter'
+      - $ref: '#/components/parameters/statusCodeIsFilter'
+      - $ref: '#/components/parameters/statusCodeIsNotFilter'
+      - $ref: '#/components/parameters/statusCodeGteFilter'
+      - $ref: '#/components/parameters/statusCodeLteFilter'
+      - $ref: '#/components/parameters/sourceIPIsFilter'
+      - $ref: '#/components/parameters/sourceIPIsNotFilter'
+      - $ref: '#/components/parameters/destinationIPIsFilter'
+      - $ref: '#/components/parameters/destinationIPIsNotFilter'
+      - $ref: '#/components/parameters/destinationPortIsFilter'
+      - $ref: '#/components/parameters/destinationPortIsNotFilter'
+      - $ref: '#/components/parameters/hasSpecDiffFilter'
+      - $ref: '#/components/parameters/specDiffTypeIsFilter'
+      - $ref: '#/components/parameters/specIsFilter'
+      - $ref: '#/components/parameters/specIsNotFilter'
+      - $ref: '#/components/parameters/specStartsWithFilter'
+      - $ref: '#/components/parameters/specEndsWithFilter'
+      - $ref: '#/components/parameters/specContainsFilter'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HitCount'
+        default:
+          description: Response
+  /apiInventory/{apiId}/suggestedReview:
+    get:
+      summary: Get reconstructed spec for review
+      tags:
+      - API Inventory
+      parameters:
+      - $ref: '#/components/parameters/apiId'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuggestedReview'
+        default:
+          description: Response
+  /apiInventory/{reviewId}/approvedReview:
+    post:
+      summary: Apply the approved review to create the reconstructed spec
+      tags:
+      - API Inventory
+      parameters:
+      - $ref: '#/components/parameters/reviewId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              description: Approved review
+              $ref: '#/components/schemas/ApprovedReview'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/responses/Success'
+        default:
+          description: Response
+  /control/newDiscoveredAPIs:
+    post:
+      summary: Allows a client to notify APIClarity about new APIs.
+      description: This allows a client (a gateway for example) to notify APIclarity about newly discovered APIs. If one of the APIs already exists, it is ignored.
+      tags:
+      - Control
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - hosts
+              properties:
+                hosts:
+                  type: array
+                  description: List of discovered APIs, format of hostname:port
+                  items:
+                    type: string
+        description: List of new discovered APIs
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/responses/Success'
+        default:
+          description: Response
+  /control/traceSources:
+    get:
+      summary: List of configured trace sources
+      tags:
+      - Control
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - trace_sources
+                properties:
+                  trace_sources:
+                    type: array
+                    description: List of trace sources
+                    items:
+                      $ref: '#/components/schemas/TraceSource'
+        default:
+          description: Response
+    post:
+      summary: Create a new Trace Source
+      tags:
+      - Control
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              description: Create a new Trace Source
+              $ref: '#/components/schemas/TraceSource'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceSource'
+        default:
+          description: Response
+  /control/traceSources/{traceSourceId}:
+    get:
+      summary: Get Trace Source information
+      tags:
+      - Control
+      parameters:
+      - $ref: '#/components/parameters/traceSourceId'
+      responses:
+        '200':
+          description: Trace Source information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceSource'
+        '404':
+          description: Trace Source not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        default:
+          description: Response
+    delete:
+      summary: Delete a Trace Source
+      tags:
+      - Control
+      parameters:
+      - $ref: '#/components/parameters/traceSourceId'
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: Trace Source not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        default:
+          description: Response
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: APIClarity is typically deployed inside a Kubernetes cluster behind an ingress that enforces authentication. When exposed externally, deployments commonly require a bearer token.
+  schemas:
+    ApiEvent:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: uint32
+        requestTime:
+          type: string
+          format: date-time
+        time:
+          type: string
+          format: date-time
+        method:
+          $ref: '#/components/schemas/HttpMethod'
+        path:
+          type: string
+        query:
+          type: string
+        statusCode:
+          type: integer
+        sourceIP:
+          type: string
+        destinationIP:
+          type: string
+        destinationPort:
+          type: integer
+        hasReconstructedSpecDiff:
+          type: boolean
+          default: false
+        hasProvidedSpecDiff:
+          type: boolean
+          default: false
+        specDiffType:
+          $ref: '#/components/schemas/DiffType'
+        hostSpecName:
+          type: string
+        apiInfoId:
+          type: integer
+          description: hold the relevant api spec info id
+          format: uint32
+        apiType:
+          $ref: '#/components/schemas/ApiType'
+        alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleAlert'
+    ApiEventSpecDiff:
+      type: object
+      required:
+      - oldSpec
+      - newSpec
+      properties:
+        diffType:
+          $ref: '#/components/schemas/DiffType'
+        oldSpec:
+          description: Old spec json string
+          type: string
+        newSpec:
+          description: New spec json string
+          type: string
+    ApiInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: uint32
+        name:
+          description: API name
+          type: string
+        port:
+          type: integer
+        hasReconstructedSpec:
+          type: boolean
+          default: false
+        hasProvidedSpec:
+          type: boolean
+          default: false
+        destinationNamespace:
+          type: string
+        traceSourceId:
+          description: Trace Source ID which created this API. Null UUID 0 means it has been created by APIClarity (from the UI for example)
+          type: string
+          format: uuid
+        traceSourceName:
+          description: Trace source name
+          type: string
+        traceSourceType:
+          description: Trace source type
+          type: string
+    ApiInfoWithType:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/ApiInfo'
+      - properties:
+          apiType:
+            $ref: '#/components/schemas/ApiType'
+    ApiUsages:
+      type: object
+      properties:
+        existingApis:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiUsage'
+        newApis:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiUsage'
+        apisWithDiff:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiUsage'
+    ApiUsage:
+      type: object
+      properties:
+        numOfCalls:
+          type: integer
+          x-omitempty: false
+        time:
+          type: string
+          format: date-time
+    ApiCount:
+      type: object
+      properties:
+        apiInfoId:
+          type: integer
+          description: hold the relevant api info id
+          format: uint32
+        apiType:
+          $ref: '#/components/schemas/ApiType'
+        numCalls:
+          type: integer
+        apiHostName:
+          type: string
+        apiPort:
+          type: integer
+    SpecDiffTime:
+      type: object
+      properties:
+        apiEventId:
+          type: integer
+          format: uint32
+        time:
+          type: string
+          format: date-time
+        apiHostName:
+          type: string
+        diffType:
+          $ref: '#/components/schemas/DiffType'
+    HttpMethod:
+      type: string
+      enum: &id005
+      - GET
+      - HEAD
+      - POST
+      - PUT
+      - DELETE
+      - CONNECT
+      - OPTIONS
+      - TRACE
+      - PATCH
+    ApiType:
+      type: string
+      enum: &id004
+      - INTERNAL
+      - EXTERNAL
+    DiffType:
+      type: string
+      default: NO_DIFF
+      enum: &id006
+      - ZOMBIE_DIFF
+      - SHADOW_DIFF
+      - GENERAL_DIFF
+      - NO_DIFF
+    ApiInventorySortKey:
+      type: string
+      enum: &id003
+      - name
+      - port
+      - hasReconstructedSpec
+      - hasProvidedSpec
+    ApiEventSortKey:
+      type: string
+      enum: &id002
+      - time
+      - method
+      - path
+      - statusCode
+      - sourceIP
+      - destinationIP
+      - destinationPort
+      - specDiffType
+      - hostSpecName
+      - apiType
+    ApiResponse:
+      description: An object that is return in all cases of failures.
+      type: object
+      properties:
+        message:
+          type: string
+    SuccessResponse:
+      description: An object that is return in cases of success that return nothing.
+      type: object
+      properties:
+        message:
+          type: string
+    OpenApiSpecs:
+      description: An object representing the provided and reconstructed API specs
+      type: object
+      properties:
+        providedSpec:
+          $ref: '#/components/schemas/SpecInfo'
+        reconstructedSpec:
+          $ref: '#/components/schemas/SpecInfo'
+    SpecInfo:
+      description: An object containing info about a spec
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpecTag'
+    rawSpec:
+      description: spec in json or yaml format
+      type: object
+      properties:
+        rawSpec:
+          type: string
+          description: spec in json or yaml format
+        createdAt:
+          type: string
+          format: date-time
+    SpecTag:
+      type: object
+      properties:
+        description:
+          type: string
+        name:
+          type: string
+        methodAndPathList:
+          type: array
+          items:
+            $ref: '#/components/schemas/MethodAndPath'
+    MethodAndPath:
+      type: object
+      properties:
+        path:
+          type: string
+        pathId:
+          type: string
+          format: uuid
+        method:
+          $ref: '#/components/schemas/HttpMethod'
+    HitCount:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
+          x-omitempty: false
+        time:
+          type: string
+          format: date-time
+    SuggestedReview:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: uint32
+        reviewPathItems:
+          type: array
+          items:
+            description: The suggested path items
+            $ref: '#/components/schemas/ReviewPathItem'
+    ReviewPathItem:
+      type: object
+      properties:
+        suggestedPath:
+          description: Represents the parameterized path suggested by the engine
+          type: string
+        apiEventsPaths:
+          description: Group of api event paths (original) that suggestedPath is representing
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiEventPathAndMethods'
+    ApiEventPathAndMethods:
+      type: object
+      properties:
+        path:
+          type: string
+        methods:
+          type: array
+          items:
+            $ref: '#/components/schemas/HttpMethod'
+    OASVersion:
+      description: OpenAPI specification version
+      type: string
+      enum: &id001
+      - OASv2.0
+      - OASv3.0
+    ApprovedReview:
+      type: object
+      properties:
+        oasVersion:
+          description: OpenAPI specification version to use when saving the approved spec
+          type: string
+          enum: *id001
+        reviewPathItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewPathItem'
+    AlertSeverityEnum:
+      description: Level of alert
+      type: string
+      enum: &id007
+      - ALERT_INFO
+      - ALERT_WARN
+      - ALERT_CRITICAL
+    ModuleAlert:
+      type: object
+      properties:
+        moduleName:
+          description: Name of the module which created this alert
+          type: string
+        reason:
+          description: Optional description of reason of the alert
+          type: string
+        alert:
+          $ref: '#/components/schemas/AlertSeverityEnum'
+    APIClarityFeatureList:
+      type: object
+      description: List of APIClarity features and for each feature the list of API hosts (Group by trace sources, in the form 'host:port') the feature requires to get trace for
+      properties:
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/APIClarityFeature'
+    APIClarityFeature:
+      type: object
+      description: Description of APIClarity feature and the list of API hosts (Group by trace sources, in the form 'host:port') the feature requires to get trace for
+      properties:
+        featureName:
+          $ref: '#/components/schemas/APIClarityFeatureEnum'
+        featureDescription:
+          description: Short human readable description of the feature
+          type: string
+        hostsToTrace:
+          $ref: '#/components/schemas/HostsToTraceForComponent'
+      required:
+      - featureName
+    HostsToTraceForComponent:
+      type: object
+      description: List of trace sources for a component, with theirs list of API hosts to get trace for
+      properties:
+        component:
+          description: Component name
+          type: string
+        traceSourcesHosts:
+          type: array
+          items:
+            $ref: '#/components/schemas/HostsToTraceForTraceSource'
+    HostsToTraceForTraceSource:
+      type: object
+      description: list of API hosts (in the form 'host:port') managed by a traceSource
+      properties:
+        traceSourceID:
+          description: ID of the trace source
+          type: integer
+          format: uint32
+        hostsToTrace:
+          description: List of hosts (in the form 'host:port')
+          type: array
+          items:
+            type: string
+    APIClarityFeatureEnum:
+      description: APIClarity Feature Name
+      type: string
+      enum:
+      - specreconstructor
+      - specdiffs
+      - traceanalyzer
+      - bfla
+      - spec_differ
+      - fuzzer
+    TraceSource:
+      description: A Source which is sending traces to APIClarity
+      type: object
+      properties:
+        id:
+          type: integer
+        uid:
+          type: string
+          format: uuid
+        name:
+          description: Unique name identifying a Trace Source
+          type: string
+        type:
+          $ref: '#/components/schemas/TraceSourceType'
+        description:
+          type: string
+        token:
+          type: string
+      required:
+      - name
+      - type
+    TraceSourceType:
+      type: string
+      enum:
+      - APIGEE_X
+      - F5_BIG_IP
+      - KONG_INTERNAL
+      - TYK_INTERNAL
+  parameters:
+    startTime:
+      name: startTime
+      in: query
+      required: true
+      description: Start time of the query
+      schema:
+        type: string
+        format: date-time
+    endTime:
+      name: endTime
+      in: query
+      required: true
+      description: End time of the query
+      schema:
+        type: string
+        format: date-time
+    page:
+      name: page
+      in: query
+      required: true
+      description: Page number of the query
+      schema:
+        type: integer
+    apiIdFilter:
+      name: apiId
+      in: query
+      required: false
+      description: api id to return
+      schema:
+        type: string
+    pageSize:
+      name: pageSize
+      in: query
+      required: true
+      description: Maximum items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+    sortDir:
+      name: sortDir
+      in: query
+      required: false
+      description: Sorting direction
+      schema:
+        type: string
+        enum:
+        - ASC
+        - DESC
+        default: ASC
+    apiEventSortKey:
+      name: sortKey
+      in: query
+      required: true
+      description: Sort key
+      schema:
+        type: string
+        enum: *id002
+    apiInventorySortKey:
+      name: sortKey
+      in: query
+      required: true
+      description: Sort key
+      schema:
+        type: string
+        enum: *id003
+    apiType:
+      name: type
+      in: query
+      required: true
+      description: API type [INTERNAL or EXTERNAL]
+      schema:
+        type: string
+        enum: *id004
+    showNonApi:
+      name: showNonApi
+      in: query
+      required: true
+      schema:
+        type: boolean
+    apiInfoIdIsFilter:
+      name: apiInfoId[is]
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: uint32
+    methodIsFilter:
+      name: method[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum: *id005
+    providedPathIDIsFilter:
+      name: providedPathID[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    reconstructedPathIDIsFilter:
+      name: reconstructedPathID[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    pathIsFilter:
+      name: path[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    pathIsNotFilter:
+      name: path[isNot]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    pathStartsWithFilter:
+      name: path[start]
+      in: query
+      required: false
+      schema:
+        type: string
+    pathEndsWithFilter:
+      name: path[end]
+      in: query
+      required: false
+      schema:
+        type: string
+    pathContainsFilter:
+      name: path[contains]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    statusCodeIsFilter:
+      name: statusCode[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    statusCodeIsNotFilter:
+      name: statusCode[isNot]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    statusCodeGteFilter:
+      name: statusCode[gte]
+      in: query
+      required: false
+      description: greater than or equal
+      schema:
+        type: string
+    statusCodeLteFilter:
+      name: statusCode[lte]
+      in: query
+      required: false
+      description: less than or equal
+      schema:
+        type: string
+    sourceIPIsFilter:
+      name: sourceIP[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    sourceIPIsNotFilter:
+      name: sourceIP[isNot]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    destinationIPIsFilter:
+      name: destinationIP[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    destinationIPIsNotFilter:
+      name: destinationIP[isNot]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    destinationPortIsFilter:
+      name: destinationPort[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    destinationPortIsNotFilter:
+      name: destinationPort[isNot]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    hasSpecDiffFilter:
+      name: hasSpecDiff[is]
+      in: query
+      required: false
+      schema:
+        type: boolean
+    specDiffTypeIsFilter:
+      name: specDiffType[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum: *id006
+    specIsFilter:
+      name: spec[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    specIsNotFilter:
+      name: spec[isNot]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    specStartsWithFilter:
+      name: spec[start]
+      in: query
+      required: false
+      schema:
+        type: string
+    specEndsWithFilter:
+      name: spec[end]
+      in: query
+      required: false
+      schema:
+        type: string
+    specContainsFilter:
+      name: spec[contains]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    apiNameIsFilter:
+      name: name[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    apiNameIsNotFilter:
+      name: name[isNot]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    apiNameStartsWithFilter:
+      name: name[start]
+      in: query
+      required: false
+      schema:
+        type: string
+    apiNameEndsWithFilter:
+      name: name[end]
+      in: query
+      required: false
+      schema:
+        type: string
+    apiNameContainsFilter:
+      name: name[contains]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    portIsFilter:
+      name: port[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    portIsNotFilter:
+      name: port[isNot]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    hasProvidedSpecFilter:
+      name: hasProvidedSpec[is]
+      in: query
+      required: false
+      schema:
+        type: boolean
+    hasReconstructedSpecFilter:
+      name: hasReconstructedSpec[is]
+      in: query
+      required: false
+      schema:
+        type: boolean
+    port:
+      name: port
+      in: query
+      required: true
+      description: api port
+      schema:
+        type: string
+    host:
+      name: host
+      in: query
+      required: true
+      description: api host name
+      schema:
+        type: string
+    alertIsFilter:
+      name: alert[is]
+      in: query
+      required: false
+      description: Alert Kind [ALERT_INFO or ALERT_WARN]
+      schema:
+        type: array
+        items:
+          type: string
+          enum: *id007
+    alertIsType:
+      name: alertType[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    apiId:
+      name: apiId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: uint32
+    reviewId:
+      name: reviewId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: uint32
+    traceSourceId:
+      name: traceSourceId
+      in: path
+      required: true
+      description: Trace Source ID
+      schema:
+        type: string
+        format: uuid
+    traceSourceIdQuery:
+      name: traceSourceId
+      in: query
+      required: true
+      description: Trace Source ID
+      schema:
+        type: string
+        format: uuid
