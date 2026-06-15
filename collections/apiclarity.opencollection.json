@@ -1,0 +1,915 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "APIClarity API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "API Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get API events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/apiEvents",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Start time of the query"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "End time of the query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number of the query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Maximum items to return"
+              },
+              {
+                "name": "sortKey",
+                "value": "",
+                "type": "query",
+                "description": "Sort key"
+              },
+              {
+                "name": "sortDir",
+                "value": "",
+                "type": "query",
+                "description": "Sorting direction"
+              },
+              {
+                "name": "showNonApi",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "apiInfoId[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "method[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "path[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "path[isNot]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "path[start]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "path[end]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "path[contains]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "statusCode[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "statusCode[isNot]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "statusCode[gte]",
+                "value": "",
+                "type": "query",
+                "description": "greater than or equal"
+              },
+              {
+                "name": "statusCode[lte]",
+                "value": "",
+                "type": "query",
+                "description": "less than or equal"
+              },
+              {
+                "name": "sourceIP[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sourceIP[isNot]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "destinationIP[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "destinationIP[isNot]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "destinationPort[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "destinationPort[isNot]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "hasSpecDiff[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "specDiffType[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "spec[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "spec[isNot]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "spec[start]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "spec[end]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "spec[contains]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "alert[is]",
+                "value": "",
+                "type": "query",
+                "description": "Alert Kind [ALERT_INFO or ALERT_WARN]"
+              },
+              {
+                "name": "alertType[is]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get API events"
+        },
+        {
+          "info": {
+            "name": "Get API event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/apiEvents/:eventId",
+            "params": [
+              {
+                "name": "eventId",
+                "value": "",
+                "type": "path",
+                "description": "API event ID"
+              }
+            ]
+          },
+          "docs": "Get API event"
+        },
+        {
+          "info": {
+            "name": "Get API event reconstructed spec diff",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/apiEvents/:eventId/reconstructedSpecDiff",
+            "params": [
+              {
+                "name": "eventId",
+                "value": "",
+                "type": "path",
+                "description": "API event ID"
+              }
+            ]
+          },
+          "docs": "Get API event reconstructed spec diff"
+        },
+        {
+          "info": {
+            "name": "Get API event provided spec diff",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/apiEvents/:eventId/providedSpecDiff",
+            "params": [
+              {
+                "name": "eventId",
+                "value": "",
+                "type": "path",
+                "description": "API event ID"
+              }
+            ]
+          },
+          "docs": "Get API event provided spec diff"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "API Inventory",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get API inventory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/apiInventory",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "API type [INTERNAL or EXTERNAL]"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number of the query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Maximum items to return"
+              },
+              {
+                "name": "sortKey",
+                "value": "",
+                "type": "query",
+                "description": "Sort key"
+              },
+              {
+                "name": "sortDir",
+                "value": "",
+                "type": "query",
+                "description": "Sorting direction"
+              },
+              {
+                "name": "name[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name[isNot]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name[start]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name[end]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name[contains]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "port[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "port[isNot]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "hasProvidedSpec[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "hasReconstructedSpec[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "query",
+                "description": "api id to return"
+              }
+            ]
+          },
+          "docs": "Get API inventory"
+        },
+        {
+          "info": {
+            "name": "Create API inventory item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/api/apiInventory",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create API inventory item"
+        },
+        {
+          "info": {
+            "name": "Get API usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/dashboard/apiUsage",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Start time of the query"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "End time of the query"
+              }
+            ]
+          },
+          "docs": "Get API usage"
+        },
+        {
+          "info": {
+            "name": "Get most used APIs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/dashboard/apiUsage/mostUsed"
+          },
+          "docs": "Get most used APIs"
+        },
+        {
+          "info": {
+            "name": "Get latest spec diffs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/dashboard/apiUsage/latestDiffs"
+          },
+          "docs": "Get latest spec diffs"
+        },
+        {
+          "info": {
+            "name": "Get provided and reconstructed open api specs for a specific API",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/apiInventory/:apiId/specs",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get provided and reconstructed open api specs for a specific API"
+        },
+        {
+          "info": {
+            "name": "Add or edit a spec for a specific API",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8080/api/apiInventory/:apiId/specs/providedSpec",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add or edit a spec for a specific API"
+        },
+        {
+          "info": {
+            "name": "Unset a provided spec for a specific API",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8080/api/apiInventory/:apiId/specs/providedSpec",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Unset a provided spec for a specific API"
+        },
+        {
+          "info": {
+            "name": "Unset a reconstructed spec for a specific API",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8080/api/apiInventory/:apiId/specs/reconstructedSpec",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Unset a reconstructed spec for a specific API"
+        },
+        {
+          "info": {
+            "name": "Get reconstructed API spec json file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/apiInventory/:apiId/reconstructed_swagger.json",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get reconstructed API spec json file"
+        },
+        {
+          "info": {
+            "name": "Get api info from apiId",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/apiInventory/:apiId/apiInfo",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get api info from apiId"
+        },
+        {
+          "info": {
+            "name": "Get apiId from host and port",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/apiInventory/apiId/fromHostAndPort",
+            "params": [
+              {
+                "name": "host",
+                "value": "",
+                "type": "query",
+                "description": "api host name"
+              },
+              {
+                "name": "port",
+                "value": "",
+                "type": "query",
+                "description": "api port"
+              }
+            ]
+          },
+          "docs": "Get apiId from host and port"
+        },
+        {
+          "info": {
+            "name": "Get apiId from host and port and Trace Source ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/apiInventory/apiId/fromHostAndPortAndTraceSourceID",
+            "params": [
+              {
+                "name": "host",
+                "value": "",
+                "type": "query",
+                "description": "api host name"
+              },
+              {
+                "name": "port",
+                "value": "",
+                "type": "query",
+                "description": "api port"
+              },
+              {
+                "name": "traceSourceId",
+                "value": "",
+                "type": "query",
+                "description": "Trace Source ID"
+              }
+            ]
+          },
+          "docs": "Get apiId from host and port and Trace Source ID"
+        },
+        {
+          "info": {
+            "name": "Get provided API spec json file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/apiInventory/:apiId/provided_swagger.json",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get provided API spec json file"
+        },
+        {
+          "info": {
+            "name": "Get a hit count within a selected timeframe for the filtered API events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/apiUsage/hitCount",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Start time of the query"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "End time of the query"
+              },
+              {
+                "name": "showNonApi",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "method[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "providedPathID[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reconstructedPathID[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "path[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "path[isNot]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "path[start]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "path[end]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "path[contains]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "statusCode[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "statusCode[isNot]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "statusCode[gte]",
+                "value": "",
+                "type": "query",
+                "description": "greater than or equal"
+              },
+              {
+                "name": "statusCode[lte]",
+                "value": "",
+                "type": "query",
+                "description": "less than or equal"
+              },
+              {
+                "name": "sourceIP[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sourceIP[isNot]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "destinationIP[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "destinationIP[isNot]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "destinationPort[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "destinationPort[isNot]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "hasSpecDiff[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "specDiffType[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "spec[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "spec[isNot]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "spec[start]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "spec[end]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "spec[contains]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a hit count within a selected timeframe for the filtered API events"
+        },
+        {
+          "info": {
+            "name": "Get reconstructed spec for review",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/apiInventory/:apiId/suggestedReview",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get reconstructed spec for review"
+        },
+        {
+          "info": {
+            "name": "Apply the approved review to create the reconstructed spec",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/api/apiInventory/:reviewId/approvedReview",
+            "params": [
+              {
+                "name": "reviewId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Apply the approved review to create the reconstructed spec"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Features",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the list of APIClarity features and for each feature the list of API hosts (in the form 'host:port') the feature requires to get trace for",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/features"
+          },
+          "docs": "Get the list of APIClarity features and for each feature the list of API hosts (in the form 'host:port') the feature requires to get trace for"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Control",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Allows a client to notify APIClarity about new APIs.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/api/control/newDiscoveredAPIs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This allows a client (a gateway for example) to notify APIclarity about newly discovered APIs. If one of the APIs already exists, it is ignored."
+        },
+        {
+          "info": {
+            "name": "List of configured trace sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/control/traceSources"
+          },
+          "docs": "List of configured trace sources"
+        },
+        {
+          "info": {
+            "name": "Create a new Trace Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/api/control/traceSources",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Trace Source"
+        },
+        {
+          "info": {
+            "name": "Get Trace Source information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/control/traceSources/:traceSourceId",
+            "params": [
+              {
+                "name": "traceSourceId",
+                "value": "",
+                "type": "path",
+                "description": "Trace Source ID"
+              }
+            ]
+          },
+          "docs": "Get Trace Source information"
+        },
+        {
+          "info": {
+            "name": "Delete a Trace Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8080/api/control/traceSources/:traceSourceId",
+            "params": [
+              {
+                "name": "traceSourceId",
+                "value": "",
+                "type": "path",
+                "description": "Trace Source ID"
+              }
+            ]
+          },
+          "docs": "Delete a Trace Source"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
