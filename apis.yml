@@ -7,7 +7,7 @@ description: >-
   It is part of the OpenClarity project and works with Kubernetes service meshes
   and API gateways for cloud-native API traffic observability.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - API Observability
   - API Security
