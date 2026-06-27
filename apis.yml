@@ -59,7 +59,7 @@ common:
     url: https://github.com/openclarity/apiclarity#readme
   - type: Issues
     url: https://github.com/openclarity/apiclarity/issues
-  - type: Releases
+  - type: ReleaseNotes
     url: https://github.com/openclarity/apiclarity/releases
   - type: License
     url: https://github.com/openclarity/apiclarity/blob/master/LICENSE
