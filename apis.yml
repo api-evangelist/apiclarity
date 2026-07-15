@@ -49,6 +49,8 @@ apis:
       - type: GitHubRepository
         url: https://github.com/openclarity/apiclarity
 common:
+  - type: AgenticAccess
+    url: agentic-access/apiclarity-agentic-access.yml
   - type: DomainSecurity
     url: security/apiclarity-domain-security.yml
   - type: Authentication
