@@ -1,0 +1,536 @@
+openapi: 3.1.0
+info:
+  title: APIClarity API Events API
+  description: APIClarity is an open source API security and observability tool that analyzes API traffic to reconstruct OpenAPI specifications, detect shadow and zombie APIs, identify API differences and changes, and provide API security alerts. This is the REST API exposed by an APIClarity deployment.
+  version: 1.0.0
+  contact:
+    name: OpenClarity
+    url: https://github.com/openclarity/apiclarity
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:8080/api
+  description: Local APIClarity deployment
+tags:
+- name: API Events
+  description: Captured API traffic events.
+paths:
+  /apiEvents:
+    get:
+      summary: Get API events
+      tags:
+      - API Events
+      parameters:
+      - $ref: '#/components/parameters/startTime'
+      - $ref: '#/components/parameters/endTime'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/apiEventSortKey'
+      - $ref: '#/components/parameters/sortDir'
+      - $ref: '#/components/parameters/showNonApi'
+      - $ref: '#/components/parameters/apiInfoIdIsFilter'
+      - $ref: '#/components/parameters/methodIsFilter'
+      - $ref: '#/components/parameters/pathIsFilter'
+      - $ref: '#/components/parameters/pathIsNotFilter'
+      - $ref: '#/components/parameters/pathStartsWithFilter'
+      - $ref: '#/components/parameters/pathEndsWithFilter'
+      - $ref: '#/components/parameters/pathContainsFilter'
+      - $ref: '#/components/parameters/statusCodeIsFilter'
+      - $ref: '#/components/parameters/statusCodeIsNotFilter'
+      - $ref: '#/components/parameters/statusCodeGteFilter'
+      - $ref: '#/components/parameters/statusCodeLteFilter'
+      - $ref: '#/components/parameters/sourceIPIsFilter'
+      - $ref: '#/components/parameters/sourceIPIsNotFilter'
+      - $ref: '#/components/parameters/destinationIPIsFilter'
+      - $ref: '#/components/parameters/destinationIPIsNotFilter'
+      - $ref: '#/components/parameters/destinationPortIsFilter'
+      - $ref: '#/components/parameters/destinationPortIsNotFilter'
+      - $ref: '#/components/parameters/hasSpecDiffFilter'
+      - $ref: '#/components/parameters/specDiffTypeIsFilter'
+      - $ref: '#/components/parameters/specIsFilter'
+      - $ref: '#/components/parameters/specIsNotFilter'
+      - $ref: '#/components/parameters/specStartsWithFilter'
+      - $ref: '#/components/parameters/specEndsWithFilter'
+      - $ref: '#/components/parameters/specContainsFilter'
+      - $ref: '#/components/parameters/alertIsFilter'
+      - $ref: '#/components/parameters/alertIsType'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - total
+                properties:
+                  total:
+                    type: integer
+                    description: Total events count in the given time range and filters
+                  items:
+                    type: array
+                    description: List of API events in the given time range, filters and page. List length must be lower or equal to pageSize
+                    items:
+                      $ref: '#/components/schemas/ApiEvent'
+        default:
+          description: Response
+  /apiEvents/{eventId}:
+    get:
+      summary: Get API event
+      tags:
+      - API Events
+      parameters:
+      - name: eventId
+        in: path
+        required: true
+        description: API event ID
+        schema:
+          type: integer
+          format: uint32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiEvent'
+        default:
+          description: Response
+  /apiEvents/{eventId}/reconstructedSpecDiff:
+    get:
+      summary: Get API event reconstructed spec diff
+      tags:
+      - API Events
+      parameters:
+      - name: eventId
+        in: path
+        required: true
+        description: API event ID
+        schema:
+          type: integer
+          format: uint32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiEventSpecDiff'
+        default:
+          description: Response
+  /apiEvents/{eventId}/providedSpecDiff:
+    get:
+      summary: Get API event provided spec diff
+      tags:
+      - API Events
+      parameters:
+      - name: eventId
+        in: path
+        required: true
+        description: API event ID
+        schema:
+          type: integer
+          format: uint32
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiEventSpecDiff'
+        default:
+          description: Response
+components:
+  parameters:
+    statusCodeLteFilter:
+      name: statusCode[lte]
+      in: query
+      required: false
+      description: less than or equal
+      schema:
+        type: string
+    specContainsFilter:
+      name: spec[contains]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    specIsNotFilter:
+      name: spec[isNot]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    pathEndsWithFilter:
+      name: path[end]
+      in: query
+      required: false
+      schema:
+        type: string
+    startTime:
+      name: startTime
+      in: query
+      required: true
+      description: Start time of the query
+      schema:
+        type: string
+        format: date-time
+    statusCodeGteFilter:
+      name: statusCode[gte]
+      in: query
+      required: false
+      description: greater than or equal
+      schema:
+        type: string
+    pathIsFilter:
+      name: path[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    sortDir:
+      name: sortDir
+      in: query
+      required: false
+      description: Sorting direction
+      schema:
+        type: string
+        enum:
+        - ASC
+        - DESC
+        default: ASC
+    pageSize:
+      name: pageSize
+      in: query
+      required: true
+      description: Maximum items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+    showNonApi:
+      name: showNonApi
+      in: query
+      required: true
+      schema:
+        type: boolean
+    destinationIPIsFilter:
+      name: destinationIP[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    pathContainsFilter:
+      name: path[contains]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    specStartsWithFilter:
+      name: spec[start]
+      in: query
+      required: false
+      schema:
+        type: string
+    statusCodeIsFilter:
+      name: statusCode[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    pathStartsWithFilter:
+      name: path[start]
+      in: query
+      required: false
+      schema:
+        type: string
+    sourceIPIsFilter:
+      name: sourceIP[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    specEndsWithFilter:
+      name: spec[end]
+      in: query
+      required: false
+      schema:
+        type: string
+    destinationPortIsFilter:
+      name: destinationPort[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    specIsFilter:
+      name: spec[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    apiEventSortKey:
+      name: sortKey
+      in: query
+      required: true
+      description: Sort key
+      schema:
+        type: string
+        enum:
+        - time
+        - method
+        - path
+        - statusCode
+        - sourceIP
+        - destinationIP
+        - destinationPort
+        - specDiffType
+        - hostSpecName
+        - apiType
+    sourceIPIsNotFilter:
+      name: sourceIP[isNot]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    apiInfoIdIsFilter:
+      name: apiInfoId[is]
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: uint32
+    specDiffTypeIsFilter:
+      name: specDiffType[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+          - ZOMBIE_DIFF
+          - SHADOW_DIFF
+          - GENERAL_DIFF
+          - NO_DIFF
+    alertIsType:
+      name: alertType[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    endTime:
+      name: endTime
+      in: query
+      required: true
+      description: End time of the query
+      schema:
+        type: string
+        format: date-time
+    destinationIPIsNotFilter:
+      name: destinationIP[isNot]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    pathIsNotFilter:
+      name: path[isNot]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    alertIsFilter:
+      name: alert[is]
+      in: query
+      required: false
+      description: Alert Kind [ALERT_INFO or ALERT_WARN]
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+          - ALERT_INFO
+          - ALERT_WARN
+          - ALERT_CRITICAL
+    destinationPortIsNotFilter:
+      name: destinationPort[isNot]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    statusCodeIsNotFilter:
+      name: statusCode[isNot]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    methodIsFilter:
+      name: method[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - DELETE
+          - CONNECT
+          - OPTIONS
+          - TRACE
+          - PATCH
+    page:
+      name: page
+      in: query
+      required: true
+      description: Page number of the query
+      schema:
+        type: integer
+    hasSpecDiffFilter:
+      name: hasSpecDiff[is]
+      in: query
+      required: false
+      schema:
+        type: boolean
+  schemas:
+    ApiEventSpecDiff:
+      type: object
+      required:
+      - oldSpec
+      - newSpec
+      properties:
+        diffType:
+          $ref: '#/components/schemas/DiffType'
+        oldSpec:
+          description: Old spec json string
+          type: string
+        newSpec:
+          description: New spec json string
+          type: string
+    DiffType:
+      type: string
+      default: NO_DIFF
+      enum:
+      - ZOMBIE_DIFF
+      - SHADOW_DIFF
+      - GENERAL_DIFF
+      - NO_DIFF
+    HttpMethod:
+      type: string
+      enum:
+      - GET
+      - HEAD
+      - POST
+      - PUT
+      - DELETE
+      - CONNECT
+      - OPTIONS
+      - TRACE
+      - PATCH
+    AlertSeverityEnum:
+      description: Level of alert
+      type: string
+      enum:
+      - ALERT_INFO
+      - ALERT_WARN
+      - ALERT_CRITICAL
+    ModuleAlert:
+      type: object
+      properties:
+        moduleName:
+          description: Name of the module which created this alert
+          type: string
+        reason:
+          description: Optional description of reason of the alert
+          type: string
+        alert:
+          $ref: '#/components/schemas/AlertSeverityEnum'
+    ApiEvent:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: uint32
+        requestTime:
+          type: string
+          format: date-time
+        time:
+          type: string
+          format: date-time
+        method:
+          $ref: '#/components/schemas/HttpMethod'
+        path:
+          type: string
+        query:
+          type: string
+        statusCode:
+          type: integer
+        sourceIP:
+          type: string
+        destinationIP:
+          type: string
+        destinationPort:
+          type: integer
+        hasReconstructedSpecDiff:
+          type: boolean
+          default: false
+        hasProvidedSpecDiff:
+          type: boolean
+          default: false
+        specDiffType:
+          $ref: '#/components/schemas/DiffType'
+        hostSpecName:
+          type: string
+        apiInfoId:
+          type: integer
+          description: hold the relevant api spec info id
+          format: uint32
+        apiType:
+          $ref: '#/components/schemas/ApiType'
+        alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModuleAlert'
+    ApiType:
+      type: string
+      enum:
+      - INTERNAL
+      - EXTERNAL
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: APIClarity is typically deployed inside a Kubernetes cluster behind an ingress that enforces authentication. When exposed externally, deployments commonly require a bearer token.
