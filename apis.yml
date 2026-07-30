@@ -7,7 +7,20 @@ description: >-
   It is part of the OpenClarity project and works with Kubernetes service meshes
   and API gateways for cloud-native API traffic observability.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/apiclarity.png
 tags:
   - API Observability
   - API Security
@@ -25,29 +38,66 @@ created: '2026-03-26'
 modified: '2026-04-19'
 specificationVersion: '0.19'
 apis:
-  - aid: apiclarity:apiclarity-api
-    name: APIClarity API
-    description: >-
-      The APIClarity API provides programmatic access to API traffic analysis,
-      reconstructed OpenAPI specifications, API inventory, and security findings.
-      It allows users to query discovered APIs, review spec diffs between
-      observed and documented API behavior, and manage API security alerts.
-    humanURL: https://github.com/openclarity/apiclarity
-    tags:
-      - API Inventory
-      - API Security
-      - API Traffic Analysis
-      - OpenAPI Reconstruction
-      - Shadow APIs
-    properties:
-      - type: Documentation
-        url: https://github.com/openclarity/apiclarity#readme
-      - type: OpenAPI
-        url: https://github.com/openclarity/apiclarity/blob/master/api/server/restapi/spec.json
-      - type: GettingStarted
-        url: https://github.com/openclarity/apiclarity#getting-started
-      - type: GitHubRepository
-        url: https://github.com/openclarity/apiclarity
+- aid: apiclarity:apiclarity-api-events-api
+  name: APIClarity API Events API
+  description: Captured API traffic events.
+  humanURL: https://github.com/openclarity/apiclarity
+  tags:
+  - API Events
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-api-events-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+- aid: apiclarity:apiclarity-api-inventory-api
+  name: APIClarity API Inventory API
+  description: Discovered APIs and their reconstructed specifications.
+  humanURL: https://github.com/openclarity/apiclarity
+  tags:
+  - API Inventory
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-api-inventory-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+- aid: apiclarity:apiclarity-control-api
+  name: APIClarity Control API
+  description: Control-plane endpoints for trace sources and discovered APIs.
+  humanURL: https://github.com/openclarity/apiclarity
+  tags:
+  - Control
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-control-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+- aid: apiclarity:apiclarity-features-api
+  name: APIClarity Features API
+  description: Enabled features in the deployment.
+  humanURL: https://github.com/openclarity/apiclarity
+  tags:
+  - Features
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-features-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
 common:
   - type: AgenticAccess
     url: agentic-access/apiclarity-agentic-access.yml
