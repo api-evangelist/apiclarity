@@ -1,0 +1,23 @@
+{
+  "provider": "apiclarity",
+  "sources": [
+    "apiclarity-api-events-api-openapi.yml",
+    "apiclarity-api-inventory-api-openapi.yml",
+    "apiclarity-control-api-openapi.yml",
+    "apiclarity-features-api-openapi.yml"
+  ],
+  "outputs": [
+    "apiclarity-api-events-api-openapi.yml",
+    "apiclarity-api-inventory-api-openapi.yml",
+    "apiclarity-control-api-openapi.yml",
+    "apiclarity-features-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [
+    "apiclarity-api-inventory-api-openapi.yml: dangling $ref: #/responses/Success",
+    "apiclarity-control-api-openapi.yml: dangling $ref: #/responses/Success"
+  ],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
