@@ -1,0 +1,262 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "APIClarity API Events API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "API Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get API events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/apiEvents",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Start time of the query"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "End time of the query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number of the query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Maximum items to return"
+              },
+              {
+                "name": "sortKey",
+                "value": "",
+                "type": "query",
+                "description": "Sort key"
+              },
+              {
+                "name": "sortDir",
+                "value": "",
+                "type": "query",
+                "description": "Sorting direction"
+              },
+              {
+                "name": "showNonApi",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "apiInfoId[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "method[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "path[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "path[isNot]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "path[start]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "path[end]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "path[contains]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "statusCode[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "statusCode[isNot]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "statusCode[gte]",
+                "value": "",
+                "type": "query",
+                "description": "greater than or equal"
+              },
+              {
+                "name": "statusCode[lte]",
+                "value": "",
+                "type": "query",
+                "description": "less than or equal"
+              },
+              {
+                "name": "sourceIP[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sourceIP[isNot]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "destinationIP[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "destinationIP[isNot]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "destinationPort[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "destinationPort[isNot]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "hasSpecDiff[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "specDiffType[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "spec[is]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "spec[isNot]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "spec[start]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "spec[end]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "spec[contains]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "alert[is]",
+                "value": "",
+                "type": "query",
+                "description": "Alert Kind [ALERT_INFO or ALERT_WARN]"
+              },
+              {
+                "name": "alertType[is]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get API events"
+        },
+        {
+          "info": {
+            "name": "Get API event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/apiEvents/:eventId",
+            "params": [
+              {
+                "name": "eventId",
+                "value": "",
+                "type": "path",
+                "description": "API event ID"
+              }
+            ]
+          },
+          "docs": "Get API event"
+        },
+        {
+          "info": {
+            "name": "Get API event reconstructed spec diff",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/apiEvents/:eventId/reconstructedSpecDiff",
+            "params": [
+              {
+                "name": "eventId",
+                "value": "",
+                "type": "path",
+                "description": "API event ID"
+              }
+            ]
+          },
+          "docs": "Get API event reconstructed spec diff"
+        },
+        {
+          "info": {
+            "name": "Get API event provided spec diff",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/apiEvents/:eventId/providedSpecDiff",
+            "params": [
+              {
+                "name": "eventId",
+                "value": "",
+                "type": "path",
+                "description": "API event ID"
+              }
+            ]
+          },
+          "docs": "Get API event provided spec diff"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

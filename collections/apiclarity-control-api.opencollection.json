@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "APIClarity API Events Control API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Control",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Allows a client to notify APIClarity about new APIs.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/api/control/newDiscoveredAPIs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This allows a client (a gateway for example) to notify APIclarity about newly discovered APIs. If one of the APIs already exists, it is ignored."
+        },
+        {
+          "info": {
+            "name": "List of configured trace sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/control/traceSources"
+          },
+          "docs": "List of configured trace sources"
+        },
+        {
+          "info": {
+            "name": "Create a new Trace Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/api/control/traceSources",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Trace Source"
+        },
+        {
+          "info": {
+            "name": "Get Trace Source information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/control/traceSources/:traceSourceId",
+            "params": [
+              {
+                "name": "traceSourceId",
+                "value": "",
+                "type": "path",
+                "description": "Trace Source ID"
+              }
+            ]
+          },
+          "docs": "Get Trace Source information"
+        },
+        {
+          "info": {
+            "name": "Delete a Trace Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8080/api/control/traceSources/:traceSourceId",
+            "params": [
+              {
+                "name": "traceSourceId",
+                "value": "",
+                "type": "path",
+                "description": "Trace Source ID"
+              }
+            ]
+          },
+          "docs": "Delete a Trace Source"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

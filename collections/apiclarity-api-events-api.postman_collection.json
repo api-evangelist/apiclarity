@@ -1,0 +1,1180 @@
+{
+  "item": [
+    {
+      "id": "f525939a-0572-4264-adf0-4a71f9ad6ade",
+      "name": "API Events",
+      "description": {
+        "content": "Captured API traffic events.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "65c253ca-ae6a-4aac-ab76-abc450ae8d73",
+          "name": "Get API events",
+          "request": {
+            "name": "Get API events",
+            "description": {},
+            "url": {
+              "path": [
+                "apiEvents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<dateTime>",
+                  "description": "(Required) Start time of the query"
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<dateTime>",
+                  "description": "(Required) End time of the query"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "(Required) Page number of the query"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>",
+                  "description": "(Required) Maximum items to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortKey",
+                  "value": "<string>",
+                  "description": "(Required) Sort key"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortDir",
+                  "value": "ASC",
+                  "description": "Sorting direction"
+                },
+                {
+                  "disabled": false,
+                  "key": "showNonApi",
+                  "value": "<boolean>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "apiInfoId[is]",
+                  "value": "<uint32>"
+                },
+                {
+                  "disabled": false,
+                  "key": "method[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "method[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "path[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "path[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "path[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "path[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "path[start]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "path[end]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "path[contains]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "path[contains]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "statusCode[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "statusCode[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "statusCode[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "statusCode[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "statusCode[gte]",
+                  "value": "<string>",
+                  "description": "greater than or equal"
+                },
+                {
+                  "disabled": false,
+                  "key": "statusCode[lte]",
+                  "value": "<string>",
+                  "description": "less than or equal"
+                },
+                {
+                  "disabled": false,
+                  "key": "sourceIP[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sourceIP[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sourceIP[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sourceIP[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "destinationIP[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "destinationIP[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "destinationIP[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "destinationIP[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "destinationPort[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "destinationPort[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "destinationPort[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "destinationPort[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "hasSpecDiff[is]",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "specDiffType[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "specDiffType[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "spec[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "spec[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "spec[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "spec[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "spec[start]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "spec[end]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "spec[contains]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "spec[contains]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "alert[is]",
+                  "value": "<string>",
+                  "description": "Alert Kind [ALERT_INFO or ALERT_WARN]"
+                },
+                {
+                  "disabled": false,
+                  "key": "alert[is]",
+                  "value": "<string>",
+                  "description": "Alert Kind [ALERT_INFO or ALERT_WARN]"
+                },
+                {
+                  "disabled": false,
+                  "key": "alertType[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "alertType[is]",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3ba14b2e-ddad-437a-96a5-e0bb6523db99",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiEvents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sortKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortDir",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "showNonApi",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "apiInfoId[is]",
+                      "value": "<uint32>"
+                    },
+                    {
+                      "key": "method[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "method[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[start]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[end]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[gte]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[lte]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceIP[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceIP[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceIP[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceIP[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationIP[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationIP[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationIP[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationIP[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationPort[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationPort[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationPort[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationPort[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hasSpecDiff[is]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "specDiffType[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "specDiffType[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[start]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[end]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "alert[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "alert[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "alertType[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "alertType[is]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 9521,\n  \"items\": [\n    {\n      \"id\": 7566,\n      \"requestTime\": \"1951-05-07T08:40:28.696Z\",\n      \"time\": \"1973-01-19T14:07:31.700Z\",\n      \"method\": \"DELETE\",\n      \"path\": \"string\",\n      \"query\": \"string\",\n      \"statusCode\": 8416,\n      \"sourceIP\": \"string\",\n      \"destinationIP\": \"string\",\n      \"destinationPort\": 1049,\n      \"hasReconstructedSpecDiff\": false,\n      \"hasProvidedSpecDiff\": false,\n      \"specDiffType\": \"NO_DIFF\",\n      \"hostSpecName\": \"string\",\n      \"apiInfoId\": 1606,\n      \"apiType\": \"INTERNAL\",\n      \"alerts\": [\n        {\n          \"moduleName\": \"string\",\n          \"reason\": \"string\",\n          \"alert\": \"ALERT_CRITICAL\"\n        },\n        {\n          \"moduleName\": \"string\",\n          \"reason\": \"string\",\n          \"alert\": \"ALERT_WARN\"\n        }\n      ]\n    },\n    {\n      \"id\": 824,\n      \"requestTime\": \"1989-10-19T01:53:13.147Z\",\n      \"time\": \"1986-12-20T19:14:24.293Z\",\n      \"method\": \"OPTIONS\",\n      \"path\": \"string\",\n      \"query\": \"string\",\n      \"statusCode\": 2398,\n      \"sourceIP\": \"string\",\n      \"destinationIP\": \"string\",\n      \"destinationPort\": 5276,\n      \"hasReconstructedSpecDiff\": false,\n      \"hasProvidedSpecDiff\": false,\n      \"specDiffType\": \"NO_DIFF\",\n      \"hostSpecName\": \"string\",\n      \"apiInfoId\": 3333,\n      \"apiType\": \"INTERNAL\",\n      \"alerts\": [\n        {\n          \"moduleName\": \"string\",\n          \"reason\": \"string\",\n          \"alert\": \"ALERT_INFO\"\n        },\n        {\n          \"moduleName\": \"string\",\n          \"reason\": \"string\",\n          \"alert\": \"ALERT_WARN\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4711387-3c03-433f-8dbf-1bd9cddfb1d2",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiEvents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sortKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortDir",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "showNonApi",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "apiInfoId[is]",
+                      "value": "<uint32>"
+                    },
+                    {
+                      "key": "method[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "method[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[start]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[end]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[gte]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[lte]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceIP[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceIP[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceIP[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceIP[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationIP[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationIP[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationIP[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationIP[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationPort[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationPort[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationPort[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationPort[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hasSpecDiff[is]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "specDiffType[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "specDiffType[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[start]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[end]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "alert[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "alert[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "alertType[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "alertType[is]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "48259b72-917e-4ea4-ad9e-1f84689bce83",
+          "name": "Get API event",
+          "request": {
+            "name": "Get API event",
+            "description": {},
+            "url": {
+              "path": [
+                "apiEvents",
+                ":eventId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uint32>",
+                  "key": "eventId",
+                  "description": "(Required) API event ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e4c99cae-3b9b-4f38-b31b-2f93f7c10d60",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiEvents",
+                    ":eventId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "eventId",
+                      "description": "(Required) API event ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 7038,\n  \"requestTime\": \"1951-04-06T13:43:17.680Z\",\n  \"time\": \"1970-12-13T16:25:33.994Z\",\n  \"method\": \"OPTIONS\",\n  \"path\": \"string\",\n  \"query\": \"string\",\n  \"statusCode\": 734,\n  \"sourceIP\": \"string\",\n  \"destinationIP\": \"string\",\n  \"destinationPort\": 2182,\n  \"hasReconstructedSpecDiff\": false,\n  \"hasProvidedSpecDiff\": false,\n  \"specDiffType\": \"NO_DIFF\",\n  \"hostSpecName\": \"string\",\n  \"apiInfoId\": 2293,\n  \"apiType\": \"INTERNAL\",\n  \"alerts\": [\n    {\n      \"moduleName\": \"string\",\n      \"reason\": \"string\",\n      \"alert\": \"ALERT_CRITICAL\"\n    },\n    {\n      \"moduleName\": \"string\",\n      \"reason\": \"string\",\n      \"alert\": \"ALERT_INFO\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2374c39-4a0f-4364-9c15-a1a873217400",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiEvents",
+                    ":eventId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "eventId",
+                      "description": "(Required) API event ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5bb3d44e-fe8a-40d0-8ce9-192f7fef6cbe",
+          "name": "Get API event reconstructed spec diff",
+          "request": {
+            "name": "Get API event reconstructed spec diff",
+            "description": {},
+            "url": {
+              "path": [
+                "apiEvents",
+                ":eventId",
+                "reconstructedSpecDiff"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uint32>",
+                  "key": "eventId",
+                  "description": "(Required) API event ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "651a5450-ba53-43df-8cad-364fd3abd29e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiEvents",
+                    ":eventId",
+                    "reconstructedSpecDiff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "eventId",
+                      "description": "(Required) API event ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"oldSpec\": \"string\",\n  \"newSpec\": \"string\",\n  \"diffType\": \"NO_DIFF\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a66816f3-ddee-4386-be02-008baac00cf8",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiEvents",
+                    ":eventId",
+                    "reconstructedSpecDiff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "eventId",
+                      "description": "(Required) API event ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3055836d-c4c3-4984-91c2-b0353ed4ead8",
+          "name": "Get API event provided spec diff",
+          "request": {
+            "name": "Get API event provided spec diff",
+            "description": {},
+            "url": {
+              "path": [
+                "apiEvents",
+                ":eventId",
+                "providedSpecDiff"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uint32>",
+                  "key": "eventId",
+                  "description": "(Required) API event ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cdea12aa-d6c2-4502-8f0c-6b7c22931d37",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiEvents",
+                    ":eventId",
+                    "providedSpecDiff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "eventId",
+                      "description": "(Required) API event ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"oldSpec\": \"string\",\n  \"newSpec\": \"string\",\n  \"diffType\": \"NO_DIFF\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "638c7f00-bf0b-4e6c-a7ef-83dec9274e1c",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiEvents",
+                    ":eventId",
+                    "providedSpecDiff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "eventId",
+                      "description": "(Required) API event ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8080/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "3572b21e-7a14-4fd3-9f29-96bc5ff6c0c7",
+    "name": "APIClarity API Events API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIClarity is an open source API security and observability tool that analyzes API traffic to reconstruct OpenAPI specifications, detect shadow and zombie APIs, identify API differences and changes, and provide API security alerts. This is the REST API exposed by an APIClarity deployment.\n\nContact Support:\n Name: OpenClarity",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,726 @@
+{
+  "item": [
+    {
+      "id": "7e218b15-fa4f-46e8-b9dc-495dade66313",
+      "name": "Control",
+      "description": {
+        "content": "Control-plane endpoints for trace sources and discovered APIs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1bf113f1-a450-4375-a390-23da83b0b12e",
+          "name": "Allows a client to notify APIClarity about new APIs.",
+          "request": {
+            "name": "Allows a client to notify APIClarity about new APIs.",
+            "description": {
+              "content": "This allows a client (a gateway for example) to notify APIclarity about newly discovered APIs. If one of the APIs already exists, it is ignored.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "control",
+                "newDiscoveredAPIs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hosts\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d5684dfc-5bf4-4ed4-9996-bab5bf4eacd2",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "control",
+                    "newDiscoveredAPIs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hosts\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8ef7b87-38a7-493d-bcd9-f8bfd1e83613",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "control",
+                    "newDiscoveredAPIs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hosts\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac34a854-584d-451b-86a8-7195ab9580f4",
+          "name": "List of configured trace sources",
+          "request": {
+            "name": "List of configured trace sources",
+            "description": {},
+            "url": {
+              "path": [
+                "control",
+                "traceSources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c2b18a0e-1559-492e-bf13-44a4d548dc82",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "control",
+                    "traceSources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"trace_sources\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"TYK_INTERNAL\",\n      \"id\": 2964,\n      \"uid\": \"3602a034-33d8-41fa-8194-180e34dd9b79\",\n      \"description\": \"string\",\n      \"token\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"type\": \"APIGEE_X\",\n      \"id\": 9590,\n      \"uid\": \"b40de758-c959-d1b6-26fa-dd85b006aaa4\",\n      \"description\": \"string\",\n      \"token\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6e124eb-8997-4506-bb8a-026f458f9b5b",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "control",
+                    "traceSources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b2e43c1-5693-4ac4-87a3-cb68a9ed80fe",
+          "name": "Create a new Trace Source",
+          "request": {
+            "name": "Create a new Trace Source",
+            "description": {},
+            "url": {
+              "path": [
+                "control",
+                "traceSources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"id\": \"<integer>\",\n  \"uid\": \"<uuid>\",\n  \"description\": \"<string>\",\n  \"token\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3be0a67f-29f9-4bed-8e2a-f001c5313d69",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "control",
+                    "traceSources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"TYK_INTERNAL\",\n  \"id\": \"<integer>\",\n  \"uid\": \"<uuid>\",\n  \"description\": \"<string>\",\n  \"token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"type\": \"F5_BIG_IP\",\n  \"id\": 1239,\n  \"uid\": \"d1444161-6c40-665d-5f9f-bdd4828f9038\",\n  \"description\": \"string\",\n  \"token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26428b80-8043-40c4-8e85-4a1c675aee2a",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "control",
+                    "traceSources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"TYK_INTERNAL\",\n  \"id\": \"<integer>\",\n  \"uid\": \"<uuid>\",\n  \"description\": \"<string>\",\n  \"token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c7383409-1a11-4e59-ac36-a510671ba069",
+          "name": "Get Trace Source information",
+          "request": {
+            "name": "Get Trace Source information",
+            "description": {},
+            "url": {
+              "path": [
+                "control",
+                "traceSources",
+                ":traceSourceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "traceSourceId",
+                  "description": "(Required) Trace Source ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fa739a60-c771-4fc8-8dbb-a0eb88eb67ab",
+              "name": "Trace Source information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "control",
+                    "traceSources",
+                    ":traceSourceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "traceSourceId",
+                      "description": "(Required) Trace Source ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"type\": \"F5_BIG_IP\",\n  \"id\": 1239,\n  \"uid\": \"d1444161-6c40-665d-5f9f-bdd4828f9038\",\n  \"description\": \"string\",\n  \"token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b859ae5e-46e3-40e4-8c5d-92537a259c3a",
+              "name": "Trace Source not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "control",
+                    "traceSources",
+                    ":traceSourceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "traceSourceId",
+                      "description": "(Required) Trace Source ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d2991b8d-405e-4c13-afdf-1c3e6404a7e4",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "control",
+                    "traceSources",
+                    ":traceSourceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "traceSourceId",
+                      "description": "(Required) Trace Source ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "98db5a2e-523c-44c1-8341-bbd9f422950d",
+          "name": "Delete a Trace Source",
+          "request": {
+            "name": "Delete a Trace Source",
+            "description": {},
+            "url": {
+              "path": [
+                "control",
+                "traceSources",
+                ":traceSourceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "traceSourceId",
+                  "description": "(Required) Trace Source ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "850ff030-3aae-4cfc-b14e-6a62caaec3ba",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "control",
+                    "traceSources",
+                    ":traceSourceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "traceSourceId",
+                      "description": "(Required) Trace Source ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0be35158-2a82-4087-a759-11e8a93abd3b",
+              "name": "Trace Source not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "control",
+                    "traceSources",
+                    ":traceSourceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "traceSourceId",
+                      "description": "(Required) Trace Source ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "24fc641d-91d8-447b-9c90-cbf79752896c",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "control",
+                    "traceSources",
+                    ":traceSourceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "traceSourceId",
+                      "description": "(Required) Trace Source ID"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8080/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "50a0e0dd-3c76-4d8d-b705-4e2f62abac96",
+    "name": "APIClarity API Events Control API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIClarity is an open source API security and observability tool that analyzes API traffic to reconstruct OpenAPI specifications, detect shadow and zombie APIs, identify API differences and changes, and provide API security alerts. This is the REST API exposed by an APIClarity deployment.\n\nContact Support:\n Name: OpenClarity",
+      "type": "text/plain"
+    }
+  }
+}

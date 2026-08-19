@@ -1,0 +1,99 @@
+{
+  "item": [
+    {
+      "id": "5d82ac03-f8e9-4e21-9023-b3392aaffc6e",
+      "name": "Features",
+      "description": {
+        "content": "Enabled features in the deployment.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3eda4ef4-0138-447c-82f8-c00a22e416cb",
+          "name": "Get the list of APIClarity features and for each feature the list of API hosts (in the form 'host:port') the feature requires to get trace for",
+          "request": {
+            "name": "Get the list of APIClarity features and for each feature the list of API hosts (in the form 'host:port') the feature requires to get trace for",
+            "description": {},
+            "url": {
+              "path": [
+                "features"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4b4ff571-72a3-4c14-ab66-6a010f64412f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "features"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"features\": [\n    {\n      \"featureName\": \"specdiffs\",\n      \"featureDescription\": \"string\",\n      \"hostsToTrace\": {\n        \"component\": \"string\",\n        \"traceSourcesHosts\": [\n          {\n            \"traceSourceID\": 8616,\n            \"hostsToTrace\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"traceSourceID\": 3748,\n            \"hostsToTrace\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    },\n    {\n      \"featureName\": \"fuzzer\",\n      \"featureDescription\": \"string\",\n      \"hostsToTrace\": {\n        \"component\": \"string\",\n        \"traceSourcesHosts\": [\n          {\n            \"traceSourceID\": 8971,\n            \"hostsToTrace\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"traceSourceID\": 2204,\n            \"hostsToTrace\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8080/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "720e70dc-e472-4fe3-b88f-62f60a5a0387",
+    "name": "APIClarity API Events Features API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIClarity is an open source API security and observability tool that analyzes API traffic to reconstruct OpenAPI specifications, detect shadow and zombie APIs, identify API differences and changes, and provide API security alerts. This is the REST API exposed by an APIClarity deployment.\n\nContact Support:\n Name: OpenClarity",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,3192 @@
+{
+  "item": [
+    {
+      "id": "fb623fda-25d9-46d4-a14e-ec5043b90ead",
+      "name": "API Inventory",
+      "description": {
+        "content": "Discovered APIs and their reconstructed specifications.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a462ba18-6b91-4261-a20d-190f9f080dc3",
+          "name": "Get API inventory",
+          "request": {
+            "name": "Get API inventory",
+            "description": {},
+            "url": {
+              "path": [
+                "apiInventory"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) API type [INTERNAL or EXTERNAL]"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "(Required) Page number of the query"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>",
+                  "description": "(Required) Maximum items to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortKey",
+                  "value": "<string>",
+                  "description": "(Required) Sort key"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortDir",
+                  "value": "ASC",
+                  "description": "Sorting direction"
+                },
+                {
+                  "disabled": false,
+                  "key": "name[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name[start]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name[end]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name[contains]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name[contains]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "port[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "port[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "port[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "port[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "hasProvidedSpec[is]",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "hasReconstructedSpec[is]",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "apiId",
+                  "value": "<string>",
+                  "description": "api id to return"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "321236c8-bc31-46ed-9809-677390784df6",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sortKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortDir",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "name[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name[start]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name[end]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name[contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name[contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hasProvidedSpec[is]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasReconstructedSpec[is]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "apiId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 7291,\n  \"items\": [\n    {\n      \"id\": 521,\n      \"name\": \"string\",\n      \"port\": 8350,\n      \"hasReconstructedSpec\": false,\n      \"hasProvidedSpec\": false,\n      \"destinationNamespace\": \"string\",\n      \"traceSourceId\": \"bbe36967-e45b-69bf-bda0-a27da31d0d1b\",\n      \"traceSourceName\": \"string\",\n      \"traceSourceType\": \"string\"\n    },\n    {\n      \"id\": 6240,\n      \"name\": \"string\",\n      \"port\": 6588,\n      \"hasReconstructedSpec\": false,\n      \"hasProvidedSpec\": false,\n      \"destinationNamespace\": \"string\",\n      \"traceSourceId\": \"6c7a9ce9-0a2f-a53a-3da8-7c303e470752\",\n      \"traceSourceName\": \"string\",\n      \"traceSourceType\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e64483cf-2fb8-430d-87d3-caffa39740db",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sortKey",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortDir",
+                      "value": "ASC"
+                    },
+                    {
+                      "key": "name[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name[start]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name[end]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name[contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name[contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hasProvidedSpec[is]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasReconstructedSpec[is]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "apiId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f289a6d5-9bd8-4252-b072-beeeed15f03b",
+          "name": "Create API inventory item",
+          "request": {
+            "name": "Create API inventory item",
+            "description": {},
+            "url": {
+              "path": [
+                "apiInventory"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "50247a98-0872-4df5-8d92-9856e1d4594c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": 2829,\n  \"name\": \"string\",\n  \"port\": 121,\n  \"hasReconstructedSpec\": false,\n  \"hasProvidedSpec\": false,\n  \"destinationNamespace\": \"string\",\n  \"traceSourceId\": \"67c85519-843a-af02-da43-d4b697ea7aba\",\n  \"traceSourceName\": \"string\",\n  \"traceSourceType\": \"string\",\n  \"apiType\": \"EXTERNAL\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 235,\n  \"name\": \"string\",\n  \"port\": 5633,\n  \"hasReconstructedSpec\": false,\n  \"hasProvidedSpec\": false,\n  \"destinationNamespace\": \"string\",\n  \"traceSourceId\": \"0414748f-0c7f-f91e-4620-9c0b2987a6da\",\n  \"traceSourceName\": \"string\",\n  \"traceSourceType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7fa4a1ef-230d-4e7b-9563-913384156b67",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": 2829,\n  \"name\": \"string\",\n  \"port\": 121,\n  \"hasReconstructedSpec\": false,\n  \"hasProvidedSpec\": false,\n  \"destinationNamespace\": \"string\",\n  \"traceSourceId\": \"67c85519-843a-af02-da43-d4b697ea7aba\",\n  \"traceSourceName\": \"string\",\n  \"traceSourceType\": \"string\",\n  \"apiType\": \"EXTERNAL\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e3360d1-9abe-4e19-a5e4-adb2aaa69e6e",
+          "name": "Get API usage",
+          "request": {
+            "name": "Get API usage",
+            "description": {},
+            "url": {
+              "path": [
+                "dashboard",
+                "apiUsage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<dateTime>",
+                  "description": "(Required) Start time of the query"
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<dateTime>",
+                  "description": "(Required) End time of the query"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a2dcbda7-2ac9-4d52-9757-bb8eba3d2c77",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboard",
+                    "apiUsage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"existingApis\": [\n    {\n      \"numOfCalls\": 807,\n      \"time\": \"1980-04-17T09:21:42.331Z\"\n    },\n    {\n      \"numOfCalls\": 2298,\n      \"time\": \"2004-01-08T02:21:32.259Z\"\n    }\n  ],\n  \"newApis\": [\n    {\n      \"numOfCalls\": 5952,\n      \"time\": \"1978-11-19T04:39:24.033Z\"\n    },\n    {\n      \"numOfCalls\": 6565,\n      \"time\": \"2005-08-06T16:11:44.572Z\"\n    }\n  ],\n  \"apisWithDiff\": [\n    {\n      \"numOfCalls\": 7477,\n      \"time\": \"2009-06-14T05:40:39.350Z\"\n    },\n    {\n      \"numOfCalls\": 7214,\n      \"time\": \"1954-09-03T08:19:54.181Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b77a8b9-240c-49f3-a510-bcdbee70965b",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboard",
+                    "apiUsage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5252e3d1-15b1-4354-ad90-b0c98ed8ddce",
+          "name": "Get most used APIs",
+          "request": {
+            "name": "Get most used APIs",
+            "description": {},
+            "url": {
+              "path": [
+                "dashboard",
+                "apiUsage",
+                "mostUsed"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "27ce4825-52ae-4a18-b92d-e1e633eabc36",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboard",
+                    "apiUsage",
+                    "mostUsed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"apiInfoId\": 8844,\n    \"apiType\": \"EXTERNAL\",\n    \"numCalls\": 1407,\n    \"apiHostName\": \"string\",\n    \"apiPort\": 4854\n  },\n  {\n    \"apiInfoId\": 1792,\n    \"apiType\": \"EXTERNAL\",\n    \"numCalls\": 1334,\n    \"apiHostName\": \"string\",\n    \"apiPort\": 4764\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2f05a58-4713-4bad-9dae-1e08f0f54641",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboard",
+                    "apiUsage",
+                    "mostUsed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e4b9fee0-0aab-4c2c-80ff-0deafddadecb",
+          "name": "Get latest spec diffs",
+          "request": {
+            "name": "Get latest spec diffs",
+            "description": {},
+            "url": {
+              "path": [
+                "dashboard",
+                "apiUsage",
+                "latestDiffs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6a70c041-f2b6-43ea-a3c4-aa3a1f930080",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboard",
+                    "apiUsage",
+                    "latestDiffs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"apiEventId\": 3281,\n    \"time\": \"2008-09-04T10:12:38.184Z\",\n    \"apiHostName\": \"string\",\n    \"diffType\": \"NO_DIFF\"\n  },\n  {\n    \"apiEventId\": 4857,\n    \"time\": \"1989-08-06T12:06:57.503Z\",\n    \"apiHostName\": \"string\",\n    \"diffType\": \"NO_DIFF\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f11da90-1bdd-4224-86d5-6f3fc9b74465",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboard",
+                    "apiUsage",
+                    "latestDiffs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "565e9b5a-1cc5-4f2a-b1e0-e79ae2babc4c",
+          "name": "Get provided and reconstructed open api specs for a specific API",
+          "request": {
+            "name": "Get provided and reconstructed open api specs for a specific API",
+            "description": {},
+            "url": {
+              "path": [
+                "apiInventory",
+                ":apiId",
+                "specs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uint32>",
+                  "key": "apiId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7ec18761-f945-457a-9dd6-386de22beeb1",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    ":apiId",
+                    "specs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "apiId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"providedSpec\": {\n    \"tags\": [\n      {\n        \"description\": \"string\",\n        \"name\": \"string\",\n        \"methodAndPathList\": [\n          {\n            \"path\": \"string\",\n            \"pathId\": \"9e1f2248-6d21-f744-cc81-ca9357cc345c\",\n            \"method\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"path\": \"string\",\n            \"pathId\": \"a3883592-5b5c-818d-0534-6bc16c6fa008\",\n            \"method\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      {\n        \"description\": \"string\",\n        \"name\": \"string\",\n        \"methodAndPathList\": [\n          {\n            \"path\": \"string\",\n            \"pathId\": \"1c0f9295-a3ee-5513-54ec-e27c4e85e61d\",\n            \"method\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"path\": \"string\",\n            \"pathId\": \"0ce128ba-3555-545a-ece9-5d59112c0d65\",\n            \"method\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      }\n    ]\n  },\n  \"reconstructedSpec\": {\n    \"tags\": [\n      {\n        \"description\": \"string\",\n        \"name\": \"string\",\n        \"methodAndPathList\": [\n          {\n            \"path\": \"string\",\n            \"pathId\": \"917fa178-a279-b6eb-142e-c2227948914c\",\n            \"method\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"path\": \"string\",\n            \"pathId\": \"5605897b-97fb-03b1-3c41-799834472c86\",\n            \"method\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      {\n        \"description\": \"string\",\n        \"name\": \"string\",\n        \"methodAndPathList\": [\n          {\n            \"path\": \"string\",\n            \"pathId\": \"5be17c88-9aab-dc6c-f6ec-33070a0839cb\",\n            \"method\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"path\": \"string\",\n            \"pathId\": \"f926bea3-f6b5-4739-f8c4-804c0aa33d48\",\n            \"method\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "118da0e8-5c06-4360-b073-567e0d3034de",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    ":apiId",
+                    "specs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "apiId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd05e28d-19e7-4bd1-a900-6f2589f2f029",
+          "name": "Add or edit a spec for a specific API",
+          "request": {
+            "name": "Add or edit a spec for a specific API",
+            "description": {},
+            "url": {
+              "path": [
+                "apiInventory",
+                ":apiId",
+                "specs",
+                "providedSpec"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uint32>",
+                  "key": "apiId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rawSpec\": \"<string>\",\n  \"createdAt\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c9de6770-5e46-41f9-9a62-064a70bf0660",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    ":apiId",
+                    "specs",
+                    "providedSpec"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "apiId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rawSpec\": \"<string>\",\n  \"createdAt\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"rawSpec\": \"string\",\n  \"createdAt\": \"2003-10-10T23:40:42.621Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17dc94de-5063-4cc5-b342-5c0c15d37458",
+              "name": "Spec validation failure",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    ":apiId",
+                    "specs",
+                    "providedSpec"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "apiId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rawSpec\": \"<string>\",\n  \"createdAt\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d3c15ca-4c40-4573-90b9-e8acf6013671",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    ":apiId",
+                    "specs",
+                    "providedSpec"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "apiId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rawSpec\": \"<string>\",\n  \"createdAt\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ec79e632-29f6-4286-a095-7ba0ffb55e67",
+          "name": "Unset a provided spec for a specific API",
+          "request": {
+            "name": "Unset a provided spec for a specific API",
+            "description": {},
+            "url": {
+              "path": [
+                "apiInventory",
+                ":apiId",
+                "specs",
+                "providedSpec"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uint32>",
+                  "key": "apiId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d28cf18c-102d-4222-9b79-7de1f14ba56f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    ":apiId",
+                    "specs",
+                    "providedSpec"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "apiId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e86b9359-a36f-41e8-bb66-4232fd13bf42",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    ":apiId",
+                    "specs",
+                    "providedSpec"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "apiId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d53de87d-1996-4c8f-8dce-86109b72bd57",
+          "name": "Unset a reconstructed spec for a specific API",
+          "request": {
+            "name": "Unset a reconstructed spec for a specific API",
+            "description": {},
+            "url": {
+              "path": [
+                "apiInventory",
+                ":apiId",
+                "specs",
+                "reconstructedSpec"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uint32>",
+                  "key": "apiId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "09b0fce8-9fc8-4176-8d96-0b32bce8608e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    ":apiId",
+                    "specs",
+                    "reconstructedSpec"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "apiId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a9a35763-5881-4634-b1ad-246980629dda",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    ":apiId",
+                    "specs",
+                    "reconstructedSpec"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "apiId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b7f9d0b8-641f-462a-bd1d-919fa713194f",
+          "name": "Get reconstructed API spec json file",
+          "request": {
+            "name": "Get reconstructed API spec json file",
+            "description": {},
+            "url": {
+              "path": [
+                "apiInventory",
+                ":apiId",
+                "reconstructed_swagger.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uint32>",
+                  "key": "apiId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4997d776-1cf1-4d49-9d2f-afebbef82520",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    ":apiId",
+                    "reconstructed_swagger.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "apiId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c6a04143-1726-41ce-a688-62c468922d70",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    ":apiId",
+                    "reconstructed_swagger.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "apiId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c02f86e-4a58-4faa-96d5-24202bab06a3",
+          "name": "Get api info from apiId",
+          "request": {
+            "name": "Get api info from apiId",
+            "description": {},
+            "url": {
+              "path": [
+                "apiInventory",
+                ":apiId",
+                "apiInfo"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uint32>",
+                  "key": "apiId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c9f0fc7f-f1b4-4089-aecf-d1971cc0921e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    ":apiId",
+                    "apiInfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "apiId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 2829,\n  \"name\": \"string\",\n  \"port\": 121,\n  \"hasReconstructedSpec\": false,\n  \"hasProvidedSpec\": false,\n  \"destinationNamespace\": \"string\",\n  \"traceSourceId\": \"67c85519-843a-af02-da43-d4b697ea7aba\",\n  \"traceSourceName\": \"string\",\n  \"traceSourceType\": \"string\",\n  \"apiType\": \"EXTERNAL\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "abe46235-d052-4723-8509-da5050f00ad8",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    ":apiId",
+                    "apiInfo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "apiId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b123516f-f7d7-46df-ac30-d88ca0ddbd3a",
+          "name": "Get apiId from host and port",
+          "request": {
+            "name": "Get apiId from host and port",
+            "description": {},
+            "url": {
+              "path": [
+                "apiInventory",
+                "apiId",
+                "fromHostAndPort"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "host",
+                  "value": "<string>",
+                  "description": "(Required) api host name"
+                },
+                {
+                  "disabled": false,
+                  "key": "port",
+                  "value": "<string>",
+                  "description": "(Required) api port"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "98a3f3dc-9c62-48b6-a654-e567b233a2f4",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    "apiId",
+                    "fromHostAndPort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "host",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "7547",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52017f56-b451-44c3-8391-f4667543260d",
+              "name": "API ID Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    "apiId",
+                    "fromHostAndPort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "host",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4593aef6-5302-47b1-803a-6bee272c7cde",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    "apiId",
+                    "fromHostAndPort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "host",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c455325b-8193-4023-982e-bd80baeb97d4",
+          "name": "Get apiId from host and port and Trace Source ID",
+          "request": {
+            "name": "Get apiId from host and port and Trace Source ID",
+            "description": {},
+            "url": {
+              "path": [
+                "apiInventory",
+                "apiId",
+                "fromHostAndPortAndTraceSourceID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "host",
+                  "value": "<string>",
+                  "description": "(Required) api host name"
+                },
+                {
+                  "disabled": false,
+                  "key": "port",
+                  "value": "<string>",
+                  "description": "(Required) api port"
+                },
+                {
+                  "disabled": false,
+                  "key": "traceSourceId",
+                  "value": "<uuid>",
+                  "description": "(Required) Trace Source ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a445d6eb-7a19-41e5-b316-71030679746f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    "apiId",
+                    "fromHostAndPortAndTraceSourceID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "host",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "traceSourceId",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "7547",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b6e2a6d-91d1-47a1-9fe0-95a028905d1f",
+              "name": "API ID Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    "apiId",
+                    "fromHostAndPortAndTraceSourceID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "host",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "traceSourceId",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "683abbf3-d812-4548-8907-f0fbd7f52158",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    "apiId",
+                    "fromHostAndPortAndTraceSourceID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "host",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "traceSourceId",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3f208109-dc6b-4e43-b7ae-9d746cff3b8a",
+          "name": "Get provided API spec json file",
+          "request": {
+            "name": "Get provided API spec json file",
+            "description": {},
+            "url": {
+              "path": [
+                "apiInventory",
+                ":apiId",
+                "provided_swagger.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uint32>",
+                  "key": "apiId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4b1b1e35-fdcc-46da-a0e6-ea847d8fb5a0",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    ":apiId",
+                    "provided_swagger.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "apiId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09817d13-b39b-4e50-9f39-79feb0230cf9",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    ":apiId",
+                    "provided_swagger.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "apiId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5bf4e277-35ae-4c69-9764-b50963990fc8",
+          "name": "Get a hit count within a selected timeframe for the filtered API events",
+          "request": {
+            "name": "Get a hit count within a selected timeframe for the filtered API events",
+            "description": {},
+            "url": {
+              "path": [
+                "apiUsage",
+                "hitCount"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<dateTime>",
+                  "description": "(Required) Start time of the query"
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<dateTime>",
+                  "description": "(Required) End time of the query"
+                },
+                {
+                  "disabled": false,
+                  "key": "showNonApi",
+                  "value": "<boolean>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "method[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "method[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "providedPathID[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "providedPathID[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "reconstructedPathID[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "reconstructedPathID[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "path[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "path[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "path[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "path[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "path[start]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "path[end]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "path[contains]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "path[contains]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "statusCode[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "statusCode[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "statusCode[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "statusCode[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "statusCode[gte]",
+                  "value": "<string>",
+                  "description": "greater than or equal"
+                },
+                {
+                  "disabled": false,
+                  "key": "statusCode[lte]",
+                  "value": "<string>",
+                  "description": "less than or equal"
+                },
+                {
+                  "disabled": false,
+                  "key": "sourceIP[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sourceIP[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sourceIP[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sourceIP[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "destinationIP[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "destinationIP[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "destinationIP[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "destinationIP[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "destinationPort[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "destinationPort[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "destinationPort[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "destinationPort[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "hasSpecDiff[is]",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "specDiffType[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "specDiffType[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "spec[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "spec[is]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "spec[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "spec[isNot]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "spec[start]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "spec[end]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "spec[contains]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "spec[contains]",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5b5682eb-60c7-4e97-8395-c5ffccb68670",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiUsage",
+                    "hitCount"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "showNonApi",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "method[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "method[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "providedPathID[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "providedPathID[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reconstructedPathID[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reconstructedPathID[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[start]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[end]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[gte]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[lte]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceIP[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceIP[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceIP[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceIP[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationIP[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationIP[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationIP[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationIP[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationPort[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationPort[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationPort[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationPort[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hasSpecDiff[is]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "specDiffType[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "specDiffType[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[start]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[end]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[contains]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"count\": 2936,\n    \"time\": \"2025-01-03T23:54:14.130Z\"\n  },\n  {\n    \"count\": 4249,\n    \"time\": \"1996-12-04T21:31:29.445Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d570f7f-e61a-449b-a3ae-4980d694ac3a",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiUsage",
+                    "hitCount"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "showNonApi",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "method[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "method[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "providedPathID[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "providedPathID[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reconstructedPathID[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reconstructedPathID[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[start]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[end]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "path[contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[gte]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statusCode[lte]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceIP[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceIP[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceIP[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceIP[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationIP[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationIP[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationIP[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationIP[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationPort[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationPort[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationPort[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destinationPort[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hasSpecDiff[is]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "specDiffType[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "specDiffType[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[is]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[isNot]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[start]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[end]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "spec[contains]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c30769ac-5a22-413f-8e3b-1a1a0167ad9f",
+          "name": "Get reconstructed spec for review",
+          "request": {
+            "name": "Get reconstructed spec for review",
+            "description": {},
+            "url": {
+              "path": [
+                "apiInventory",
+                ":apiId",
+                "suggestedReview"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uint32>",
+                  "key": "apiId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7d0ffa36-c9b1-44e6-a05c-def9aed216e0",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    ":apiId",
+                    "suggestedReview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "apiId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 2785,\n  \"reviewPathItems\": [\n    {\n      \"suggestedPath\": \"string\",\n      \"apiEventsPaths\": [\n        {\n          \"path\": \"string\",\n          \"methods\": [\n            \"HEAD\",\n            \"POST\"\n          ]\n        },\n        {\n          \"path\": \"string\",\n          \"methods\": [\n            \"HEAD\",\n            \"CONNECT\"\n          ]\n        }\n      ]\n    },\n    {\n      \"suggestedPath\": \"string\",\n      \"apiEventsPaths\": [\n        {\n          \"path\": \"string\",\n          \"methods\": [\n            \"TRACE\",\n            \"DELETE\"\n          ]\n        },\n        {\n          \"path\": \"string\",\n          \"methods\": [\n            \"CONNECT\",\n            \"DELETE\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce774d2a-eeef-42ad-ae43-cd4680bd792a",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    ":apiId",
+                    "suggestedReview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "apiId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b5d75164-3bb3-46c2-aeca-a5817d647e3f",
+          "name": "Apply the approved review to create the reconstructed spec",
+          "request": {
+            "name": "Apply the approved review to create the reconstructed spec",
+            "description": {},
+            "url": {
+              "path": [
+                "apiInventory",
+                ":reviewId",
+                "approvedReview"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uint32>",
+                  "key": "reviewId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"oasVersion\": \"<string>\",\n  \"reviewPathItems\": [\n    {\n      \"suggestedPath\": \"<string>\",\n      \"apiEventsPaths\": [\n        {\n          \"path\": \"<string>\",\n          \"methods\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"path\": \"<string>\",\n          \"methods\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ]\n    },\n    {\n      \"suggestedPath\": \"<string>\",\n      \"apiEventsPaths\": [\n        {\n          \"path\": \"<string>\",\n          \"methods\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"path\": \"<string>\",\n          \"methods\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "73d1148f-aa7f-4596-9442-63d753276ac6",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    ":reviewId",
+                    "approvedReview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "reviewId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"oasVersion\": \"<string>\",\n  \"reviewPathItems\": [\n    {\n      \"suggestedPath\": \"string\",\n      \"apiEventsPaths\": [\n        {\n          \"path\": \"string\",\n          \"methods\": [\n            \"POST\",\n            \"DELETE\"\n          ]\n        },\n        {\n          \"path\": \"string\",\n          \"methods\": [\n            \"PUT\",\n            \"GET\"\n          ]\n        }\n      ]\n    },\n    {\n      \"suggestedPath\": \"string\",\n      \"apiEventsPaths\": [\n        {\n          \"path\": \"string\",\n          \"methods\": [\n            \"PUT\",\n            \"CONNECT\"\n          ]\n        },\n        {\n          \"path\": \"string\",\n          \"methods\": [\n            \"GET\",\n            \"PATCH\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d52efb23-3f34-42c3-982e-49d9db97b935",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apiInventory",
+                    ":reviewId",
+                    "approvedReview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uint32>",
+                      "key": "reviewId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"oasVersion\": \"<string>\",\n  \"reviewPathItems\": [\n    {\n      \"suggestedPath\": \"string\",\n      \"apiEventsPaths\": [\n        {\n          \"path\": \"string\",\n          \"methods\": [\n            \"POST\",\n            \"DELETE\"\n          ]\n        },\n        {\n          \"path\": \"string\",\n          \"methods\": [\n            \"PUT\",\n            \"GET\"\n          ]\n        }\n      ]\n    },\n    {\n      \"suggestedPath\": \"string\",\n      \"apiEventsPaths\": [\n        {\n          \"path\": \"string\",\n          \"methods\": [\n            \"PUT\",\n            \"CONNECT\"\n          ]\n        },\n        {\n          \"path\": \"string\",\n          \"methods\": [\n            \"GET\",\n            \"PATCH\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8080/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "691a951d-beef-44e1-99a4-53f15ca4a499",
+    "name": "APIClarity API Events API Inventory API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIClarity is an open source API security and observability tool that analyzes API traffic to reconstruct OpenAPI specifications, detect shadow and zombie APIs, identify API differences and changes, and provide API security alerts. This is the REST API exposed by an APIClarity deployment.\n\nContact Support:\n Name: OpenClarity",
+      "type": "text/plain"
+    }
+  }
+}
