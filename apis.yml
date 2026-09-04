@@ -1,11 +1,17 @@
 aid: apiclarity
 name: APIClarity
 description: >-
-  APIClarity is an open source API security and observability tool that analyzes
-  API traffic to reconstruct OpenAPI specifications, detect shadow and zombie
-  APIs, identify API differences and changes, and provide API security alerts.
-  It is part of the OpenClarity project and works with Kubernetes service meshes
-  and API gateways for cloud-native API traffic observability.
+  APIClarity is an open source (Apache-2.0) API security and observability tool that captures
+  API traffic in a Kubernetes environment, reconstructs OpenAPI specifications from what it
+  observes, and detects shadow APIs, zombie APIs, specification drift and broken function-level
+  authorization. It integrates with Istio, Kong, Tyk, Kuma, a tap DaemonSet and an
+  OpenTelemetry Collector as traffic sources, and ships as a Helm chart you deploy into your own
+  cluster — there is no hosted service, no vendor account and no vendor API host. It was part of
+  the OpenClarity project. APIClarity has reached end of life: the source repository was archived
+  read-only by its owner on 2026-05-29, the last release was v0.14.5 on 2023-05-05, and both
+  project websites (openclarity.io and apiclarity.io) now return HTTP 404. The source, the eleven
+  published specifications, the Helm chart repository and the container images all remain
+  publicly readable, which is what this profile is built from.
 type: Index
 deliveryModel:
   model: unknown
@@ -26,11 +32,12 @@ accessModel:
   try_now: true
   public: false
   label: Freemium · Self-serve signup
-  confidence: high
+  confidence: medium
   source:
   - plans
   - authentication
-  generated: '2026-07-22'
+  - security
+  generated: '2026-09-03'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/apiclarity.png
 tags:
@@ -58,8 +65,13 @@ tags_raw:
 url: >-
   https://raw.githubusercontent.com/api-evangelist/apiclarity/refs/heads/main/apis.yml
 created: '2026-03-26'
-modified: '2026-04-19'
+modified: '2026-09-04'
 specificationVersion: '0.23'
+x-enrichment:
+  date: '2026-09-04'
+  status: enriched
+  artifacts_added: 24
+  pass: local-v3
 apis:
 - aid: apiclarity:apiclarity-api-events-api
   name: APIClarity API Events API
@@ -70,6 +82,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/apiclarity-api-events-api-openapi.yml
+  - type: Overlay
+    url: overlays/apiclarity-api-events-api-overlay.yaml
   - type: Documentation
     url: https://github.com/openclarity/apiclarity#readme
   - type: GettingStarted
@@ -85,6 +99,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/apiclarity-api-inventory-api-openapi.yml
+  - type: Overlay
+    url: overlays/apiclarity-api-inventory-api-overlay.yaml
   - type: Documentation
     url: https://github.com/openclarity/apiclarity#readme
   - type: GettingStarted
@@ -100,6 +116,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/apiclarity-control-api-openapi.yml
+  - type: Overlay
+    url: overlays/apiclarity-control-api-overlay.yaml
   - type: Documentation
     url: https://github.com/openclarity/apiclarity#readme
   - type: GettingStarted
@@ -115,21 +133,205 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/apiclarity-features-api-openapi.yml
+  - type: Overlay
+    url: overlays/apiclarity-features-api-overlay.yaml
   - type: Documentation
     url: https://github.com/openclarity/apiclarity#readme
   - type: GettingStarted
     url: https://github.com/openclarity/apiclarity#getting-started
   - type: GitHubRepository
     url: https://github.com/openclarity/apiclarity
+- aid: apiclarity:apiclarity-bfla-module-api
+  name: APIClarity BFLA Module API
+  description: >-
+    Broken Function Level Authorization detection. Learns an authorization model from observed
+    API interactions — which callers are supposed to invoke which operations — then flags
+    violations against it. Served under /api/modules/bfla in an APIClarity deployment.
+  humanURL: https://github.com/openclarity/apiclarity/tree/master/backend/pkg/modules/internal/bfla
+  tags:
+  - BFLA
+  - Authorization
+  - API Security
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-bfla-module-openapi.yml
+  - type: Overlay
+    url: overlays/apiclarity-bfla-module-overlay.yaml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+- aid: apiclarity:apiclarity-fuzzer-module-api
+  name: APIClarity Fuzzer Module API
+  description: >-
+    Active security testing. Drives generated traffic at an API based on its specification to
+    find implementation flaws, then returns a severity-ranked report and a specification
+    annotated with the findings. Served under /api/modules/fuzzer.
+  humanURL: https://github.com/openclarity/apiclarity/tree/master/backend/pkg/modules/internal/fuzzer
+  tags:
+  - Fuzzing
+  - Security Testing
+  - API Security
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-fuzzer-module-openapi.yml
+  - type: Overlay
+    url: overlays/apiclarity-fuzzer-module-overlay.yaml
+  - type: AgentSkill
+    url: skills/apiclarity-run-a-fuzz-test.md
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+- aid: apiclarity:apiclarity-trace-analyzer-module-api
+  name: APIClarity Trace Analyzer Module API
+  description: >-
+    Analyzes the path, headers and body of observed requests and responses for weak
+    authentication, exposure of sensitive information and potential broken object level
+    authorization. Served under /api/modules/traceanalyzer.
+  humanURL: https://github.com/openclarity/apiclarity/tree/master/backend/pkg/modules/internal/traceanalyzer
+  tags:
+  - Trace Analysis
+  - API Security
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-trace-analyzer-module-openapi.yml
+  - type: Overlay
+    url: overlays/apiclarity-trace-analyzer-module-overlay.yaml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+- aid: apiclarity:apiclarity-spec-differ-module-api
+  name: APIClarity Spec Differ Module API
+  description: >-
+    Compares observed API traces against the provided or reconstructed specification to surface
+    shadow APIs (observed but undocumented), zombie APIs (observed but marked deprecated) and
+    drift. Served under /api/modules/spec_differ.
+  humanURL: https://github.com/openclarity/apiclarity/tree/master/backend/pkg/modules/internal/spec_differ
+  tags:
+  - Spec Diff
+  - Shadow APIs
+  - API Governance
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-spec-differ-module-openapi.yml
+  - type: Overlay
+    url: overlays/apiclarity-spec-differ-module-overlay.yaml
+  - type: AgentSkill
+    url: skills/apiclarity-hunt-shadow-and-zombie-apis.md
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+- aid: apiclarity:apiclarity-spec-reconstructor-module-api
+  name: APIClarity Spec Reconstructor Module API
+  description: >-
+    Controls reconstruction of an OpenAPI specification from live traffic for a discovered API.
+    Served under /api/modules/specreconstructor.
+  humanURL: https://github.com/openclarity/apiclarity/tree/master/backend/pkg/modules/internal/specreconstructor
+  tags:
+  - OpenAPI Reconstruction
+  - API Discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-spec-reconstructor-module-openapi.yml
+  - type: Overlay
+    url: overlays/apiclarity-spec-reconstructor-module-overlay.yaml
+  - type: AgentSkill
+    url: skills/apiclarity-reconstruct-and-approve-a-spec.md
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+- aid: apiclarity:apiclarity-plugins-telemetry-api
+  name: APIClarity Plugins Telemetry API
+  description: >-
+    The Swagger 2.0 contract every APIClarity traffic-source plugin implements to push captured
+    traffic into a deployment — POST /telemetry, GET /hostsToTrace and
+    POST /control/newDiscoveredAPIs. Authenticated with the optional X-Trace-Source-Token header
+    issued when a trace source is registered. Implemented by the Istio WASM filter, the tap
+    DaemonSet, and the Kong, Tyk, Kuma and OpenTelemetry Collector plugins.
+  humanURL: https://github.com/openclarity/apiclarity/tree/master/plugins/api
+  tags:
+  - Telemetry
+  - Traffic Capture
+  - Plugins
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-plugins-telemetry-swagger.yml
+  - type: Overlay
+    url: overlays/apiclarity-plugins-telemetry-swagger-overlay.yaml
+  - type: Authentication
+    url: authentication/apiclarity-authentication.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/plugins
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+- aid: apiclarity:apiclarity-notifications-api
+  name: APIClarity Notifications API
+  description: >-
+    An inverted contract — the endpoint a registered listener must implement, which APIClarity
+    POSTs to. Six notification types share one polymorphic envelope discriminated on
+    notificationType: NewDiscoveredAPINotification, SpecDiffsNotification,
+    ApiFindingsNotification, AuthorizationModelNotification, TestProgressNotification and
+    TestReportNotification. This is APIClarity's webhook surface; no AsyncAPI document is
+    published.
+  humanURL: https://github.com/openclarity/apiclarity/tree/master/api3
+  tags:
+  - Webhooks
+  - Notifications
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-notifications-openapi.yml
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: Overlay
+    url: overlays/apiclarity-notifications-overlay.yaml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
 common:
   - type: AgenticAccess
     url: agentic-access/apiclarity-agentic-access.yml
+  - type: Packages
+    url: packages/apiclarity-packages.yml
+  - type: SDKs
+    url: packages/apiclarity-packages.yml
+  - type: Conventions
+    url: conventions/apiclarity-conventions.yml
+  - type: Conformance
+    url: conformance/apiclarity-conformance.yml
+  - type: ErrorCatalog
+    url: errors/apiclarity-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/apiclarity-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/apiclarity-changelog.yml
+  - type: Sandbox
+    url: sandbox/apiclarity-sandbox.yml
+  - type: DataModel
+    url: data-model/apiclarity-data-model.yml
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: LLMsTxt
+    url: llms/apiclarity-llms.txt
+  - type: X-MCPServerCandidate
+    url: mcp/apiclarity-mcp.yml
+  - type: Plans
+    url: plans/apiclarity-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/apiclarity-rate-limits.yml
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: APIReference
+    url: https://github.com/openclarity/apiclarity/tree/master/api3
+  - type: Support
+    url: https://github.com/openclarity/apiclarity/issues
   - type: DomainSecurity
     url: security/apiclarity-domain-security.yml
   - type: Authentication
     url: authentication/apiclarity-authentication.yml
   - type: Website
-    url: https://openclarity.io
+    url: https://github.com/openclarity/apiclarity
   - type: GitHubOrganization
     url: https://github.com/openclarity
   - type: GitHubRepository
