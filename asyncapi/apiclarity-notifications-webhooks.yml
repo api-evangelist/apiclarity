@@ -1,0 +1,96 @@
+generated: '2026-09-04'
+method: searched
+source: https://raw.githubusercontent.com/openclarity/apiclarity/master/api3/notifications/openapi.gen.yaml
+spec_file: openapi/apiclarity-notifications-openapi.yml
+docs: https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+description: >-
+  APIClarity's event surface. It is a webhook catalog, not an AsyncAPI document — the project
+  publishes no AsyncAPI and no broker/streaming contract, and none is authored here. What it
+  does publish is an inverted OpenAPI document describing the endpoint a REGISTERED LISTENER
+  must implement, which APIClarity then POSTs to. Six notification types are defined, all
+  discriminated on a single polymorphic envelope.
+asyncapi_published: false
+asyncapi_note: >-
+  No .asyncapi/asyncapi.yaml exists in the repository and no event-catalog page was ever
+  published. Fabricating one would assert a contract the project does not ship.
+transport: HTTP POST from APIClarity to a listener the operator registers
+delivery:
+  method: POST
+  path: /notification/{apiID}
+  path_parameter:
+    name: apiID
+    in: path
+    type: integer
+    format: int64
+    required: true
+  content_type: application/json
+  request_body_schema: APIClarityNotification
+  expected_response: '200 with a JSON string body'
+  direction: outbound — APIClarity is the client, the operator's listener is the server
+  retries: not documented
+  signing: not documented
+  authentication: not documented
+envelope:
+  schema: APIClarityNotification
+  style: oneOf with a discriminator
+  discriminator_property: notificationType
+  base_schema: BaseNotification
+  base_required_fields:
+  - notificationType
+  note: >-
+    By upstream convention the discriminator value equals the schema name — a
+    TestReportNotification carries notificationType "TestReportNotification". The aggregator
+    tool that builds this document depends on that convention.
+events:
+- name: NewDiscoveredAPINotification
+  trigger: APIClarity observes traffic to a host/port it has not seen before.
+  payload: BaseNotification + ApiInfo
+  payload_fields:
+  - id
+  - name
+  - port
+  - hasProvidedSpec
+  - hasReconstructedSpec
+  - destinationNamespace
+  - traceSourceId
+  producer: core
+- name: SpecDiffsNotification
+  trigger: Observed traffic diverges from the provided or reconstructed specification — the shadow/zombie/drift signal.
+  payload: BaseNotification + SpecDiffs (APIDiffs)
+  producer: spec_differ module
+- name: ApiFindingsNotification
+  trigger: A module raises security findings against an API.
+  payload: BaseNotification + APIFindings (items[] of APIFinding)
+  payload_fields:
+  - type
+  - source
+  - name
+  - description
+  - severity
+  - reconstructed_spec_location
+  - provided_spec_location
+  producer: traceanalyzer, bfla and fuzzer modules
+- name: AuthorizationModelNotification
+  trigger: The BFLA authorization model for an API changes — learned, updated, approved or denied.
+  payload: BaseNotification + AuthorizationModel (specType, operations[], learning)
+  producer: bfla module
+- name: TestProgressNotification
+  trigger: A fuzz test advances.
+  payload: BaseNotification + ShortTestProgress (apiID, progress 0-100, starttime)
+  producer: fuzzer module
+- name: TestReportNotification
+  trigger: A fuzz test completes.
+  payload: BaseNotification + ShortTestReport (apiID, starttime, status, statusMessage, highestSeverity, tags[])
+  producer: fuzzer module
+event_count: 6
+subscription_management:
+  documented: false
+  note: >-
+    The specification defines what a listener receives, not how a listener registers. No
+    subscription endpoint appears in the core or module contracts; registration is a
+    deployment-side configuration concern the published docs do not cover.
+gaps:
+- No AsyncAPI document.
+- No delivery guarantees, retry policy, backoff or dead-letter behaviour documented.
+- No payload signing or shared secret documented, on a channel that carries security findings.
+- No documented way to register or list listeners.

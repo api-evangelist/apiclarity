@@ -1,0 +1,85 @@
+generated: '2026-09-04'
+method: searched
+source: https://github.com/openclarity/apiclarity
+description: >-
+  Lifecycle posture for APIClarity. The headline fact is that the project has ended: GitHub
+  records the repository as "archived by the owner on May 29, 2026. It is now read-only", the
+  wider OpenClarity organisation was archived days later, and both project web properties
+  (openclarity.io and apiclarity.io) now return 404 on every path. The last software release
+  was v0.14.5 on 2023-05-05 — three years before the archive.
+status: end-of-life
+end_of_life:
+  archived: true
+  archived_date: '2026-05-29'
+  archived_by: repository owner (OpenClarity)
+  read_only: true
+  evidence:
+  - url: https://github.com/openclarity/apiclarity
+    status: 200
+    quote: archived by the owner on May 29, 2026. It is now read-only.
+  - url: https://openclarity.io/
+    status: 404
+    note: Documentation site retired; plain-text Netlify 404 at the site root.
+  - url: https://openclarity.io/docs/archive/apiclarity/
+    status: 404
+    note: The archived-docs URL search engines still index is itself gone.
+  - url: https://apiclarity.io/
+    status: 404
+    note: Legacy product domain named as `home` in the published Helm chart. Also a Netlify 404.
+  successor: none announced
+  what_still_works:
+  - The Helm chart repository at https://openclarity.github.io/apiclarity/index.yaml still serves 19 chart versions (200).
+  - Container images remain pullable from ghcr.io/openclarity/apiclarity (24 tags).
+  - The source repository and every published specification remain readable at github.com/openclarity/apiclarity.
+versioning:
+  scheme: semver
+  applied_to: git tags, Helm chart versions and container image tags (vMAJOR.MINOR.PATCH)
+  api_versioning: none
+  api_versioning_note: >-
+    The HTTP API carries no version segment and no version header. Every path is served under
+    the deployment-relative base /api, and module APIs under /api/modules/{module}. The
+    contracts do declare info.version — 1.0.0 for the core and global specs, 0.0.1 for each
+    module spec — but a client cannot select a version at call time.
+  version_discovery:
+  - operation: GET /modules/bfla/version
+    operationId: bflagetVersion
+  - operation: GET /modules/fuzzer/version
+    operationId: fuzzergetVersion
+  - operation: GET /modules/specreconstructor/version
+    operationId: specreconstructorgetVersion
+  version_discovery_note: >-
+    Three modules expose their own version endpoint. There is no equivalent for the core API.
+deprecation_policy:
+  published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc_8594: false
+  note: >-
+    APIClarity publishes no deprecation policy, no Sunset/Deprecation response headers, and no
+    operation carries `deprecated: true` in any of its contracts. The 2026-05-29 archive notice
+    is a product end-of-life announcement, not a deprecation policy, so no `Deprecation`
+    pointer is emitted for it. (The product's own subject matter is API deprecation — its Spec
+    Diffs module detects "zombie APIs", endpoints marked deprecated in a spec but still
+    receiving traffic — which is a feature, not a policy about APIClarity's own API.)
+  deprecated_operations_in_spec: 0
+status_page:
+  published: false
+  note: >-
+    No status page, and structurally there could not be one — APIClarity is software the
+    operator runs in their own cluster, so availability is the operator's, not a vendor's.
+sla:
+  published: false
+  note: Apache-2.0 software distributed as-is; the licence disclaims warranty. No SLA exists.
+support:
+  channels:
+  - name: GitHub Issues
+    url: https://github.com/openclarity/apiclarity/issues
+    status: read-only since the 2026-05-29 archive; 29 issues remain open and unactionable
+  - name: Slack
+    url: https://outshift.slack.com
+    status: workspace sign-in page (403 to anonymous clients); OpenClarity's announcement retired its support channels
+release_history_summary:
+  latest_release: v0.14.5
+  latest_release_date: '2023-05-05'
+  releases_since: none
+  gap_release_to_archive: 3 years

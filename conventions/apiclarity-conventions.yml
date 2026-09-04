@@ -1,0 +1,185 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  openapi/_original/apiclarity-global-openapi.gen.yml, openapi/_original/apiclarity-core-openapi.yml,
+  openapi/_original/apiclarity-common-schemas-openapi.yml, openapi/apiclarity-plugins-telemetry-swagger.yml,
+  https://github.com/openclarity/apiclarity#readme
+description: >-
+  Cross-cutting runtime semantics of the APIClarity HTTP API, derived from the contracts the
+  project publishes in its own repository. APIClarity is a self-hosted control plane for one
+  cluster, not a multi-tenant service, and its conventions read that way: no tenant, no
+  account, no quota, no replay protection.
+base_url:
+  declared: /api
+  note: >-
+    The published specs declare a relative server (`servers: [{url: /api}]`) with module APIs
+    under /api/modules/{module}. There is no vendor host to substitute — the host is whatever
+    Service or ingress the operator exposes. The README's documented access path is
+    `kubectl port-forward -n apiclarity svc/apiclarity-apiclarity 9999:8080`.
+auth:
+  style: none-declared for the management API; an optional apiKey header on the plugins telemetry API
+  header: X-Trace-Source-Token
+  detail: see authentication/apiclarity-authentication.yml
+idempotency:
+  supported: false
+  coverage: none
+  header: null
+  scope: []
+  retention: null
+  evidence: >-
+    No Idempotency-Key or equivalent header appears in any published APIClarity contract, and
+    no operation documents replay semantics. Retrying POST /apiInventory,
+    POST /control/traceSources or POST /modules/fuzzer/fuzz/{apiID}/start will act twice.
+  mitigating_note: >-
+    Several mutating operations are naturally idempotent by shape rather than by contract —
+    PUT /apiInventory/{apiId}/specs/providedSpec replaces a document, and the module
+    start/stop/approve/deny verbs set a state rather than appending. That is a property of the
+    resource, not a guarantee the API makes, so coverage is recorded as none.
+pagination:
+  style: page-number
+  params:
+    page: page
+    page_size: pageSize
+  required: true
+  required_note: Both `page` and `pageSize` are declared required on the paginated collections.
+  sorting:
+    params:
+      sort_key: sortKey
+      sort_direction: sortDir
+    note: sortKey is an enumeration scoped per collection (apiEventSortKey, apiInventorySortKey).
+  response_fields:
+    total: total
+    items: items
+  applies_to:
+  - GET /apiEvents
+  - GET /apiInventory
+filtering:
+  style: bracketed operator suffixes on the field name
+  operators:
+  - '[is]'
+  - '[isNot]'
+  - '[start]'
+  - '[end]'
+  - '[contains]'
+  - '[gte]'
+  - '[lte]'
+  examples:
+  - path[start]
+  - statusCode[gte]
+  - name[contains]
+  - hasSpecDiff[is]
+  count: 40+ filter parameters declared on GET /apiEvents and GET /apiInventory
+  time_window:
+    params:
+    - startTime
+    - endTime
+    required: true
+    note: GET /apiEvents requires an explicit time window on every call.
+field_expansion:
+  supported: false
+  sparse_fieldsets: false
+metadata:
+  custom_metadata_fields: false
+request_id_tracing:
+  supported: false
+  note: >-
+    No request-id header is declared or returned. APIClarity's own domain object is a trace of
+    someone else's API call; it does not trace calls to itself.
+versioning:
+  in_path: false
+  in_header: false
+  detail: see lifecycle/apiclarity-lifecycle.yml
+error_envelope:
+  shape: '{ "message": "<string>" }'
+  schema: ApiResponse
+  schema_description: An object that is returned in all cases of failures
+  required_fields:
+  - message
+  media_type: application/json
+  rfc9457: false
+  http_status_in_body: false
+  catch_all: >-
+    Most operations declare a single `default` response bound to the shared UnknownError
+    response. Typed 4xx/5xx statuses appear only on the fuzzer module and a handful of lookup
+    operations. See errors/apiclarity-problem-types.yml.
+rate_limit_signaling:
+  supported: false
+  headers: []
+  status_on_exhaustion: null
+  detail: see rate-limits/apiclarity-rate-limits.yml
+reversibility:
+  grade: documented
+  grade_reason: >-
+    Every long-running or state-changing module action has a first-class reversal operation in
+    the contract, and several have an explicit reset. No operation, however, states a window
+    inside which the reversal is valid, so this is `documented` rather than `verified`. No
+    APIClarity contract, README section or release note states a retention or undo period for
+    anything.
+  write_surface_operations: 20
+  reversible_pairs:
+  - action: POST /modules/fuzzer/fuzz/{apiID}/start
+    action_operation_id: fuzzerStartTest
+    reversal: POST /modules/fuzzer/fuzz/{apiID}/stop
+    reversal_operation_id: fuzzerStopTest
+    window: not stated
+    note: >-
+      The highest-consequence write in the product — the fuzzer actively sends generated traffic
+      at a live API. Stop halts the run; it does not undo requests already sent to the target.
+  - action: POST /modules/traceanalyzer/{apiID}/start
+    action_operation_id: traceanalyzerStartTraceAnalysis
+    reversal: POST /modules/traceanalyzer/{apiID}/stop
+    reversal_operation_id: traceanalyzerStopTraceAnalysis
+    window: not stated
+  - action: POST /modules/specreconstructor/{apiID}/start
+    action_operation_id: specreconstructorPostAPIIDStart
+    reversal: POST /modules/specreconstructor/{apiID}/stop
+    reversal_operation_id: specreconstructorPostAPIIDStop
+    window: not stated
+  - action: POST /modules/spec_differ/{apiID}/start
+    action_operation_id: spec_differStartDiffer
+    reversal: POST /modules/spec_differ/{apiID}/stop
+    reversal_operation_id: spec_differStopDiffer
+    window: not stated
+  - action: PUT /modules/bfla/authorizationModel/{apiID}/learning/start
+    reversal: PUT /modules/bfla/authorizationModel/{apiID}/learning/stop
+    window: not stated
+  - action: PUT /modules/bfla/authorizationModel/{apiID}/detection/start
+    reversal: PUT /modules/bfla/authorizationModel/{apiID}/detection/stop
+    window: not stated
+  - action: PUT /modules/bfla/authorizationModel/{apiID}/approve
+    reversal: PUT /modules/bfla/authorizationModel/{apiID}/deny
+    window: not stated
+    note: >-
+      approve and deny are opposing verdicts on the same learned authorization model, so either
+      reverses the other.
+  reset_operations:
+  - operation: POST /modules/bfla/authorizationModel/{apiID}/reset
+    effect: Discards the learned BFLA authorization model for one API and returns it to an unlearned state.
+    reverses: everything learned since learning/start
+    window: not stated
+  - operation: POST /modules/traceanalyzer/apiFindings/{apiID}/reset
+    operation_id: traceanalyzerResetApiFindings
+    effect: Clears accumulated trace-analyzer findings for one API.
+    window: not stated
+  destructive_operations_without_reversal:
+  - operation: DELETE /apiInventory/{apiId}/specs/providedSpec
+    note: >-
+      Deletes the operator-supplied OpenAPI document for an API. No restore, no soft-delete,
+      no stated retention window. Re-upload via PUT /apiInventory/{apiId}/specs/providedSpec
+      is a re-creation, not a restore.
+  - operation: DELETE /apiInventory/{apiId}/specs/reconstructedSpec
+    note: >-
+      Deletes the reconstructed specification. Recoverable only by re-running reconstruction
+      against new traffic, which is not the same document.
+  - operation: DELETE /control/traceSources/{traceSourceId}
+    note: >-
+      Removes a registered trace source and, with it, the X-Trace-Source-Token that source was
+      using. No reversal; re-registering issues a new token.
+  - operation: POST /apiInventory/{reviewId}/approvedReview
+    note: Commits a reviewed reconstructed spec. No un-approve operation exists.
+dry_run_mode:
+  supported: false
+  note: >-
+    Relevant here, and absent. The fuzzer sends real traffic at a real target; there is no
+    documented plan/preview mode, no test-only flag on fuzzerStartTest, and no way for an agent
+    to rehearse the call.

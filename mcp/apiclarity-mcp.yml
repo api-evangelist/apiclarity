@@ -1,0 +1,119 @@
+generated: '2026-09-04'
+method: derived
+source: openapi/_original/apiclarity-global-openapi.gen.yml
+status: candidate
+description: >-
+  NO MCP SERVER EXISTS FOR APICLARITY. This is a derived candidate tool list — what an MCP
+  server over the APIClarity API could expose — not a server anyone can call. It is derived
+  from the operations in APIClarity's own aggregated specification. The project was archived
+  read-only on 2026-05-29 and never shipped an MCP surface; searches of the repository, the
+  Helm chart, the container images and both (now dead) project domains found no manifest,
+  no endpoint and no package.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: derived
+search_evidence:
+- url: https://github.com/openclarity/apiclarity
+  status: 200
+  finding: No MCP server, manifest or tool definition anywhere in the repository; archived 2026-05-29.
+- url: https://openclarity.io/.well-known/ai-plugin.json
+  status: 404
+- url: https://apiclarity.io/.well-known/ai-plugin.json
+  status: 404
+- url: https://openclarity.github.io/apiclarity/index.yaml
+  status: 200
+  finding: Two Helm charts published (apiclarity, kuma-plugin). Neither is an MCP server.
+- url: https://ghcr.io/v2/openclarity/apiclarity/tags/list
+  status: 200
+  finding: 24 image tags, all APIClarity backend builds. No MCP image.
+candidate_note: >-
+  If an operator wanted agent access to their own APIClarity deployment, these are the
+  operations worth wrapping. Every tool below maps to a real path in
+  openapi/_original/apiclarity-global-openapi.gen.yml. The API declares no securityScheme, so
+  any such server would have to sit behind the operator's own ingress auth.
+candidate_tools:
+- name: list_discovered_apis
+  description: List every API APIClarity has discovered, with paging and filters.
+  rest: GET /apiInventory
+  consequence: read
+- name: get_api_info
+  description: Fetch one discovered API by id.
+  rest: GET /apiInventory/{apiId}/apiInfo
+  consequence: read
+- name: find_api_by_host_and_port
+  description: Resolve a host/port to an API id.
+  rest: GET /apiInventory/apiId/fromHostAndPort
+  consequence: read
+- name: list_api_events
+  description: List captured request/response events in a time window, with 40+ filters.
+  rest: GET /apiEvents
+  consequence: read
+- name: get_event_spec_diff
+  description: Get the difference between one observed event and the provided or reconstructed spec.
+  rest: GET /apiEvents/{eventId}/providedSpecDiff, GET /apiEvents/{eventId}/reconstructedSpecDiff
+  consequence: read
+- name: get_reconstructed_spec
+  description: Download the OpenAPI document APIClarity rebuilt from observed traffic.
+  rest: GET /apiInventory/{apiId}/reconstructed_swagger.json
+  consequence: read
+- name: get_provided_spec
+  description: Download the operator-supplied OpenAPI document for an API.
+  rest: GET /apiInventory/{apiId}/provided_swagger.json
+  consequence: read
+- name: upload_provided_spec
+  description: Upload or replace the OpenAPI document for an API.
+  rest: PUT /apiInventory/{apiId}/specs/providedSpec
+  consequence: write
+- name: get_suggested_review
+  description: Get the proposed path-parameterisation awaiting human approval.
+  rest: GET /apiInventory/{apiId}/suggestedReview
+  consequence: read
+- name: get_api_findings
+  description: Read security findings for an API from the trace-analyzer, BFLA and fuzzer modules.
+  rest: GET /modules/traceanalyzer/apiFindings/{apiID}, GET /modules/bfla/apiFindings/{apiID}, GET /modules/fuzzer/apiFindings/{apiID}
+  operation_ids:
+  - traceanalyzerGetApiFindings
+  - bflaGetApiFindings
+  - fuzzerGetAPIFindings
+  consequence: read
+- name: get_bfla_authorization_model
+  description: Read the learned broken-function-level-authorization model for an API.
+  rest: GET /modules/bfla/authorizationModel/{apiID}
+  consequence: read
+- name: get_fuzz_test_report
+  description: Read the report from a completed fuzz test.
+  rest: GET /modules/fuzzer/fuzz/{apiID}/report
+  operation_ids:
+  - fuzzerGetTestReport
+  consequence: read
+- name: get_api_usage_dashboard
+  description: Aggregated API usage, most-used APIs and latest diffs.
+  rest: GET /dashboard/apiUsage, GET /dashboard/apiUsage/mostUsed, GET /dashboard/apiUsage/latestDiffs
+  consequence: read
+- name: list_trace_sources
+  description: List registered trace sources.
+  rest: GET /control/traceSources
+  consequence: read
+excluded_from_candidate_list:
+- rest: POST /modules/fuzzer/fuzz/{apiID}/start
+  reason: >-
+    Safety-critical. Starts active fuzzing traffic against a live API. There is no dry-run mode
+    and no idempotency key, and stopping the test does not unsend requests already delivered.
+    Should not be exposed to an agent without an explicit human-in-the-loop gate.
+- rest: DELETE /apiInventory/{apiId}/specs/providedSpec
+  reason: Destructive with no restore path and no stated retention window.
+- rest: DELETE /apiInventory/{apiId}/specs/reconstructedSpec
+  reason: Destructive with no restore path.
+- rest: DELETE /control/traceSources/{traceSourceId}
+  reason: Revokes a trace source token; re-registration issues a different token.
+- rest: POST /modules/bfla/authorizationModel/{apiID}/reset
+  reason: Discards a learned authorization model irreversibly.
+tool_count_candidate: 14
+crosswalk: none
+crosswalk_note: >-
+  No mcp/apiclarity-tool-crosswalk.yml is written. A crosswalk binds real MCP tools to backing
+  OpenAPI operations; with no MCP server and no GraphQL surface there is nothing to bind.

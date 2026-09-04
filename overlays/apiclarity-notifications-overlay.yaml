@@ -1,0 +1,59 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Core OAPI for APIClarity Notification
+  version: 1.0.0
+extends: apiclarity-notifications-openapi.yml
+x-generated: '2026-09-04'
+x-method: generated
+x-source: openapi/apiclarity-notifications-openapi.yml, https://github.com/openclarity/apiclarity
+x-note: Additive metadata only. It never rewrites paths, schemas or responses, and it adds no securityScheme
+  — the original document is APIClarity's and stays untouched.
+actions:
+- target: $.info
+  description: Attach the publisher contact APIClarity omits from this document.
+  update:
+    contact:
+      name: OpenClarity
+      url: https://github.com/openclarity/apiclarity
+- target: $.info
+  description: Record the Apache-2.0 licence the repository declares but the document does not.
+  update:
+    license:
+      name: Apache-2.0
+      url: https://github.com/openclarity/apiclarity/blob/master/LICENSE
+- target: $.info
+  description: Record end-of-life. The source repository was archived read-only on 2026-05-29 and the
+    last release was v0.14.5 on 2023-05-05.
+  update:
+    x-lifecycle:
+      status: end-of-life
+      archived: '2026-05-29'
+      last-release: v0.14.5
+      last-release-date: '2023-05-05'
+      successor: null
+      evidence: https://github.com/openclarity/apiclarity
+- target: $.info
+  description: State where this document actually lives and how it is served, which the document itself
+    does not say.
+  update:
+    x-served-under: /api
+    x-deployment-model: self-hosted; there is no vendor API host. The server is whatever Service or ingress
+      the operator exposes.
+    x-upstream-source: https://github.com/openclarity/apiclarity
+- target: $.info
+  description: Declare, as metadata rather than as a fabricated securityScheme, that this document declares
+    no authentication.
+  update:
+    x-authentication:
+      declared-schemes: 0
+      note: No securityScheme is declared in this or any other APIClarity contract. The only credential
+        the project documents is the optional X-Trace-Source-Token header on the plugins telemetry API.
+        See authentication/apiclarity-authentication.yml.
+- target: $.info
+  description: Record the runtime semantics an integrator needs and the document does not carry.
+  update:
+    x-conventions:
+      idempotency: none — no Idempotency-Key header exists anywhere in the APIClarity surface
+      rate-limits: none published and none implemented
+      error-envelope: '{"message": string} (schema ApiResponse); not RFC 9457 problem+json'
+      artifact: conventions/apiclarity-conventions.yml

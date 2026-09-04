@@ -1,0 +1,294 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  openapi/_original/apiclarity-common-schemas-openapi.yml, openapi/_original/apiclarity-global-openapi.gen.yml,
+  openapi/_original/apiclarity-legacy-swagger.yml
+description: >-
+  Entity-relationship graph of the APIClarity domain, derived from the 36 shared schemas in
+  api3/common/openapi.yaml and the 57 schemas in the aggregated global specification. The graph
+  has one root: ApiInfo, the discovered API. Everything else — traffic events, reconstructed
+  specifications, diffs, findings, authorization models, fuzz tests — hangs off an apiID.
+id_conventions:
+  primary_key: integer `id` on ApiInfo, ApiEvent and TraceSource
+  path_parameter: '{apiId} / {apiID} (integer) is the join key across every module surface'
+  prefixed_ids: false
+  uuid: TraceSource carries a `uid` (format uuid) alongside its integer id
+entities:
+- name: ApiInfo
+  role: root
+  description: A discovered API — a host/port an APIClarity deployment has observed traffic to.
+  fields:
+  - id
+  - name
+  - port
+  - hasReconstructedSpec
+  - hasProvidedSpec
+  - destinationNamespace
+  - traceSourceId
+  - traceSourceName
+  - traceSourceType
+  operations:
+  - GET /apiInventory
+  - POST /apiInventory
+  - GET /apiInventory/{apiId}/apiInfo
+  - GET /apiInventory/apiId/fromHostAndPort
+  relationships:
+  - type: belongs_to
+    target: TraceSource
+    via: traceSourceId
+  - type: has_many
+    target: ApiEvent
+    via: apiInfoId
+  - type: has_one
+    target: OpenApiSpecs
+    via: apiId
+  - type: has_many
+    target: APIFinding
+    via: apiID
+  - type: has_one
+    target: AuthorizationModel
+    via: apiID
+  - type: has_many
+    target: Test
+    via: apiID
+- name: TraceSource
+  description: A registered source of traffic traces — a service mesh, gateway or collector.
+  fields:
+  - id
+  - uid
+  - name
+  - type
+  - description
+  - token
+  enum_field: 'TraceSourceType { APIGEE_X, F5_BIG_IP, KONG_INTERNAL, TYK_INTERNAL }'
+  operations:
+  - GET /control/traceSources
+  - POST /control/traceSources
+  - GET /control/traceSources/{traceSourceId}
+  - DELETE /control/traceSources/{traceSourceId}
+  relationships:
+  - type: has_many
+    target: ApiInfo
+    via: traceSourceId
+  note: The `token` field is the X-Trace-Source-Token the source then presents on the plugins telemetry API.
+- name: ApiEvent
+  description: One captured request/response pair.
+  fields:
+  - id
+  - requestTime
+  - time
+  - method
+  - path
+  - query
+  - statusCode
+  - sourceIP
+  - destinationIP
+  - destinationPort
+  - hasReconstructedSpecDiff
+  - hasProvidedSpecDiff
+  - specDiffType
+  - hostSpecName
+  - apiInfoId
+  - apiType
+  - alerts
+  operations:
+  - GET /apiEvents
+  - GET /apiEvents/{eventId}
+  relationships:
+  - type: belongs_to
+    target: ApiInfo
+    via: apiInfoId
+  - type: has_one
+    target: ApiEventSpecDiff
+    via: eventId
+  - type: has_one
+    target: APIEventAnnotations
+    via: eventID
+- name: ApiEventSpecDiff
+  description: The difference between one observed event and the provided or reconstructed spec.
+  fields:
+  - diffType
+  - oldSpec
+  - newSpec
+  enum_field: 'DiffType — the shadow / zombie / drift classification'
+  operations:
+  - GET /apiEvents/{eventId}/providedSpecDiff
+  - GET /apiEvents/{eventId}/reconstructedSpecDiff
+  relationships:
+  - type: belongs_to
+    target: ApiEvent
+    via: eventId
+- name: OpenApiSpecs
+  description: The two specifications APIClarity holds per API — the one you gave it and the one it rebuilt.
+  fields:
+  - providedSpec
+  - reconstructedSpec
+  enum_field: 'SpecType { NONE, PROVIDED, RECONSTRUCTED }'
+  operations:
+  - GET /apiInventory/{apiId}/specs
+  - PUT /apiInventory/{apiId}/specs/providedSpec
+  - DELETE /apiInventory/{apiId}/specs/providedSpec
+  - DELETE /apiInventory/{apiId}/specs/reconstructedSpec
+  - GET /apiInventory/{apiId}/provided_swagger.json
+  - GET /apiInventory/{apiId}/reconstructed_swagger.json
+  relationships:
+  - type: belongs_to
+    target: ApiInfo
+    via: apiId
+- name: SuggestedReview
+  description: A proposed path-parameterisation of the reconstructed spec awaiting a human decision.
+  fields:
+  - id
+  - reviewPathItems
+  operations:
+  - GET /apiInventory/{apiId}/suggestedReview
+  - POST /apiInventory/{reviewId}/approvedReview
+  relationships:
+  - type: belongs_to
+    target: ApiInfo
+    via: apiId
+  - type: has_many
+    target: ReviewPathItem
+    via: reviewPathItems
+- name: APIFinding
+  description: A security finding raised against an API by the trace analyzer, BFLA or fuzzer module.
+  fields:
+  - type
+  - source
+  - name
+  - description
+  - severity
+  - reconstructed_spec_location
+  - provided_spec_location
+  - additional_info
+  operations:
+  - GET /modules/traceanalyzer/apiFindings/{apiID}
+  - GET /modules/bfla/apiFindings/{apiID}
+  - GET /modules/fuzzer/apiFindings/{apiID}
+  relationships:
+  - type: belongs_to
+    target: ApiInfo
+    via: apiID
+  note: Same schema, three producing modules — findings are unified across the security surface.
+- name: AuthorizationModel
+  description: The BFLA module's learned model of which callers may invoke which operations.
+  fields:
+  - learning
+  - operations
+  - specType
+  operations:
+  - GET /modules/bfla/authorizationModel/{apiID}
+  - POST /modules/bfla/authorizationModel/{apiID}
+  - GET /modules/bfla/authorizationModel/{apiID}/state
+  relationships:
+  - type: belongs_to
+    target: ApiInfo
+    via: apiID
+  - type: has_many
+    target: AuthorizationModelOperation
+    via: operations
+- name: AuthorizationModelOperation
+  fields:
+  - audience
+  - method
+  - path
+  - tags
+  relationships:
+  - type: has_many
+    target: AuthorizationModelAudience
+    via: audience
+- name: AuthorizationModelAudience
+  fields:
+  - authorized
+  - end_users
+  - external
+  - k8s_object
+  - lastTime
+  - statusCode
+  - warningStatus
+  relationships:
+  - type: has_one
+    target: K8sObjectRef
+    via: k8s_object
+  - type: has_many
+    target: DetectedUser
+    via: end_users
+- name: Test
+  description: One fuzzer run against one API.
+  fields:
+  - starttime
+  - progress
+  - vulnerabilities
+  - errorMessage
+  operations:
+  - POST /modules/fuzzer/fuzz/{apiID}/start
+  - GET /modules/fuzzer/tests/{apiID}
+  - GET /modules/fuzzer/fuzz/{apiID}/progress
+  relationships:
+  - type: belongs_to
+    target: ApiInfo
+    via: apiID
+  - type: has_one
+    target: FuzzingStatusAndReport
+    via: report
+  - type: has_one
+    target: Vulnerabilities
+    via: vulnerabilities
+- name: FuzzingStatusAndReport
+  fields:
+  - progress
+  - report
+  - status
+  relationships:
+  - type: has_many
+    target: FuzzingReportItem
+    via: report
+- name: FuzzingReportItem
+  fields:
+  - description
+  - findings
+  - name
+  - paths
+  - source
+  - status
+  - testType
+  relationships:
+  - type: has_many
+    target: FuzzingReportPath
+    via: paths
+  - type: has_many
+    target: Finding
+    via: findings
+- name: K8sObjectRef
+  description: Kubernetes identity attached to observed traffic — the cluster-native dimension of the model.
+  fields:
+  - apiVersion
+  - kind
+  - name
+  - namespace
+  - uid
+- name: APIEventAnnotations
+  fields:
+  - bflaStatus
+  - destinationK8sObject
+  - sourceK8sObject
+  - detectedUser
+  - external
+  - mismatchedScopes
+  relationships:
+  - type: has_one
+    target: K8sObjectRef
+    via: sourceK8sObject
+  - type: has_one
+    target: K8sObjectRef
+    via: destinationK8sObject
+collection_envelope:
+  shape: '{ items: [...], total: <integer> }'
+  used_by:
+  - Annotations
+  - Findings
+  - Tests
+  - APIFindings
+  note: Consistent across the surface, which makes paging predictable.
+render: none
+render_note: No subway/ diagram exists for this provider.

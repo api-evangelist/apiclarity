@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: APIClarity API Events Features API
   description: APIClarity is an open source API security and observability tool that analyzes API traffic to reconstruct OpenAPI specifications, detect shadow and zombie APIs, identify API differences and changes, and provide API security alerts. This is the REST API exposed by an APIClarity deployment.
@@ -30,32 +30,6 @@ paths:
                 $ref: '#/components/schemas/APIClarityFeatureList'
 components:
   schemas:
-    APIClarityFeature:
-      type: object
-      description: Description of APIClarity feature and the list of API hosts (Group by trace sources, in the form 'host:port') the feature requires to get trace for
-      properties:
-        featureName:
-          $ref: '#/components/schemas/APIClarityFeatureEnum'
-        featureDescription:
-          description: Short human readable description of the feature
-          type: string
-        hostsToTrace:
-          $ref: '#/components/schemas/HostsToTraceForComponent'
-      required:
-      - featureName
-    HostsToTraceForTraceSource:
-      type: object
-      description: list of API hosts (in the form 'host:port') managed by a traceSource
-      properties:
-        traceSourceID:
-          description: ID of the trace source
-          type: integer
-          format: uint32
-        hostsToTrace:
-          description: List of hosts (in the form 'host:port')
-          type: array
-          items:
-            type: string
     APIClarityFeatureEnum:
       description: APIClarity Feature Name
       type: string
@@ -77,6 +51,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/HostsToTraceForTraceSource'
+    APIClarityFeature:
+      type: object
+      description: Description of APIClarity feature and the list of API hosts (Group by trace sources, in the form 'host:port') the feature requires to get trace for
+      properties:
+        featureName:
+          $ref: '#/components/schemas/APIClarityFeatureEnum'
+        featureDescription:
+          description: Short human readable description of the feature
+          type: string
+        hostsToTrace:
+          $ref: '#/components/schemas/HostsToTraceForComponent'
+      required:
+      - featureName
     APIClarityFeatureList:
       type: object
       description: List of APIClarity features and for each feature the list of API hosts (Group by trace sources, in the form 'host:port') the feature requires to get trace for
@@ -85,8 +72,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/APIClarityFeature'
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      description: APIClarity is typically deployed inside a Kubernetes cluster behind an ingress that enforces authentication. When exposed externally, deployments commonly require a bearer token.
+    HostsToTraceForTraceSource:
+      type: object
+      description: list of API hosts (in the form 'host:port') managed by a traceSource
+      properties:
+        traceSourceID:
+          description: ID of the trace source
+          type: integer
+          format: uint32
+        hostsToTrace:
+          description: List of hosts (in the form 'host:port')
+          type: array
+          items:
+            type: string

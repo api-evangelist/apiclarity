@@ -643,11 +643,6 @@ paths:
         default:
           description: Response
 components:
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      description: APIClarity is typically deployed inside a Kubernetes cluster behind an ingress that enforces authentication. When exposed externally, deployments commonly require a bearer token.
   schemas:
     ApiEvent:
       type: object

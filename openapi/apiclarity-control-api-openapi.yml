@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: APIClarity API Events Control API
   description: APIClarity is an open source API security and observability tool that analyzes API traffic to reconstruct OpenAPI specifications, detect shadow and zombie APIs, identify API differences and changes, and provide API security alerts. This is the REST API exposed by an APIClarity deployment.
@@ -43,7 +43,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/responses/Success'
+                $ref: '#/components/schemas/SuccessResponse'
         default:
           description: Response
   /control/traceSources:
@@ -128,7 +128,28 @@ paths:
         default:
           description: Response
 components:
+  parameters:
+    traceSourceId:
+      name: traceSourceId
+      in: path
+      required: true
+      description: Trace Source ID
+      schema:
+        type: string
+        format: uuid
   schemas:
+    ApiResponse:
+      description: An object that is return in all cases of failures.
+      type: object
+      properties:
+        message:
+          type: string
+    SuccessResponse:
+      type: object
+      description: 'An object that is return in cases of success that return nothing.'
+      properties:
+        message:
+          type: string
     TraceSource:
       description: A Source which is sending traces to APIClarity
       type: object
@@ -150,12 +171,6 @@ components:
       required:
       - name
       - type
-    ApiResponse:
-      description: An object that is return in all cases of failures.
-      type: object
-      properties:
-        message:
-          type: string
     TraceSourceType:
       type: string
       enum:
@@ -163,17 +178,3 @@ components:
       - F5_BIG_IP
       - KONG_INTERNAL
       - TYK_INTERNAL
-  parameters:
-    traceSourceId:
-      name: traceSourceId
-      in: path
-      required: true
-      description: Trace Source ID
-      schema:
-        type: string
-        format: uuid
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      description: APIClarity is typically deployed inside a Kubernetes cluster behind an ingress that enforces authentication. When exposed externally, deployments commonly require a bearer token.

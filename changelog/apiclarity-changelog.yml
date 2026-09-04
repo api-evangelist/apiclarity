@@ -1,0 +1,58 @@
+generated: '2026-09-04'
+method: searched
+source: https://github.com/openclarity/apiclarity/releases.atom
+docs: https://github.com/openclarity/apiclarity/releases
+description: >-
+  APIClarity keeps no prose changelog — no CHANGELOG.md is committed (404) and the
+  documentation site that carried release notes is gone. GitHub Releases is the only dated
+  record, and it stops at v0.14.5 on 2023-05-05. Release notes are one-line commit summaries;
+  none of them classifies a change as breaking, and no release ever documented an API contract
+  change.
+scheme:
+  style: semver
+  surface: GitHub Releases
+  url: https://github.com/openclarity/apiclarity/releases
+  feed: https://github.com/openclarity/apiclarity/releases.atom
+  breaking_change_labelling: false
+  api_change_section: false
+current_version: v0.14.5
+current_version_date: '2023-05-05'
+release_train_note: >-
+  Each software release is cut three times — the backend tag (vX.Y.Z), the Kuma plugin chart
+  (kuma-plugin-vX.Y.Z) and the APIClarity Helm chart (apiclarity-vX.Y.Z-helm) — all on the same
+  day.
+entries:
+- version: v0.14.5
+  date: '2023-05-05'
+  breaking: false
+  additions: []
+  highlights:
+  - fix speculator pointer
+  url: https://github.com/openclarity/apiclarity/releases/tag/v0.14.5
+- version: v0.14.4
+  date: '2023-03-30'
+  breaking: false
+  additions: []
+  highlights:
+  - Fixed trace enablement handling when sampling is disabled
+  - Corrected limit application for annotation events
+  url: https://github.com/openclarity/apiclarity/releases/tag/v0.14.4
+- version: v0.14.3
+  date: '2023-03-30'
+  breaking: false
+  additions: []
+  highlights:
+  - Removed invalid characters from reconstructed schema references
+  - Resolved a UI reviewer page issue
+  url: https://github.com/openclarity/apiclarity/releases/tag/v0.14.3
+- version: v0.14.2
+  date: '2023-02-01'
+  breaking: false
+  additions: []
+  highlights:
+  - Fix Kuma plugin
+  url: https://github.com/openclarity/apiclarity/releases/tag/v0.14.2
+window:
+  note: Recent window only. The releases feed returns the four most recent software versions above.
+  no_releases_since: '2023-05-05'
+  repository_archived: '2026-05-29'

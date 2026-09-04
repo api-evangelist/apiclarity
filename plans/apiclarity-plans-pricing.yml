@@ -3,147 +3,40 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
 provider: APIClarity
 providerId: apiclarity
+generated: '2026-09-04'
+method: searched
+source: https://github.com/openclarity/apiclarity
+modified: '2026-09-04'
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - API Observability
-  - API Security
-  - API Traffic Analysis
-  - Cisco
-  - Kubernetes
-  - Open Source
-  - OpenAPI Reconstruction
-  - OpenClarity
-  - Service Mesh
-  - Shadow APIs
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
-plans:
-  - id: apiclarity-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the APIClarity API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: APIClarity API
-  - id: apiclarity-pro
-    name: Professional
-    type: paid
-    description: Production tier for APIClarity. Provides higher quotas, priority support, and access
-      to the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: APIClarity API
-  - id: apiclarity-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for APIClarity. Includes dedicated capacity, contractual SLAs,
-      security review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        domains: []
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains: []
-        unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: APIClarity API
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+description: >-
+  APIClarity publishes no plans and no pricing, and structurally cannot: it is Apache-2.0
+  software you deploy into your own Kubernetes cluster. There is no vendor service, no account,
+  no metered API and nothing to bill. The only cost is the compute you run it on.
+plan_count: 0
+plans: []
+pricing_model: open-source
+licence: Apache-2.0
+licence_url: https://github.com/openclarity/apiclarity/blob/master/LICENSE
+free_to_use: true
+commercial_offering: none
+evidence:
+- url: https://github.com/openclarity/apiclarity
+  status: 200
+  finding: Apache-2.0 licence; no pricing page, no commercial tier, no hosted offering referenced anywhere in the README.
+- url: https://openclarity.io/
+  status: 404
+  finding: The project website — which would have carried any pricing — has been retired and returns 404 on every path.
+- url: https://apiclarity.io/
+  status: 404
+  finding: The legacy product domain named as `home` in the published Helm chart is also a 404.
+- url: https://openclarity.github.io/apiclarity/index.yaml
+  status: 200
+  finding: The Helm chart repository is the distribution channel. Free, unauthenticated, no entitlement check.
+correction:
+  date: '2026-09-04'
+  note: >-
+    This file previously carried three invented tiers (Free / Professional / Enterprise) with
+    invented quotas, an invented 1,000 req/min enterprise rate and "custom" prices, written by a
+    2026-05-04 bulk sweep and marked `method: generated`. None of it existed. APIClarity has
+    never had a plan, a price, a quota or an enterprise tier. The scaffold has been removed and
+    replaced with the measured zero.

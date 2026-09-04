@@ -1,0 +1,145 @@
+generated: '2026-09-04'
+method: probed
+source: live HTTPS probes, 2026-09-04
+description: >-
+  Well-known discovery probe across every host this record knows. APIClarity has no
+  vendor-operated API host — its OpenAPI servers are relative (/api) or localhost, because the
+  software runs in the operator's own cluster — so the hosts probed are the project's web
+  properties plus the GitHub Pages host that serves its Helm repository. Nothing was found.
+  Both openclarity.io and apiclarity.io now return a plain-text Netlify 404 for every path
+  including the site root; the project's documentation site was retired alongside the
+  2026-05-29 repository archive.
+summary:
+  hosts_probed: 5
+  documents_found: 0
+  verdict: no /.well-known document is served on any host
+hosts:
+- host: openclarity.io
+  note: apis.yml Website host. Site root itself returns 404 (Netlify).
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+- host: www.openclarity.io
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+- host: openclarity.github.io
+  note: GitHub Pages host serving the live APIClarity Helm chart repository.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+- host: apiclarity.io
+  note: Legacy product domain named as `home` in the published Helm chart metadata. Now a Netlify 404 on every path.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+- host: www.apiclarity.io
+  note: CNAMEs to apiclarity.netlify.app.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+also_probed:
+- url: https://raw.githubusercontent.com/openclarity/apiclarity/master/.well-known/security.txt
+  status: 404
+  note: No security.txt committed to the source repository either.
+- url: https://raw.githubusercontent.com/openclarity/apiclarity/master/SECURITY.md
+  status: 404
+pointer_note: >-
+  No WellKnown, SecurityTxt or AgentCard pointer is emitted in apis.yml. Every path 404d, and a
+  pointer would assert that APIClarity serves a document it does not serve. This file records
+  a measured absence.

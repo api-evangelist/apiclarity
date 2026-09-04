@@ -70,13 +70,14 @@ specificationVersion: '0.23'
 x-enrichment:
   date: '2026-09-04'
   status: enriched
-  artifacts_added: 24
+  artifacts_added: 39
   pass: local-v3
 apis:
 - aid: apiclarity:apiclarity-api-events-api
   name: APIClarity API Events API
   description: Captured API traffic events.
   humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
   tags:
   - API Events
   properties:
@@ -94,6 +95,7 @@ apis:
   name: APIClarity API Inventory API
   description: Discovered APIs and their reconstructed specifications.
   humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
   tags:
   - API Inventory
   properties:
@@ -111,6 +113,7 @@ apis:
   name: APIClarity Control API
   description: Control-plane endpoints for trace sources and discovered APIs.
   humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
   tags:
   - Control
   properties:
@@ -128,6 +131,7 @@ apis:
   name: APIClarity Features API
   description: Enabled features in the deployment.
   humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
   tags:
   - Features
   properties:
@@ -148,6 +152,7 @@ apis:
     API interactions — which callers are supposed to invoke which operations — then flags
     violations against it. Served under /api/modules/bfla in an APIClarity deployment.
   humanURL: https://github.com/openclarity/apiclarity/tree/master/backend/pkg/modules/internal/bfla
+  baseURL: https://apiclarity-server/api/modules/bfla
   tags:
   - BFLA
   - Authorization
@@ -168,6 +173,7 @@ apis:
     find implementation flaws, then returns a severity-ranked report and a specification
     annotated with the findings. Served under /api/modules/fuzzer.
   humanURL: https://github.com/openclarity/apiclarity/tree/master/backend/pkg/modules/internal/fuzzer
+  baseURL: https://apiclarity-server/api/modules/fuzzer
   tags:
   - Fuzzing
   - Security Testing
@@ -188,6 +194,7 @@ apis:
     authentication, exposure of sensitive information and potential broken object level
     authorization. Served under /api/modules/traceanalyzer.
   humanURL: https://github.com/openclarity/apiclarity/tree/master/backend/pkg/modules/internal/traceanalyzer
+  baseURL: https://apiclarity-server/api/modules/traceanalyzer
   tags:
   - Trace Analysis
   - API Security
@@ -207,6 +214,7 @@ apis:
     shadow APIs (observed but undocumented), zombie APIs (observed but marked deprecated) and
     drift. Served under /api/modules/spec_differ.
   humanURL: https://github.com/openclarity/apiclarity/tree/master/backend/pkg/modules/internal/spec_differ
+  baseURL: https://apiclarity-server/api/modules/spec_differ
   tags:
   - Spec Diff
   - Shadow APIs
@@ -226,6 +234,7 @@ apis:
     Controls reconstruction of an OpenAPI specification from live traffic for a discovered API.
     Served under /api/modules/specreconstructor.
   humanURL: https://github.com/openclarity/apiclarity/tree/master/backend/pkg/modules/internal/specreconstructor
+  baseURL: https://apiclarity-server/api/modules/specreconstructor
   tags:
   - OpenAPI Reconstruction
   - API Discovery
@@ -247,6 +256,7 @@ apis:
     issued when a trace source is registered. Implemented by the Istio WASM filter, the tap
     DaemonSet, and the Kong, Tyk, Kuma and OpenTelemetry Collector plugins.
   humanURL: https://github.com/openclarity/apiclarity/tree/master/plugins/api
+  baseURL: https://apiclarity-server/api
   tags:
   - Telemetry
   - Traffic Capture

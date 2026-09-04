@@ -1,0 +1,104 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  openapi/_original/apiclarity-global-openapi.gen.yml, openapi/_original/apiclarity-legacy-swagger.yml,
+  openapi/apiclarity-plugins-telemetry-swagger.yml, https://github.com/openclarity/apiclarity#readme
+description: >-
+  Standards APIClarity's own contracts and integration surface declare. APIClarity is an API
+  security tool whose entire subject matter is OpenAPI, so its domain standard and its
+  description format are the same specification — an unusual but genuine case.
+conformance:
+- id: openapi-3.0
+  name: OpenAPI Specification 3.0
+  conforms: true
+  evidence: >-
+    `openapi: 3.0.0` in api3/core/openapi.yaml and api3/global/openapi.gen.yaml; `openapi: 3.0.2`
+    in api3/common/openapi.yaml and api3/notifications/openapi.gen.yaml; `openapi: 3.0.3` in all
+    five module specs.
+  evidence_url: https://raw.githubusercontent.com/openclarity/apiclarity/master/api3/global/openapi.gen.yaml
+- id: swagger-2.0
+  name: OpenAPI (Swagger) 2.0
+  conforms: true
+  evidence: '`swagger: "2.0"` in api/swagger.yaml and plugins/api/swagger.yaml.'
+  evidence_url: https://raw.githubusercontent.com/openclarity/apiclarity/master/plugins/api/swagger.yaml
+- id: json-schema
+  name: JSON Schema (via OpenAPI Schema Object)
+  conforms: true
+  evidence: 57 component schemas in the aggregated spec; a shared 36-schema library in api3/common/openapi.yaml.
+- id: rfc9457
+  name: RFC 9457 Problem Details for HTTP APIs
+  conforms: false
+  evidence: >-
+    Errors use a bare `{message}` ApiResponse object with media type application/json, not
+    application/problem+json. See errors/apiclarity-problem-types.yml.
+- id: pagination
+  name: Documented pagination
+  conforms: true
+  evidence: >-
+    Required `page` / `pageSize` query parameters with `sortKey` / `sortDir` on GET /apiEvents
+    and GET /apiInventory. See conventions/apiclarity-conventions.yml.
+- id: idempotency
+  name: Idempotency-Key replay protection
+  conforms: false
+  evidence: No idempotency header appears in any published contract.
+- id: oauth2
+  name: OAuth 2.0
+  conforms: false
+  evidence: No oauth2 securityScheme is declared anywhere.
+- id: oidc
+  name: OpenID Connect
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on every project host.
+domain_standards:
+- id: openapi-as-domain-standard
+  name: OpenAPI Specification (as the product's domain data model)
+  conforms: true
+  rationale: >-
+    APIClarity's business objects are OpenAPI documents. The API serves and accepts them
+    directly rather than through a proprietary representation, so an integrator who already
+    speaks OpenAPI needs no connector to read what APIClarity produces.
+  evidence:
+  - 'GET /apiInventory/{apiId}/reconstructed_swagger.json — returns a reconstructed OpenAPI document'
+  - 'GET /apiInventory/{apiId}/provided_swagger.json — returns the operator-supplied OpenAPI document'
+  - 'PUT /apiInventory/{apiId}/specs/providedSpec — accepts an OpenAPI document, 400 on "Spec validation failure"'
+  - 'GET /modules/fuzzer/annotatedspec/{apiID} — returns an OpenAPI document annotated with findings'
+  - 'SpecType enum { NONE, PROVIDED, RECONSTRUCTED } in api3/common/openapi.yaml'
+  evidence_url: https://raw.githubusercontent.com/openclarity/apiclarity/master/api3/global/openapi.gen.yaml
+- id: opentelemetry
+  name: OpenTelemetry
+  conforms: true
+  rationale: >-
+    An OpenTelemetry Collector is a first-class supported traffic source, so an operator already
+    running OTel can feed APIClarity without a bespoke agent.
+  evidence: >-
+    "OpenTelemetry Collector (traces only)" listed among supported traffic source integrations,
+    with an exporter under plugins/otel-collector.
+  evidence_url: https://github.com/openclarity/apiclarity/tree/master/plugins/otel-collector
+  caveat: Traces only; the plugin ships in the same archived repository.
+- id: envoy-wasm
+  name: Envoy / Istio WebAssembly HTTP filter ABI
+  conforms: true
+  rationale: The default Istio traffic source is a WASM filter injected into the Envoy sidecar.
+  evidence: >-
+    `trafficSource.envoyWasm.enabled` in the published Helm values; the wasm-filters submodule
+    in the repository root.
+  evidence_url: https://raw.githubusercontent.com/openclarity/apiclarity/master/charts/apiclarity/values.yaml
+- id: kubernetes-helm
+  name: Helm chart packaging (Kubernetes)
+  conforms: true
+  evidence: 19 published apiVersion v2 chart versions at https://openclarity.github.io/apiclarity/index.yaml (HTTP 200).
+gateway_integrations_declared:
+- Istio service mesh (Envoy WASM filter)
+- Kong API Gateway
+- Tyk API Gateway
+- Kuma
+- Tap via a DaemonSet
+- OpenTelemetry Collector
+- 'TraceSourceType enum in the contract: APIGEE_X, F5_BIG_IP, KONG_INTERNAL, TYK_INTERNAL'
+certifications:
+  published: false
+  note: >-
+    No SOC 2, ISO 27001, PCI, HIPAA or FedRAMP claim exists. APIClarity is Apache-2.0 software a
+    user runs themselves; there is no vendor service to certify and no trust centre. No
+    `Compliance` pointer is emitted, because there is no compliance program to point at.
+licence: Apache-2.0

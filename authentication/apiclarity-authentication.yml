@@ -1,15 +1,54 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/apiclarity-openapi.yml
+generated: '2026-09-04'
+method: searched
+source: https://raw.githubusercontent.com/openclarity/apiclarity/master/plugins/api/swagger.yaml
+docs: https://github.com/openclarity/apiclarity#readme
+description: >-
+  Authentication profile for APIClarity, read from the contracts the project actually
+  publishes in its own source repository. APIClarity is Apache-2.0 software the user
+  deploys into their own Kubernetes cluster — there is no vendor-operated API, no vendor
+  account, and no vendor-issued credential. Everything below is a deployment-local
+  credential.
 summary:
   types:
-  - http
+  - apiKey
+  vendor_issued_credentials: false
+  scheme_count: 1
+correction:
+  date: '2026-09-04'
+  note: >-
+    A previous round recorded an `http`/`bearer` scheme named BearerAuth with the description
+    "deployments commonly require a bearer token". No APIClarity contract declares it —
+    api/swagger.yaml, api3/core/openapi.yaml, api3/global/openapi.gen.yaml and every module
+    spec declare zero securitySchemes. It had been written into the API Evangelist-derived
+    openapi/ documents and then read back out as if it were the provider's. It has been
+    removed from those documents and from this profile.
 schemes:
-- name: BearerAuth
-  type: http
-  scheme: bearer
-  description: APIClarity is typically deployed inside a Kubernetes cluster behind an ingress
-    that enforces authentication. When exposed externally, deployments commonly require a bearer
-    token.
-  sources:
-  - openapi/apiclarity-openapi.yml
+- name: X-Trace-Source-Token
+  type: apiKey
+  in: header
+  header: X-Trace-Source-Token
+  required: false
+  applies_to: openapi/apiclarity-plugins-telemetry-swagger.yml
+  description: >-
+    "Optional header to authenticate the trace source." Presented by a traffic-source plugin
+    (Istio WASM filter, taper DaemonSet, Kong, Tyk, Kuma, OpenTelemetry collector) on every
+    call to the plugins telemetry API — POST /telemetry, GET /hostsToTrace and
+    POST /control/newDiscoveredAPIs.
+  issuance: >-
+    The token is minted by the operator's own APIClarity deployment when a trace source is
+    registered through POST /control/traceSources; the created TraceSource object carries a
+    `token` string that the external trace source then presents.
+  source: https://raw.githubusercontent.com/openclarity/apiclarity/master/plugins/api/swagger.yaml
+  evidence: 'parameters.TraceSourceTokenHeader (name: X-Trace-Source-Token, in: header, required: false)'
+management_api:
+  declared_scheme: none
+  note: >-
+    The APIClarity core/management API (/api, and /api/modules/* for the BFLA, fuzzer,
+    spec-differ, spec-reconstructor and trace-analyzer modules) declares NO securityScheme in
+    any published contract. In the shipped Helm chart the service is cluster-internal and the
+    documented access path is `kubectl port-forward`; the chart exposes server TLS
+    (apiclarity.tls.tlsServerCertsSecretName) but no authentication layer. Any authentication
+    in front of it is the operator's ingress, not something APIClarity publishes.
+  evidence:
+  - https://raw.githubusercontent.com/openclarity/apiclarity/master/api3/global/openapi.gen.yaml
+  - https://raw.githubusercontent.com/openclarity/apiclarity/master/charts/apiclarity/values.yaml

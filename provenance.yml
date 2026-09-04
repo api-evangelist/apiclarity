@@ -6,8 +6,14 @@ artifacts:
   agentic-access/apiclarity-agentic-access.yml:
     method: generated
     evidence: declared in the artifact
+  asyncapi/apiclarity-notifications-webhooks.yml:
+    method: searched
+    evidence: declared in the artifact
   authentication/apiclarity-authentication.yml:
-    method: derived
+    method: searched
+    evidence: declared in the artifact
+  changelog/apiclarity-changelog.yml:
+    method: searched
     evidence: declared in the artifact
   collections/apiclarity-api-events-api.opencollection.json:
     method: derived
@@ -39,70 +45,22 @@ artifacts:
   collections/apiclarity.postman_collection.json:
     method: derived
     evidence: openapi/apiclarity
+  conformance/apiclarity-conformance.yml:
+    method: derived
+    evidence: declared in the artifact
+  conventions/apiclarity-conventions.yml:
+    method: derived
+    evidence: declared in the artifact
+  data-model/apiclarity-data-model.yml:
+    method: derived
+    evidence: declared in the artifact
+  errors/apiclarity-problem-types.yml:
+    method: derived
+    evidence: declared in the artifact
   finops/apiclarity-finops.yml:
     method: generated
     evidence: declared in the artifact
-  kin/checks-2026-08-28T221322.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-07-23T094130.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-07-23T182523.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-07-26T223651.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-07-27T083119.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-07-27T190208.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-07-28T115055.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-07-28T170848.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-07-28T172558.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-07-28T192327.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-07-28T200725.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-07-31T133250.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-07-31T151044.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-07-31T162206.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-07-31T202106.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-01T163141.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-01T163302.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-01T171935.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-03T113057.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-03T161012.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-04T083143.yml:
+  kin/checks-2026-09-04T062714.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-08-05T153418.yml:
@@ -189,10 +147,64 @@ artifacts:
   kin/score-2026-08-28T221322.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-08-29T213958.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-08-29T230545.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-08-30T203505.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-08-30T220315.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-08-31T223420.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-01T063623.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-01T210448.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-01T222808.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-02T211804.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-02T224043.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-03T161828.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-03T174231.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-04T062714.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  lifecycle/apiclarity-lifecycle.yml:
+    method: searched
+    evidence: declared in the artifact
+  llms/apiclarity-llms.txt:
+    method: generated
+    evidence: carries an API Evangelist house phrase
+  mcp/apiclarity-mcp.yml:
+    method: derived
+    evidence: declared in the artifact
+  openapi/_sources.yml:
+    method: searched
+    evidence: declared in the artifact
   openapi/apiclarity-api-events-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/apiclarity-api-inventory-api-openapi.yml:
+    method: unknown
+    evidence: no authorship recorded
+  openapi/apiclarity-bfla-module-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/apiclarity-control-api-openapi.yml:
@@ -201,12 +213,84 @@ artifacts:
   openapi/apiclarity-features-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
-  plans/apiclarity-plans-pricing.yml:
+  openapi/apiclarity-fuzzer-module-openapi.yml:
+    method: unknown
+    evidence: no authorship recorded
+  openapi/apiclarity-notifications-openapi.yml:
+    method: unknown
+    evidence: no authorship recorded
+  openapi/apiclarity-plugins-telemetry-swagger.yml:
+    method: unknown
+    evidence: no authorship recorded
+  openapi/apiclarity-spec-differ-module-openapi.yml:
+    method: unknown
+    evidence: no authorship recorded
+  openapi/apiclarity-spec-reconstructor-module-openapi.yml:
+    method: unknown
+    evidence: no authorship recorded
+  openapi/apiclarity-trace-analyzer-module-openapi.yml:
+    method: unknown
+    evidence: no authorship recorded
+  overlays/apiclarity-api-events-api-overlay.yaml:
     method: generated
+    evidence: declared in the artifact
+  overlays/apiclarity-api-inventory-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/apiclarity-bfla-module-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/apiclarity-control-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/apiclarity-features-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/apiclarity-fuzzer-module-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/apiclarity-notifications-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/apiclarity-plugins-telemetry-swagger-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/apiclarity-spec-differ-module-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/apiclarity-spec-reconstructor-module-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/apiclarity-trace-analyzer-module-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  packages/apiclarity-packages.yml:
+    method: searched
+    evidence: declared in the artifact
+  plans/apiclarity-plans-pricing.yml:
+    method: searched
     evidence: declared in the artifact
   rate-limits/apiclarity-rate-limits.yml:
-    method: generated
+    method: searched
+    evidence: declared in the artifact
+  sandbox/apiclarity-sandbox.yml:
+    method: searched
     evidence: declared in the artifact
   security/apiclarity-domain-security.yml:
+    method: unknown
+    evidence: no authorship recorded
+  skills/_index.yml:
+    method: generated
+    evidence: declared in the artifact
+  skills/apiclarity-hunt-shadow-and-zombie-apis.md:
+    method: generated
+    evidence: declared in the artifact
+  skills/apiclarity-reconstruct-and-approve-a-spec.md:
+    method: generated
+    evidence: declared in the artifact
+  skills/apiclarity-run-a-fuzz-test.md:
+    method: generated
+    evidence: declared in the artifact
+  well-known/apiclarity-well-known.yml:
     method: unknown
     evidence: no authorship recorded

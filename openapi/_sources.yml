@@ -1,0 +1,147 @@
+generated: '2026-09-04'
+method: searched
+source: https://github.com/openclarity/apiclarity
+description: >-
+  Provenance for the OpenAPI/Swagger documents harvested verbatim from the APIClarity
+  source repository. Verbatim specs carry no API Evangelist frontmatter of their own, so
+  their authorship is recorded here. APIClarity is Apache-2.0 software that a user deploys
+  into their own Kubernetes cluster; there is no vendor-hosted API host, so every document
+  below describes the API surface of a self-hosted APIClarity deployment.
+upstream_repository: https://github.com/openclarity/apiclarity
+upstream_branch: master
+upstream_state: archived read-only by the owner on 2026-05-29
+license: Apache-2.0
+specs:
+- file: openapi/apiclarity-bfla-module-openapi.yml
+  upstream_path: backend/pkg/modules/internal/bfla/restapi/openapi.yaml
+  url: https://raw.githubusercontent.com/openclarity/apiclarity/master/backend/pkg/modules/internal/bfla/restapi/openapi.yaml
+  http_status: 200
+  format: OpenAPI 3.0.3
+  title: APIClarity BFLA
+  served_under: /api/modules/bfla
+- file: openapi/apiclarity-fuzzer-module-openapi.yml
+  upstream_path: backend/pkg/modules/internal/fuzzer/restapi/openapi.yaml
+  url: https://raw.githubusercontent.com/openclarity/apiclarity/master/backend/pkg/modules/internal/fuzzer/restapi/openapi.yaml
+  http_status: 200
+  format: OpenAPI 3.0.3
+  title: APIClarity PluginFuzzer
+  served_under: /api/modules/fuzzer
+- file: openapi/apiclarity-spec-differ-module-openapi.yml
+  upstream_path: backend/pkg/modules/internal/spec_differ/restapi/openapi.yaml
+  url: https://raw.githubusercontent.com/openclarity/apiclarity/master/backend/pkg/modules/internal/spec_differ/restapi/openapi.yaml
+  http_status: 200
+  format: OpenAPI 3.0.3
+  title: APIClarity Differ
+  served_under: /api/modules/spec_differ
+- file: openapi/apiclarity-spec-reconstructor-module-openapi.yml
+  upstream_path: backend/pkg/modules/internal/specreconstructor/restapi/openapi.yaml
+  url: https://raw.githubusercontent.com/openclarity/apiclarity/master/backend/pkg/modules/internal/specreconstructor/restapi/openapi.yaml
+  http_status: 200
+  format: OpenAPI 3.0.3
+  title: APIClarity Spec Reconstructor Module
+  served_under: /api/modules/specreconstructor
+- file: openapi/apiclarity-trace-analyzer-module-openapi.yml
+  upstream_path: backend/pkg/modules/internal/traceanalyzer/restapi/openapi.yaml
+  url: https://raw.githubusercontent.com/openclarity/apiclarity/master/backend/pkg/modules/internal/traceanalyzer/restapi/openapi.yaml
+  http_status: 200
+  format: OpenAPI 3.0.3
+  title: APIClarity Trace Analyzer Module
+  served_under: /api/modules/traceanalyzer
+- file: openapi/apiclarity-plugins-telemetry-swagger.yml
+  upstream_path: plugins/api/swagger.yaml
+  url: https://raw.githubusercontent.com/openclarity/apiclarity/master/plugins/api/swagger.yaml
+  http_status: 200
+  format: Swagger 2.0
+  title: APIClarity Plugins telemetries API
+  served_under: /api
+  note: >-
+    The contract every traffic-source plugin (Istio WASM, taper DaemonSet, Kong, Tyk, Kuma,
+    OpenTelemetry collector) implements to push captured API traffic into APIClarity.
+- file: openapi/apiclarity-notifications-openapi.yml
+  upstream_path: api3/notifications/openapi.gen.yaml
+  url: https://raw.githubusercontent.com/openclarity/apiclarity/master/api3/notifications/openapi.gen.yaml
+  http_status: 200
+  format: OpenAPI 3.0.2
+  title: Core OAPI for APIClarity Notification
+  note: >-
+    Inverted contract — this is the API a REGISTERED LISTENER must implement, not one
+    APIClarity serves. APIClarity POSTs notifications to it. It is the project's webhook
+    surface; see asyncapi/apiclarity-notifications-webhooks.yml.
+harvested_sources_not_pointed:
+- file: openapi/_original/apiclarity-core-openapi.yml
+  upstream_path: api3/core/openapi.yaml
+  url: https://raw.githubusercontent.com/openclarity/apiclarity/master/api3/core/openapi.yaml
+  http_status: 200
+  format: OpenAPI 3.0.0
+  reason: >-
+    The APIClarity Core API (23 paths / 27 operations). Not pointed separately because the
+    four existing apis[] entries (API Events, API Inventory, Control, Features) are the
+    tag-split projection of exactly this surface; pointing at both would double-count.
+- file: openapi/_original/apiclarity-global-openapi.gen.yml
+  upstream_path: api3/global/openapi.gen.yaml
+  url: https://raw.githubusercontent.com/openclarity/apiclarity/master/api3/global/openapi.gen.yaml
+  http_status: 200
+  format: OpenAPI 3.0.0
+  reason: >-
+    Machine-generated aggregate of core + every module spec (59 paths / 65 operations),
+    produced upstream by tools/spec-aggregator. Kept as the single-document client view;
+    not pointed because its operations are already covered by the core and module entries.
+- file: openapi/_original/apiclarity-legacy-swagger.yml
+  upstream_path: api/swagger.yaml
+  url: https://raw.githubusercontent.com/openclarity/apiclarity/master/api/swagger.yaml
+  http_status: 200
+  format: Swagger 2.0
+  reason: The go-swagger 2.0 predecessor of api3/core; superseded upstream by the OpenAPI 3 core spec.
+- file: openapi/_original/apiclarity-common-schemas-openapi.yml
+  upstream_path: api3/common/openapi.yaml
+  url: https://raw.githubusercontent.com/openclarity/apiclarity/master/api3/common/openapi.yaml
+  http_status: 200
+  format: OpenAPI 3.0.2
+  reason: >-
+    Shared component library (36 schemas, zero paths) that core and module specs reference.
+    Not an API surface of its own.
+base_url_decision:
+  date: '2026-09-04'
+  verdict: templated
+  value_used: https://apiclarity-server/api (and /api/modules/{module} per module)
+  rationale: >-
+    APIClarity's published specs declare a relative server (`servers: [{url: /api}]`), and
+    repair-api-bases.py reports every candidate as non-routable (http://localhost:8080/api). There
+    is no vendor host to substitute and none was invented. The host token `apiclarity-server` is
+    the project's OWN placeholder, written in api3/README.md: "if API Clarity Core API is served
+    under https://apiclarity-server/api/ then the module 'example' will have its APIs exposed
+    under https://apiclarity-server/api/modules/example/".
+  evidence:
+    url: https://raw.githubusercontent.com/openclarity/apiclarity/master/api3/README.md
+    status: 200
+  not_applied_to: >-
+    apiclarity:apiclarity-notifications-api — that contract is inverted; the base belongs to the
+    operator's own listener, not to APIClarity. Left absent deliberately.
+  servers_blocks_untouched: true
+derived_document_corrections:
+  note: >-
+    openapi/apiclarity-*-openapi.yml for the API Events, API Inventory, Control and Features
+    entries are API Evangelist-derived documents (a tag-split of a converted legacy Swagger 2.0),
+    not verbatim provider files. Two defects in them were corrected on 2026-09-04.
+  corrections:
+  - date: '2026-09-04'
+    defect: fabricated securityScheme
+    detail: >-
+      All four documents, and openapi/_original/apiclarity-openapi.yml, defined a `BearerAuth`
+      http/bearer securityScheme described as "APIClarity is typically deployed inside a
+      Kubernetes cluster behind an ingress that enforces authentication. When exposed externally,
+      deployments commonly require a bearer token." No APIClarity contract declares any
+      securityScheme — api/swagger.yaml, api3/core/openapi.yaml, api3/global/openapi.gen.yaml and
+      all five module specs declare zero. The scheme was written by an earlier round, was never
+      applied by any `security:` block, and was then read back out into
+      authentication/apiclarity-authentication.yml as though it were the provider's. Removed from
+      all five documents and from the authentication profile.
+  - date: '2026-09-04'
+    defect: dangling $ref
+    detail: >-
+      Four operations across the Control and API Inventory documents referenced
+      `#/responses/Success` as a schema — a Swagger-2.0-to-OpenAPI-3 conversion artifact,
+      already flagged as an error in openapi/.refine-report.json. Repointed at a
+      `#/components/schemas/SuccessResponse` object carrying the upstream description and its
+      single `message` string, matching definitions.SuccessResponse in api/swagger.yaml. All
+      eleven documents in openapi/ now resolve every internal $ref.

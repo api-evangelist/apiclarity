@@ -1,0 +1,122 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://openclarity.github.io/apiclarity/index.yaml, https://proxy.golang.org, https://ghcr.io/v2/openclarity/apiclarity/tags/list
+description: >-
+  First-party distributions of APIClarity. APIClarity is server software rather than a hosted
+  API, so its "packages" are Helm charts, container images and the Go modules that carry its
+  generated API clients. Every version and date below was read from the registry's own
+  metadata endpoint on 2026-09-04. Nothing here has shipped since 2023-05-05; the source
+  repository was archived read-only by its owner on 2026-05-29.
+registries_checked:
+- registry: helm
+  url: https://openclarity.github.io/apiclarity/index.yaml
+  status: 200
+- registry: go
+  url: https://proxy.golang.org
+  status: 200
+- registry: ghcr
+  url: https://ghcr.io/v2/openclarity/apiclarity/tags/list
+  status: 200
+- registry: npm
+  status: absent
+  note: No first-party npm package. The APIClarity UI is a private React app inside the repo, not published.
+- registry: pypi
+  status: absent
+- registry: crates.io
+  status: absent
+- registry: rubygems
+  status: absent
+- registry: maven
+  status: absent
+- registry: nuget
+  status: absent
+packages:
+- name: apiclarity
+  kind: helm-chart
+  registry: helm
+  registry_url: https://openclarity.github.io/apiclarity
+  install: helm repo add apiclarity https://openclarity.github.io/apiclarity && helm install apiclarity apiclarity/apiclarity -n apiclarity --create-namespace
+  official: true
+  version: v0.14.5
+  published: '2023-05-05'
+  app_version: v0.14.5
+  chart_versions_published: 19
+  source: https://openclarity.github.io/apiclarity/index.yaml
+  note: The documented install path for APIClarity. 19 chart versions published; the newest is v0.14.5.
+- name: kuma-plugin
+  kind: helm-chart
+  registry: helm
+  registry_url: https://openclarity.github.io/apiclarity
+  official: true
+  version: v0.14.5
+  published: '2023-05-05'
+  chart_versions_published: 6
+  source: https://openclarity.github.io/apiclarity/index.yaml
+  note: Configures Kuma dataplanes to send traces to APIClarity.
+- name: github.com/openclarity/apiclarity
+  kind: go-module
+  registry: go
+  official: true
+  version: v0.14.5
+  published: '2023-05-05'
+  source: https://proxy.golang.org/github.com/openclarity/apiclarity/@latest
+  note: The APIClarity backend module itself. Consumed as source, not as a client library.
+- name: github.com/openclarity/apiclarity/plugins/api
+  kind: go-module
+  registry: go
+  official: true
+  role: client-library
+  version: v0.0.0-20240823135805-37aa37506260
+  published: '2024-08-23'
+  source: https://proxy.golang.org/github.com/openclarity/apiclarity/plugins/api/@latest
+  note: >-
+    Generated Go client + models for the plugins telemetry API. This is the closest thing
+    APIClarity publishes to an SDK — every traffic-source plugin imports it to push captured
+    traffic into an APIClarity deployment. Untagged pseudo-version only; no semver release.
+- name: github.com/openclarity/apiclarity/api3
+  kind: go-module
+  registry: go
+  official: true
+  role: client-library
+  version: v0.0.0-20240823135805-37aa37506260
+  published: '2024-08-23'
+  source: https://proxy.golang.org/github.com/openclarity/apiclarity/api3/@latest
+  note: >-
+    Generated oapi-codegen client and server bindings for the core, global, notification and
+    common specifications. Untagged pseudo-version only.
+- name: github.com/openclarity/apiclarity/plugins/common
+  kind: go-module
+  registry: go
+  official: true
+  role: client-library
+  version: v0.0.0-20240823135805-37aa37506260
+  published: '2024-08-23'
+  source: https://proxy.golang.org/github.com/openclarity/apiclarity/plugins/common/@latest
+- name: ghcr.io/openclarity/apiclarity
+  kind: container-image
+  registry: ghcr
+  official: true
+  version: v0.14.5
+  published: '2023-05-05'
+  published_source: >-
+    Date taken from the matching v0.14.5 git tag / Helm chart entry; the anonymous ghcr tags
+    endpoint returns tag names without timestamps.
+  tags_published: 24
+  source: https://ghcr.io/v2/openclarity/apiclarity/tags/list
+  note: Runtime image referenced by the Helm chart. `latest` is also published and floats.
+sdk_summary:
+  official_client_libraries: 3
+  languages:
+  - Go
+  note: >-
+    Go only, and all three are generated bindings published as untagged pseudo-versions rather
+    than as a released, versioned SDK. There is no JavaScript, Python, Java or .NET client.
+decay_signal:
+  latest_release: v0.14.5
+  latest_release_date: '2023-05-05'
+  last_module_publish: '2024-08-23'
+  repository_archived: '2026-05-29'
+  finding: >-
+    Every first-party distribution predates the archive by years. A consumer adopting
+    APIClarity today is adopting a package line that stopped moving in 2023.

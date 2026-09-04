@@ -1,0 +1,106 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  openapi/_original/apiclarity-global-openapi.gen.yml, openapi/_original/apiclarity-common-schemas-openapi.yml
+description: >-
+  Error catalog for the APIClarity HTTP API, derived from the 4xx/5xx and `default` responses
+  declared across the aggregated core + module specification (59 paths, 65 operations). There
+  is no published error reference to enrich this from — the documentation site is gone and no
+  error-code registry was ever committed to the repository — so this is what the contract
+  itself states and nothing more.
+format: bare-json
+format_note: >-
+  Not RFC 9457. Every error body is the shared `ApiResponse` schema — "An object that is
+  returned in all cases of failures" — with a single required `message` string and no media
+  type of application/problem+json. There is no machine-readable error code, no type URI, and
+  no field-level detail: a client can only read prose.
+envelope:
+  schema: ApiResponse
+  media_type: application/json
+  fields:
+  - name: message
+    type: string
+    required: true
+  source: openapi/_original/apiclarity-common-schemas-openapi.yml
+coverage:
+  operations_total: 65
+  operations_with_typed_4xx_or_5xx: 12
+  operations_with_only_a_default_catch_all: 48
+  operations_with_no_error_response_at_all: 5
+  finding: >-
+    74% of operations declare only a `default` response bound to the shared UnknownError. An
+    agent cannot tell a validation failure from a missing resource from a server fault without
+    reading the message string.
+problem_types:
+- status: 400
+  title: Spec validation failure
+  operations:
+  - PUT /apiInventory/{apiId}/specs/providedSpec
+  meaning: The supplied OpenAPI document failed APIClarity's validation and was not stored.
+  remediation: Validate the document against the OpenAPI schema before uploading.
+  body: ApiResponse
+- status: 400
+  title: Status Bad Request
+  operations:
+  - POST /modules/fuzzer/fuzz/{apiID}/start
+  meaning: The fuzz-test start request was rejected as malformed.
+  remediation: Check the request body against the fuzzer module contract.
+  body: ApiResponse
+- status: 404
+  title: API ID Not Found
+  operations:
+  - GET /apiInventory/apiId/fromHostAndPort
+  - GET /apiInventory/apiId/fromHostAndPortAndTraceSourceID
+  meaning: No API in the inventory matches the supplied host/port (and trace source).
+  remediation: The API has not been observed yet; generate traffic or widen the lookup.
+  body: ApiResponse
+- status: 404
+  title: Trace Source not found
+  operations:
+  - GET /control/traceSources/{traceSourceId}
+  - DELETE /control/traceSources/{traceSourceId}
+  meaning: No trace source is registered under that identifier.
+  remediation: List registered sources with GET /control/traceSources.
+  body: ApiResponse
+- status: 404
+  title: Spec not found
+  operations:
+  - GET /modules/fuzzer/annotatedspec/{apiID}
+  meaning: The fuzzer has no annotated specification for that API.
+  remediation: Provide or reconstruct a specification for the API before fuzzing it.
+  body: ApiResponse
+- status: 404
+  title: Service not found
+  operations:
+  - GET /modules/fuzzer/fuzz/{apiID}/progress
+  - GET /modules/fuzzer/fuzz/{apiID}/report
+  - POST /modules/fuzzer/fuzz/{apiID}/stop
+  meaning: No fuzz test is running or recorded for that API.
+  remediation: Start a test with POST /modules/fuzzer/fuzz/{apiID}/start first.
+  body: ApiResponse
+- status: 500
+  title: Internal Error
+  operations:
+  - GET /modules/fuzzer/fuzz/{apiID}/progress
+  - GET /modules/fuzzer/fuzz/{apiID}/report
+  - POST /modules/fuzzer/fuzz/{apiID}/start
+  - POST /modules/fuzzer/fuzz/{apiID}/stop
+  meaning: The fuzzer module failed while handling the request.
+  remediation: Inspect APIClarity backend logs in the cluster; retry.
+  body: ApiResponse
+- status: default
+  title: unknown error
+  operations: 48 operations across the core, BFLA, trace-analyzer, spec-differ and spec-reconstructor surfaces
+  meaning: >-
+    The shared UnknownError response. Any non-2xx outcome not enumerated above arrives here
+    with whatever HTTP status the server chose and an ApiResponse body.
+  remediation: Read `message`. There is no code to switch on.
+  body: ApiResponse
+gaps_to_report_upstream:
+- No RFC 9457 / problem+json representation.
+- No stable machine-readable error code anywhere in the envelope.
+- No 401/403 responses declared anywhere, which is consistent with the API declaring no securityScheme.
+- No 429 declared; there is no rate limiting.
+upstream_note: >-
+  These gaps cannot be filed: github.com/openclarity/apiclarity was archived read-only on
+  2026-05-29.

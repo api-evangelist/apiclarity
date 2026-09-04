@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: APIClarity API Events API Inventory API
   description: APIClarity is an open source API security and observability tool that analyzes API traffic to reconstruct OpenAPI specifications, detect shadow and zombie APIs, identify API differences and changes, and provide API security alerts. This is the REST API exposed by an APIClarity deployment.
@@ -182,7 +182,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/responses/Success'
+                $ref: '#/components/schemas/SuccessResponse'
         default:
           description: Response
   /apiInventory/{apiId}/specs/reconstructedSpec:
@@ -198,7 +198,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/responses/Success'
+                $ref: '#/components/schemas/SuccessResponse'
         default:
           description: Response
   /apiInventory/{apiId}/reconstructed_swagger.json:
@@ -383,75 +383,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/responses/Success'
+                $ref: '#/components/schemas/SuccessResponse'
         default:
           description: Response
 components:
   schemas:
-    SpecTag:
+    SpecDiffTime:
       type: object
       properties:
-        description:
-          type: string
-        name:
-          type: string
-        methodAndPathList:
-          type: array
-          items:
-            $ref: '#/components/schemas/MethodAndPath'
-    ApiCount:
-      type: object
-      properties:
-        apiInfoId:
+        apiEventId:
           type: integer
-          description: hold the relevant api info id
           format: uint32
-        apiType:
-          $ref: '#/components/schemas/ApiType'
-        numCalls:
-          type: integer
+        time:
+          type: string
+          format: date-time
         apiHostName:
           type: string
-        apiPort:
-          type: integer
-    SpecInfo:
-      description: An object containing info about a spec
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/SpecTag'
-    ApiUsage:
-      type: object
-      properties:
-        numOfCalls:
-          type: integer
-          x-omitempty: false
-        time:
-          type: string
-          format: date-time
-    HitCount:
-      type: object
-      properties:
-        count:
-          type: integer
-          format: int64
-          x-omitempty: false
-        time:
-          type: string
-          format: date-time
-    ReviewPathItem:
-      type: object
-      properties:
-        suggestedPath:
-          description: Represents the parameterized path suggested by the engine
-          type: string
-        apiEventsPaths:
-          description: Group of api event paths (original) that suggestedPath is representing
-          type: array
-          items:
-            $ref: '#/components/schemas/ApiEventPathAndMethods'
+        diffType:
+          $ref: '#/components/schemas/DiffType'
     ApiUsages:
       type: object
       properties:
@@ -467,6 +416,63 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ApiUsage'
+    ApiUsage:
+      type: object
+      properties:
+        numOfCalls:
+          type: integer
+          x-omitempty: false
+        time:
+          type: string
+          format: date-time
+    ApiType:
+      type: string
+      enum:
+      - INTERNAL
+      - EXTERNAL
+    SpecInfo:
+      description: An object containing info about a spec
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpecTag'
+    HttpMethod:
+      type: string
+      enum:
+      - GET
+      - HEAD
+      - POST
+      - PUT
+      - DELETE
+      - CONNECT
+      - OPTIONS
+      - TRACE
+      - PATCH
+    SpecTag:
+      type: object
+      properties:
+        description:
+          type: string
+        name:
+          type: string
+        methodAndPathList:
+          type: array
+          items:
+            $ref: '#/components/schemas/MethodAndPath'
+    ApiResponse:
+      description: An object that is return in all cases of failures.
+      type: object
+      properties:
+        message:
+          type: string
+    SuccessResponse:
+      type: object
+      description: 'An object that is return in cases of success that return nothing.'
+      properties:
+        message:
+          type: string
     DiffType:
       type: string
       default: NO_DIFF
@@ -475,25 +481,32 @@ components:
       - SHADOW_DIFF
       - GENERAL_DIFF
       - NO_DIFF
-    ApiResponse:
-      description: An object that is return in all cases of failures.
+    ApiCount:
       type: object
       properties:
-        message:
-          type: string
-    SpecDiffTime:
-      type: object
-      properties:
-        apiEventId:
+        apiInfoId:
           type: integer
+          description: hold the relevant api info id
           format: uint32
-        time:
-          type: string
-          format: date-time
+        apiType:
+          $ref: '#/components/schemas/ApiType'
+        numCalls:
+          type: integer
         apiHostName:
           type: string
-        diffType:
-          $ref: '#/components/schemas/DiffType'
+        apiPort:
+          type: integer
+    ReviewPathItem:
+      type: object
+      properties:
+        suggestedPath:
+          description: Represents the parameterized path suggested by the engine
+          type: string
+        apiEventsPaths:
+          description: Group of api event paths (original) that suggestedPath is representing
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiEventPathAndMethods'
     ApiEventPathAndMethods:
       type: object
       properties:
@@ -513,18 +526,6 @@ components:
         createdAt:
           type: string
           format: date-time
-    HttpMethod:
-      type: string
-      enum:
-      - GET
-      - HEAD
-      - POST
-      - PUT
-      - DELETE
-      - CONNECT
-      - OPTIONS
-      - TRACE
-      - PATCH
     ApiInfoWithType:
       type: object
       allOf:
@@ -532,19 +533,6 @@ components:
       - properties:
           apiType:
             $ref: '#/components/schemas/ApiType'
-    ApprovedReview:
-      type: object
-      properties:
-        oasVersion:
-          description: OpenAPI specification version to use when saving the approved spec
-          type: string
-          enum:
-          - OASv2.0
-          - OASv3.0
-        reviewPathItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReviewPathItem'
     OpenApiSpecs:
       description: An object representing the provided and reconstructed API specs
       type: object
@@ -563,6 +551,29 @@ components:
           format: uuid
         method:
           $ref: '#/components/schemas/HttpMethod'
+    HitCount:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
+          x-omitempty: false
+        time:
+          type: string
+          format: date-time
+    ApprovedReview:
+      type: object
+      properties:
+        oasVersion:
+          description: OpenAPI specification version to use when saving the approved spec
+          type: string
+          enum:
+          - OASv2.0
+          - OASv3.0
+        reviewPathItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewPathItem'
     SuggestedReview:
       type: object
       properties:
@@ -603,107 +614,7 @@ components:
         traceSourceType:
           description: Trace source type
           type: string
-    ApiType:
-      type: string
-      enum:
-      - INTERNAL
-      - EXTERNAL
   parameters:
-    statusCodeLteFilter:
-      name: statusCode[lte]
-      in: query
-      required: false
-      description: less than or equal
-      schema:
-        type: string
-    specContainsFilter:
-      name: spec[contains]
-      in: query
-      required: false
-      schema:
-        type: array
-        items:
-          type: string
-    specIsNotFilter:
-      name: spec[isNot]
-      in: query
-      required: false
-      schema:
-        type: array
-        items:
-          type: string
-    pathEndsWithFilter:
-      name: path[end]
-      in: query
-      required: false
-      schema:
-        type: string
-    startTime:
-      name: startTime
-      in: query
-      required: true
-      description: Start time of the query
-      schema:
-        type: string
-        format: date-time
-    statusCodeGteFilter:
-      name: statusCode[gte]
-      in: query
-      required: false
-      description: greater than or equal
-      schema:
-        type: string
-    pathIsFilter:
-      name: path[is]
-      in: query
-      required: false
-      schema:
-        type: array
-        items:
-          type: string
-    reviewId:
-      name: reviewId
-      in: path
-      required: true
-      schema:
-        type: integer
-        format: uint32
-    apiIdFilter:
-      name: apiId
-      in: query
-      required: false
-      description: api id to return
-      schema:
-        type: string
-    traceSourceIdQuery:
-      name: traceSourceId
-      in: query
-      required: true
-      description: Trace Source ID
-      schema:
-        type: string
-        format: uuid
-    showNonApi:
-      name: showNonApi
-      in: query
-      required: true
-      schema:
-        type: boolean
-    pageSize:
-      name: pageSize
-      in: query
-      required: true
-      description: Maximum items to return
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 50
-    apiNameStartsWithFilter:
-      name: name[start]
-      in: query
-      required: false
-      schema:
-        type: string
     providedPathIDIsFilter:
       name: providedPathID[is]
       in: query
@@ -712,21 +623,19 @@ components:
         type: array
         items:
           type: string
-    apiType:
-      name: type
+    pathIsFilter:
+      name: path[is]
       in: query
-      required: true
-      description: API type [INTERNAL or EXTERNAL]
+      required: false
       schema:
-        type: string
-        enum:
-        - INTERNAL
-        - EXTERNAL
-    host:
-      name: host
+        type: array
+        items:
+          type: string
+    port:
+      name: port
       in: query
       required: true
-      description: api host name
+      description: api port
       schema:
         type: string
     destinationIPIsFilter:
@@ -737,27 +646,39 @@ components:
         type: array
         items:
           type: string
-    apiInventorySortKey:
-      name: sortKey
+    pathIsNotFilter:
+      name: path[isNot]
       in: query
-      required: true
-      description: Sort key
+      required: false
       schema:
-        type: string
-        enum:
-        - name
-        - port
-        - hasReconstructedSpec
-        - hasProvidedSpec
-    page:
-      name: page
+        type: array
+        items:
+          type: string
+    portIsFilter:
+      name: port[is]
       in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    apiId:
+      name: apiId
+      in: path
       required: true
-      description: Page number of the query
       schema:
         type: integer
-    pathContainsFilter:
-      name: path[contains]
+        format: uint32
+    apiNameIsNotFilter:
+      name: name[isNot]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    specContainsFilter:
+      name: spec[contains]
       in: query
       required: false
       schema:
@@ -775,12 +696,58 @@ components:
         - ASC
         - DESC
         default: ASC
+    apiNameEndsWithFilter:
+      name: name[end]
+      in: query
+      required: false
+      schema:
+        type: string
+    apiNameStartsWithFilter:
+      name: name[start]
+      in: query
+      required: false
+      schema:
+        type: string
+    pathContainsFilter:
+      name: path[contains]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
     specStartsWithFilter:
       name: spec[start]
       in: query
       required: false
       schema:
         type: string
+    apiInventorySortKey:
+      name: sortKey
+      in: query
+      required: true
+      description: Sort key
+      schema:
+        type: string
+        enum:
+        - name
+        - port
+        - hasReconstructedSpec
+        - hasProvidedSpec
+    statusCodeGteFilter:
+      name: statusCode[gte]
+      in: query
+      required: false
+      description: greater than or equal
+      schema:
+        type: string
+    reviewId:
+      name: reviewId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: uint32
     statusCodeIsFilter:
       name: statusCode[is]
       in: query
@@ -789,14 +756,8 @@ components:
         type: array
         items:
           type: string
-    pathStartsWithFilter:
-      name: path[start]
-      in: query
-      required: false
-      schema:
-        type: string
-    sourceIPIsFilter:
-      name: sourceIP[is]
+    sourceIPIsNotFilter:
+      name: sourceIP[isNot]
       in: query
       required: false
       schema:
@@ -809,28 +770,6 @@ components:
       required: false
       schema:
         type: string
-    portIsFilter:
-      name: port[is]
-      in: query
-      required: false
-      schema:
-        type: array
-        items:
-          type: string
-    destinationPortIsFilter:
-      name: destinationPort[is]
-      in: query
-      required: false
-      schema:
-        type: array
-        items:
-          type: string
-    apiNameEndsWithFilter:
-      name: name[end]
-      in: query
-      required: false
-      schema:
-        type: string
     specIsFilter:
       name: spec[is]
       in: query
@@ -839,35 +778,12 @@ components:
         type: array
         items:
           type: string
-    reconstructedPathIDIsFilter:
-      name: reconstructedPathID[is]
-      in: query
-      required: false
-      schema:
-        type: array
-        items:
-          type: string
-    hasProvidedSpecFilter:
-      name: hasProvidedSpec[is]
+    hasReconstructedSpecFilter:
+      name: hasReconstructedSpec[is]
       in: query
       required: false
       schema:
         type: boolean
-    sourceIPIsNotFilter:
-      name: sourceIP[isNot]
-      in: query
-      required: false
-      schema:
-        type: array
-        items:
-          type: string
-    port:
-      name: port
-      in: query
-      required: true
-      description: api port
-      schema:
-        type: string
     portIsNotFilter:
       name: port[isNot]
       in: query
@@ -876,8 +792,47 @@ components:
         type: array
         items:
           type: string
-    apiNameIsFilter:
-      name: name[is]
+    pathEndsWithFilter:
+      name: path[end]
+      in: query
+      required: false
+      schema:
+        type: string
+    statusCodeIsNotFilter:
+      name: statusCode[isNot]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    statusCodeLteFilter:
+      name: statusCode[lte]
+      in: query
+      required: false
+      description: less than or equal
+      schema:
+        type: string
+    methodIsFilter:
+      name: method[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - DELETE
+          - CONNECT
+          - OPTIONS
+          - TRACE
+          - PATCH
+    destinationIPIsNotFilter:
+      name: destinationIP[isNot]
       in: query
       required: false
       schema:
@@ -897,15 +852,60 @@ components:
           - SHADOW_DIFF
           - GENERAL_DIFF
           - NO_DIFF
-    apiId:
-      name: apiId
-      in: path
+    host:
+      name: host
+      in: query
+      required: true
+      description: api host name
+      schema:
+        type: string
+    apiType:
+      name: type
+      in: query
+      required: true
+      description: API type [INTERNAL or EXTERNAL]
+      schema:
+        type: string
+        enum:
+        - INTERNAL
+        - EXTERNAL
+    showNonApi:
+      name: showNonApi
+      in: query
       required: true
       schema:
+        type: boolean
+    startTime:
+      name: startTime
+      in: query
+      required: true
+      description: Start time of the query
+      schema:
+        type: string
+        format: date-time
+    page:
+      name: page
+      in: query
+      required: true
+      description: Page number of the query
+      schema:
         type: integer
-        format: uint32
-    pathIsNotFilter:
-      name: path[isNot]
+    reconstructedPathIDIsFilter:
+      name: reconstructedPathID[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    hasSpecDiffFilter:
+      name: hasSpecDiff[is]
+      in: query
+      required: false
+      schema:
+        type: boolean
+    apiNameContainsFilter:
+      name: name[contains]
       in: query
       required: false
       schema:
@@ -920,16 +920,25 @@ components:
       schema:
         type: string
         format: date-time
-    destinationIPIsNotFilter:
-      name: destinationIP[isNot]
+    pageSize:
+      name: pageSize
+      in: query
+      required: true
+      description: Maximum items to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+    specIsNotFilter:
+      name: spec[isNot]
       in: query
       required: false
       schema:
         type: array
         items:
           type: string
-    apiNameIsNotFilter:
-      name: name[isNot]
+    sourceIPIsFilter:
+      name: sourceIP[is]
       in: query
       required: false
       schema:
@@ -944,54 +953,46 @@ components:
         type: array
         items:
           type: string
-    statusCodeIsNotFilter:
-      name: statusCode[isNot]
+    pathStartsWithFilter:
+      name: path[start]
       in: query
       required: false
       schema:
-        type: array
-        items:
-          type: string
-    apiNameContainsFilter:
-      name: name[contains]
-      in: query
-      required: false
-      schema:
-        type: array
-        items:
-          type: string
-    methodIsFilter:
-      name: method[is]
-      in: query
-      required: false
-      schema:
-        type: array
-        items:
-          type: string
-          enum:
-          - GET
-          - HEAD
-          - POST
-          - PUT
-          - DELETE
-          - CONNECT
-          - OPTIONS
-          - TRACE
-          - PATCH
-    hasReconstructedSpecFilter:
-      name: hasReconstructedSpec[is]
+        type: string
+    hasProvidedSpecFilter:
+      name: hasProvidedSpec[is]
       in: query
       required: false
       schema:
         type: boolean
-    hasSpecDiffFilter:
-      name: hasSpecDiff[is]
+    apiIdFilter:
+      name: apiId
+      in: query
+      required: false
+      description: api id to return
+      schema:
+        type: string
+    destinationPortIsFilter:
+      name: destinationPort[is]
       in: query
       required: false
       schema:
-        type: boolean
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      description: APIClarity is typically deployed inside a Kubernetes cluster behind an ingress that enforces authentication. When exposed externally, deployments commonly require a bearer token.
+        type: array
+        items:
+          type: string
+    traceSourceIdQuery:
+      name: traceSourceId
+      in: query
+      required: true
+      description: Trace Source ID
+      schema:
+        type: string
+        format: uuid
+    apiNameIsFilter:
+      name: name[is]
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string

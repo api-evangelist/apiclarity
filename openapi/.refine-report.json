@@ -18,6 +18,12 @@
     "apiclarity-control-api-openapi.yml: dangling $ref: #/responses/Success"
   ],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "apiclarity-api-events-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apiclarity-api-inventory-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apiclarity-control-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apiclarity-features-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

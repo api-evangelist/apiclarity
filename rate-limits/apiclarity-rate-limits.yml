@@ -3,95 +3,45 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
 provider: APIClarity
 providerId: apiclarity
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://raw.githubusercontent.com/openclarity/apiclarity/master/api3/global/openapi.gen.yaml,
+  https://github.com/openclarity/apiclarity#readme
+modified: '2026-09-04'
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - API Observability
-  - API Security
-  - API Traffic Analysis
-  - Cisco
-  - Kubernetes
-  - Open Source
-  - OpenAPI Reconstruction
-  - OpenClarity
-  - Service Mesh
-  - Shadow APIs
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the APIClarity API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
-responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
-limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - APIClarity API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - APIClarity API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - APIClarity API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - APIClarity API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - APIClarity API
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+description: >-
+  APIClarity publishes no rate limits, and implements none. It is a single-tenant control plane
+  you run in your own cluster — there is no vendor quota to exceed and no shared capacity to
+  protect. No operation declares a 429, no response header carries a limit, and no documentation
+  describes throttling.
+limit_count: 0
+limits: []
+headers: {}
+headers_note: >-
+  No X-RateLimit-*, no RateLimit-*, no Retry-After. Verified against all 65 operations in the
+  aggregated specification and against every module contract.
+status_on_exhaustion: null
+status_on_exhaustion_note: No 429 response is declared anywhere in any APIClarity contract.
+evidence:
+- url: https://raw.githubusercontent.com/openclarity/apiclarity/master/api3/global/openapi.gen.yaml
+  status: 200
+  finding: 65 operations; zero declare a 429 and zero declare a rate-limit response header.
+- url: https://github.com/openclarity/apiclarity#readme
+  status: 200
+  finding: No throttling, quota or fair-use section.
+related_capacity_controls:
+  note: >-
+    APIClarity does expose ingest-side controls, which are capacity settings on your own
+    deployment rather than API rate limits. They are recorded here so the distinction is not
+    lost — trace sampling is configurable, and release v0.14.4 fixed "trace enablement handling
+    when sampling is disabled" and "limit application for annotation events". These govern how
+    much traffic the deployment ingests, not how often a client may call it.
+correction:
+  date: '2026-09-04'
+  note: >-
+    This file previously declared X-RateLimit-Limit / X-RateLimit-Remaining / Retry-After
+    headers, three invented per-tier limits (100 req/min free, 100,000 req/month professional,
+    1,000 req/min enterprise with a 5,000 burst) and four invented policies including a fair-use
+    clause and a UTC monthly quota reset. None of it existed; it came from a 2026-05-04 bulk
+    sweep marked `method: generated`. Replaced with the measured zero.

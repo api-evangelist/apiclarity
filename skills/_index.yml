@@ -1,0 +1,35 @@
+generated: '2026-09-04'
+method: generated
+source: openapi/_original/apiclarity-global-openapi.gen.yml
+description: >-
+  Packaged Agent Skills for APIClarity, one per marquee flow. Every operation and operationId
+  named in these skills was read from APIClarity's own aggregated OpenAPI document; none is
+  invented. APIClarity publishes no skills or AGENTS.md of its own (repository probed
+  2026-09-04: 404 on AGENTS.md, no skills/ directory).
+provider: APIClarity
+provider_id: apiclarity
+skills:
+- name: apiclarity-reconstruct-and-approve-a-spec
+  file: skills/apiclarity-reconstruct-and-approve-a-spec.md
+  summary: Turn observed traffic into an approved OpenAPI specification, including the human review gate.
+  api: APIClarity Core API
+  operations: 7
+  risk: medium — approval is irreversible
+- name: apiclarity-hunt-shadow-and-zombie-apis
+  file: skills/apiclarity-hunt-shadow-and-zombie-apis.md
+  summary: Find undocumented and deprecated-but-live endpoints by diffing traffic against the spec.
+  api: APIClarity Core API + Spec Differ module
+  operations: 8
+  risk: low — read-mostly
+- name: apiclarity-run-a-fuzz-test
+  file: skills/apiclarity-run-a-fuzz-test.md
+  summary: Actively fuzz an API against its specification and read the findings.
+  api: APIClarity Fuzzer module
+  operations: 8
+  risk: high — sends real traffic at a live service; human approval required, no dry-run, no idempotency
+grounding:
+  operation_ids_verified_against: openapi/_original/apiclarity-global-openapi.gen.yml
+  invented_operations: 0
+caveat: >-
+  APIClarity was archived read-only on 2026-05-29 and last released v0.14.5 on 2023-05-05. These
+  skills describe a real, published, unmaintained API.

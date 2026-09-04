@@ -1,0 +1,68 @@
+generated: '2026-09-04'
+method: searched
+source: https://github.com/openclarity/apiclarity#readme
+docs: https://github.com/openclarity/apiclarity#running-locally-with-demo-data
+description: >-
+  APIClarity has no vendor sandbox — there is no hosted service and no test/live key pair,
+  because the software runs entirely in the operator's own cluster. What it does publish is a
+  documented offline mode with committed trace fixtures, plus a named demo application to
+  generate traffic against. Both are real, both are in the README, and both are what a
+  first-time evaluator actually uses.
+model:
+  test_vs_live_keys: false
+  key_prefixes: none
+  hosted_sandbox: false
+  offline_mode: true
+offline_mode:
+  name: Local run with fake traces
+  description: >-
+    Runs the backend and UI against committed trace files instead of live cluster traffic, with
+    no Kubernetes required.
+  invocation: >-
+    DATABASE_DRIVER=LOCAL K8S_LOCAL=true FAKE_TRACES=true FAKE_TRACES_PATH=./backend/pkg/test/trace_files
+    ENABLE_DB_INFO_LOGS=true ./backend/bin/backend run
+  environment_variables:
+  - name: FAKE_TRACES
+    value: 'true'
+    purpose: Replays fixture traces instead of receiving live telemetry.
+  - name: FAKE_TRACES_PATH
+    value: ./backend/pkg/test/trace_files
+    purpose: Directory of committed trace fixtures shipped in the repository.
+  - name: DATABASE_DRIVER
+    value: LOCAL
+    purpose: Uses a local file database (db.db) instead of PostgreSQL.
+  - name: K8S_LOCAL
+    value: 'true'
+    purpose: Requires a KUBECONFIG in the environment; use ENABLE_K8S=false to run with no cluster at all.
+  - name: ENABLE_K8S
+    value: 'false'
+    purpose: Runs with no Kubernetes dependency.
+  reset_instructions: 'rm state.gob; rm db.db'
+  ui: http://localhost:8080/
+  source: https://github.com/openclarity/apiclarity#running-locally-with-demo-data
+fixtures:
+  location: backend/pkg/test/trace_files
+  repository: https://github.com/openclarity/apiclarity/tree/master/backend/pkg/test/trace_files
+  kind: recorded API traffic traces
+  note: Committed to the repository; they are the input APIClarity's spec reconstruction runs against.
+demo_application:
+  name: Sock Shop Demo
+  url: https://microservices-demo.github.io/
+  purpose: The README's recommended workload for generating traffic to observe.
+  setup:
+  - kubectl create namespace sock-shop
+  - kubectl label namespaces sock-shop istio-injection=enabled
+  - kubectl apply -f https://raw.githubusercontent.com/microservices-demo/microservices-demo/master/deploy/kubernetes/complete-demo.yaml
+  - helm install --set 'trafficSource.envoyWasm.enabled=true' --set 'trafficSource.envoyWasm.namespaces={sock-shop}' --create-namespace apiclarity apiclarity/apiclarity -n apiclarity
+  - kubectl port-forward -n sock-shop svc/front-end 7777:80
+  note: Third-party application, not an APIClarity artifact. Cited because the README names it as the demo path.
+console:
+  name: APIClarity UI
+  access: kubectl port-forward -n apiclarity svc/apiclarity-apiclarity 9999:8080, then http://localhost:9999/
+  hosted: false
+  note: A React UI bundled into the deployment. Local only; there is no hosted console to sign in to.
+test_clocks: false
+trigger_tooling: false
+caveat: >-
+  Everything above is verified against the repository as it stands, but the repository was
+  archived read-only on 2026-05-29 and the last release was v0.14.5 (2023-05-05).
