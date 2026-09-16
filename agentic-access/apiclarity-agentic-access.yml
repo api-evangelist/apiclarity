@@ -1,22 +1,41 @@
-generated: '2026-07-15'
+generated: '2026-09-16'
 method: generated
-source: openapi/apiclarity-openapi.yml
+source: openapi/apiclarity-api-usage-api-openapi.yml, openapi/apiclarity-apievents-api-openapi.yml,
+  openapi/apiclarity-apifindings-api-openapi.yml, openapi/apiclarity-apiinventory-api-openapi.yml,
+  openapi/apiclarity-bfla-api-openapi.yml, openapi/apiclarity-control-api-openapi.yml, openapi/apiclarity-dashboard-api-openapi.yml,
+  openapi/apiclarity-enable-api-openapi.yml, openapi/apiclarity-eventannotations-api-openapi.yml,
+  openapi/apiclarity-features-api-openapi.yml, openapi/apiclarity-fuzzer-api-openapi.yml, openapi/apiclarity-hoststotrace-api-openapi.yml,
+  openapi/apiclarity-local-bfla-api-openapi.yml, openapi/apiclarity-local-fuzzer-api-openapi.yml,
+  openapi/apiclarity-modules-api-openapi.yml, openapi/apiclarity-notification-api-openapi.yml,
+  openapi/apiclarity-start-api-openapi.yml, openapi/apiclarity-state-api-openapi.yml, openapi/apiclarity-stop-api-openapi.yml,
+  openapi/apiclarity-telemetry-api-openapi.yml, openapi/apiclarity-version-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
-  operations: 27
+  operations: 100
   by_action_class:
-    connected: 19
-    acting: 8
+    connected: 54
+    acting: 46
   by_consequence:
-    read: 19
-    write: 5
-    safety-critical: 3
-  human_in_the_loop_required: 3
+    read: 54
+    safety-critical: 19
+    write: 27
+  human_in_the_loop_required: 19
 operations:
+- path: /apiUsage/hitCount
+  method: get
+  operationId: getApiUsageHitCount
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /apiEvents
   method: get
+  operationId: getApiEvents
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -26,15 +45,7 @@ operations:
     audit: none
 - path: /apiEvents/{eventId}
   method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /apiEvents/{eventId}/reconstructedSpecDiff
-  method: get
+  operationId: getApiEventsByEventId
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -44,6 +55,7 @@ operations:
     audit: none
 - path: /apiEvents/{eventId}/providedSpecDiff
   method: get
+  operationId: getApiEventsByEventIdProvidedSpecDiff
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -51,8 +63,45 @@ operations:
     token:
       max-ttl: 3600
     audit: none
+- path: /apiEvents/{eventId}/reconstructedSpecDiff
+  method: get
+  operationId: getApiEventsByEventIdReconstructedSpecDiff
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apiFindings/{apiID}
+  method: get
+  operationId: GetAPIFindings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apiFindings/{apiID}/reset
+  method: post
+  operationId: ResetApiFindings
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
 - path: /apiInventory
   method: get
+  operationId: getApiInventory
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -62,6 +111,7 @@ operations:
     audit: none
 - path: /apiInventory
   method: post
+  operationId: postApiInventory
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -75,8 +125,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /dashboard/apiUsage
+- path: /apiInventory/{apiId}/apiInfo
   method: get
+  operationId: getApiInventoryByApiIdApiInfo
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -84,8 +135,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /dashboard/apiUsage/mostUsed
+- path: /apiInventory/{apiId}/provided_swagger.json
   method: get
+  operationId: getApiInventoryByApiIdProvidedSwaggerJson
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -93,17 +145,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /dashboard/apiUsage/latestDiffs
+- path: /apiInventory/{apiId}/reconstructed_swagger.json
   method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /features
-  method: get
+  operationId: getApiInventoryByApiIdReconstructedSwaggerJson
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -113,6 +157,7 @@ operations:
     audit: none
 - path: /apiInventory/{apiId}/specs
   method: get
+  operationId: getApiInventoryByApiIdSpecs
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -121,7 +166,8 @@ operations:
       max-ttl: 3600
     audit: none
 - path: /apiInventory/{apiId}/specs/providedSpec
-  method: put
+  method: delete
+  operationId: deleteApiInventoryByApiIdSpecsProvidedSpec
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -136,7 +182,8 @@ operations:
       - high-value
     audit: required
 - path: /apiInventory/{apiId}/specs/providedSpec
-  method: delete
+  method: put
+  operationId: putApiInventoryByApiIdSpecsProvidedSpec
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -152,6 +199,7 @@ operations:
     audit: required
 - path: /apiInventory/{apiId}/specs/reconstructedSpec
   method: delete
+  operationId: deleteApiInventoryByApiIdSpecsReconstructedSpec
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -165,62 +213,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /apiInventory/{apiId}/reconstructed_swagger.json
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /apiInventory/{apiId}/apiInfo
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /apiInventory/apiId/fromHostAndPort
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /apiInventory/apiId/fromHostAndPortAndTraceSourceID
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /apiInventory/{apiId}/provided_swagger.json
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /apiUsage/hitCount
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /apiInventory/{apiId}/suggestedReview
   method: get
+  operationId: getApiInventoryByApiIdSuggestedReview
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -230,6 +225,7 @@ operations:
     audit: none
 - path: /apiInventory/{reviewId}/approvedReview
   method: post
+  operationId: postApiInventoryByReviewIdApprovedReview
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -243,8 +239,281 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /apiInventory/apiId/fromHostAndPort
+  method: get
+  operationId: getApiInventoryApiIdFromHostAndPort
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apiInventory/apiId/fromHostAndPortAndTraceSourceID
+  method: get
+  operationId: getApiInventoryApiIdFromHostAndPortAndTraceSourceID
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /authorizationModel/{apiID}
+  method: post
+  operationId: postAuthorizationModelByApiID
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /authorizationModel/{apiID}
+  method: get
+  operationId: getAuthorizationModelByApiID
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /authorizationModel/{apiID}/state
+  method: get
+  operationId: getAuthorizationModelByApiIDState
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /authorizationModel/{apiID}/learning/start
+  method: put
+  operationId: putAuthorizationModelByApiIDLearningStart
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /authorizationModel/{apiID}/reset
+  method: post
+  operationId: postAuthorizationModelByApiIDReset
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /authorizationModel/{apiID}/learning/stop
+  method: put
+  operationId: putAuthorizationModelByApiIDLearningStop
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /authorizationModel/{apiID}/detection/start
+  method: put
+  operationId: putAuthorizationModelByApiIDDetectionStart
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /authorizationModel/{apiID}/detection/stop
+  method: put
+  operationId: putAuthorizationModelByApiIDDetectionStop
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /apiFindings/{apiID}
+  method: get
+  operationId: GetApiFindings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/bfla/apiFindings/{apiID}
+  method: get
+  operationId: bflaGetApiFindings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/bfla/authorizationModel/{apiID}
+  method: get
+  operationId: getModulesBflaAuthorizationModelByApiID
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/bfla/authorizationModel/{apiID}
+  method: post
+  operationId: postModulesBflaAuthorizationModelByApiID
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /modules/bfla/authorizationModel/{apiID}/detection/start
+  method: put
+  operationId: putModulesBflaAuthorizationModelByApiIDDetectionStart
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /modules/bfla/authorizationModel/{apiID}/detection/stop
+  method: put
+  operationId: putModulesBflaAuthorizationModelByApiIDDetectionStop
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /modules/bfla/authorizationModel/{apiID}/learning/start
+  method: put
+  operationId: putModulesBflaAuthorizationModelByApiIDLearningStart
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /modules/bfla/authorizationModel/{apiID}/learning/stop
+  method: put
+  operationId: putModulesBflaAuthorizationModelByApiIDLearningStop
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /modules/bfla/authorizationModel/{apiID}/reset
+  method: post
+  operationId: postModulesBflaAuthorizationModelByApiIDReset
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /modules/bfla/authorizationModel/{apiID}/state
+  method: get
+  operationId: getModulesBflaAuthorizationModelByApiIDState
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /control/newDiscoveredAPIs
   method: post
+  operationId: postControlNewDiscoveredAPIs
   x-agentic-access:
     action-class: acting
     consequence: safety-critical
@@ -260,6 +529,7 @@ operations:
     audit: required
 - path: /control/traceSources
   method: get
+  operationId: getControlTraceSources
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -269,6 +539,23 @@ operations:
     audit: none
 - path: /control/traceSources
   method: post
+  operationId: postControlTraceSources
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /control/traceSources/{traceSourceId}
+  method: delete
+  operationId: deleteControlTraceSourcesByTraceSourceId
   x-agentic-access:
     action-class: acting
     consequence: safety-critical
@@ -284,6 +571,7 @@ operations:
     audit: required
 - path: /control/traceSources/{traceSourceId}
   method: get
+  operationId: getControlTraceSourcesByTraceSourceId
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -291,8 +579,39 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /control/traceSources/{traceSourceId}
-  method: delete
+- path: /dashboard/apiUsage
+  method: get
+  operationId: getDashboardApiUsage
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /dashboard/apiUsage/latestDiffs
+  method: get
+  operationId: getDashboardApiUsageLatestDiffs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /dashboard/apiUsage/mostUsed
+  method: get
+  operationId: getDashboardApiUsageMostUsed
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /enable
+  method: post
+  operationId: postEnable
   x-agentic-access:
     action-class: acting
     consequence: safety-critical
@@ -306,3 +625,677 @@ operations:
     escalation:
       human-in-the-loop: required
     audit: required
+- path: /eventAnnotations/{eventID}
+  method: get
+  operationId: GetEventAnnotations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /features
+  method: get
+  operationId: getFeatures
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fuzz/{apiID}/start
+  method: post
+  operationId: StartTest
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /fuzz/{apiID}/stop
+  method: post
+  operationId: StopTest
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /fuzz/{apiID}/progress
+  method: get
+  operationId: GetTestProgress
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fuzz/{apiID}/report
+  method: get
+  operationId: GetTestReport
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/fuzzer/fuzz/{apiID}/progress
+  method: get
+  operationId: fuzzerGetTestProgress
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/fuzzer/fuzz/{apiID}/report
+  method: get
+  operationId: fuzzerGetTestReport
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/fuzzer/fuzz/{apiID}/start
+  method: post
+  operationId: fuzzerStartTest
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /modules/fuzzer/fuzz/{apiID}/stop
+  method: post
+  operationId: fuzzerStopTest
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /hostsToTrace
+  method: get
+  operationId: getHostsToTrace
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /version
+  method: get
+  operationId: getVersion
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /authorizationModel/{apiID}/approve
+  method: put
+  operationId: putAuthorizationModelByApiIDApprove
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /authorizationModel/{apiID}/deny
+  method: put
+  operationId: putAuthorizationModelByApiIDDeny
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /event/{id}
+  method: get
+  operationId: get_event
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /event/{id}/{operation}
+  method: put
+  operationId: putEventByIdByOperation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /modules/bfla/authorizationModel/{apiID}/approve
+  method: put
+  operationId: putModulesBflaAuthorizationModelByApiIDApprove
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /modules/bfla/authorizationModel/{apiID}/deny
+  method: put
+  operationId: putModulesBflaAuthorizationModelByApiIDDeny
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /modules/bfla/event/{id}
+  method: get
+  operationId: bflaget_event
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/bfla/event/{id}/{operation}
+  method: put
+  operationId: putModulesBflaEventByIdByOperation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /modules/bfla/version
+  method: get
+  operationId: bflagetVersion
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /updateStatus/{apiID}
+  method: get
+  operationId: GetUpdateStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /updateStatus/{apiID}
+  method: post
+  operationId: PostUpdateStatus
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /tests/{apiID}
+  method: get
+  operationId: GetTests
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /report/{apiID}/{timestamp}
+  method: get
+  operationId: GetReport
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /report/{apiID}/{timestamp}/short
+  method: get
+  operationId: GetShortReportByTimestamp
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /annotatedspec/{apiID}
+  method: get
+  operationId: GetAnnotatedSpec
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/fuzzer/annotatedspec/{apiID}
+  method: get
+  operationId: fuzzerGetAnnotatedSpec
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/fuzzer/report/{apiID}/{timestamp}
+  method: get
+  operationId: fuzzerGetReport
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/fuzzer/report/{apiID}/{timestamp}/short
+  method: get
+  operationId: fuzzerGetShortReportByTimestamp
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/fuzzer/tests/{apiID}
+  method: get
+  operationId: fuzzerGetTests
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/fuzzer/updateStatus/{apiID}
+  method: get
+  operationId: fuzzerGetUpdateStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/fuzzer/updateStatus/{apiID}
+  method: post
+  operationId: fuzzerPostUpdateStatus
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /modules/fuzzer/apiFindings/{apiID}
+  method: get
+  operationId: fuzzerGetAPIFindings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/fuzzer/state
+  method: get
+  operationId: fuzzergetState
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/fuzzer/version
+  method: get
+  operationId: fuzzergetVersion
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/spec_differ/{apiID}/start
+  method: post
+  operationId: spec_differStartDiffer
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /modules/spec_differ/{apiID}/stop
+  method: post
+  operationId: spec_differStopDiffer
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /modules/specreconstructor/{apiID}/start
+  method: post
+  operationId: specreconstructorPostAPIIDStart
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /modules/specreconstructor/{apiID}/stop
+  method: post
+  operationId: specreconstructorPostAPIIDStop
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /modules/specreconstructor/enable
+  method: post
+  operationId: postModulesSpecreconstructorEnable
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /modules/specreconstructor/version
+  method: get
+  operationId: specreconstructorgetVersion
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/traceanalyzer/{apiID}/start
+  method: post
+  operationId: traceanalyzerStartTraceAnalysis
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /modules/traceanalyzer/{apiID}/stop
+  method: post
+  operationId: traceanalyzerStopTraceAnalysis
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /modules/traceanalyzer/apiFindings/{apiID}
+  method: get
+  operationId: traceanalyzerGetApiFindings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/traceanalyzer/apiFindings/{apiID}/reset
+  method: post
+  operationId: traceanalyzerResetApiFindings
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /modules/traceanalyzer/eventAnnotations/{eventID}
+  method: get
+  operationId: traceanalyzerGetEventAnnotations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /notification/{apiID}
+  method: post
+  operationId: postNotificationByApiID
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /{apiID}/start
+  method: post
+  operationId: PostAPIIDStart
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /state
+  method: get
+  operationId: getState
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /{apiID}/stop
+  method: post
+  operationId: PostAPIIDStop
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /telemetry
+  method: post
+  operationId: postTelemetry
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /version
+  method: get
+  operationId: getVersion
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
