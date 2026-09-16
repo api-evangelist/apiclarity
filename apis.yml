@@ -73,42 +73,6 @@ x-enrichment:
   artifacts_added: 39
   pass: local-v3
 apis:
-- aid: apiclarity:apiclarity-api-events-api
-  name: APIClarity API Events API
-  description: Captured API traffic events.
-  humanURL: https://github.com/openclarity/apiclarity
-  baseURL: https://apiclarity-server/api
-  tags:
-  - API Events
-  properties:
-  - type: OpenAPI
-    url: openapi/apiclarity-api-events-api-openapi.yml
-  - type: Overlay
-    url: overlays/apiclarity-api-events-api-overlay.yaml
-  - type: Documentation
-    url: https://github.com/openclarity/apiclarity#readme
-  - type: GettingStarted
-    url: https://github.com/openclarity/apiclarity#getting-started
-  - type: GitHubRepository
-    url: https://github.com/openclarity/apiclarity
-- aid: apiclarity:apiclarity-api-inventory-api
-  name: APIClarity API Inventory API
-  description: Discovered APIs and their reconstructed specifications.
-  humanURL: https://github.com/openclarity/apiclarity
-  baseURL: https://apiclarity-server/api
-  tags:
-  - API Inventory
-  properties:
-  - type: OpenAPI
-    url: openapi/apiclarity-api-inventory-api-openapi.yml
-  - type: Overlay
-    url: overlays/apiclarity-api-inventory-api-overlay.yaml
-  - type: Documentation
-    url: https://github.com/openclarity/apiclarity#readme
-  - type: GettingStarted
-    url: https://github.com/openclarity/apiclarity#getting-started
-  - type: GitHubRepository
-    url: https://github.com/openclarity/apiclarity
 - aid: apiclarity:apiclarity-control-api
   name: APIClarity Control API
   description: Control-plane endpoints for trace sources and discovered APIs.
@@ -145,159 +109,620 @@ apis:
     url: https://github.com/openclarity/apiclarity#getting-started
   - type: GitHubRepository
     url: https://github.com/openclarity/apiclarity
-- aid: apiclarity:apiclarity-bfla-module-api
-  name: APIClarity BFLA Module API
-  description: >-
-    Broken Function Level Authorization detection. Learns an authorization model from observed
-    API interactions — which callers are supposed to invoke which operations — then flags
-    violations against it. Served under /api/modules/bfla in an APIClarity deployment.
-  humanURL: https://github.com/openclarity/apiclarity/tree/master/backend/pkg/modules/internal/bfla
-  baseURL: https://apiclarity-server/api/modules/bfla
-  tags:
-  - BFLA
-  - Authorization
-  - API Security
-  properties:
-  - type: OpenAPI
-    url: openapi/apiclarity-bfla-module-openapi.yml
-  - type: Overlay
-    url: overlays/apiclarity-bfla-module-overlay.yaml
-  - type: Documentation
-    url: https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
-  - type: GitHubRepository
-    url: https://github.com/openclarity/apiclarity
-- aid: apiclarity:apiclarity-fuzzer-module-api
-  name: APIClarity Fuzzer Module API
-  description: >-
-    Active security testing. Drives generated traffic at an API based on its specification to
-    find implementation flaws, then returns a severity-ranked report and a specification
-    annotated with the findings. Served under /api/modules/fuzzer.
-  humanURL: https://github.com/openclarity/apiclarity/tree/master/backend/pkg/modules/internal/fuzzer
-  baseURL: https://apiclarity-server/api/modules/fuzzer
-  tags:
-  - Fuzzing
-  - Security Testing
-  - API Security
-  properties:
-  - type: OpenAPI
-    url: openapi/apiclarity-fuzzer-module-openapi.yml
-  - type: Overlay
-    url: overlays/apiclarity-fuzzer-module-overlay.yaml
-  - type: AgentSkill
-    url: skills/apiclarity-run-a-fuzz-test.md
-  - type: GitHubRepository
-    url: https://github.com/openclarity/apiclarity
-- aid: apiclarity:apiclarity-trace-analyzer-module-api
-  name: APIClarity Trace Analyzer Module API
-  description: >-
-    Analyzes the path, headers and body of observed requests and responses for weak
-    authentication, exposure of sensitive information and potential broken object level
-    authorization. Served under /api/modules/traceanalyzer.
-  humanURL: https://github.com/openclarity/apiclarity/tree/master/backend/pkg/modules/internal/traceanalyzer
-  baseURL: https://apiclarity-server/api/modules/traceanalyzer
-  tags:
-  - Trace Analysis
-  - API Security
-  properties:
-  - type: OpenAPI
-    url: openapi/apiclarity-trace-analyzer-module-openapi.yml
-  - type: Overlay
-    url: overlays/apiclarity-trace-analyzer-module-overlay.yaml
-  - type: Documentation
-    url: https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
-  - type: GitHubRepository
-    url: https://github.com/openclarity/apiclarity
-- aid: apiclarity:apiclarity-spec-differ-module-api
-  name: APIClarity Spec Differ Module API
-  description: >-
-    Compares observed API traces against the provided or reconstructed specification to surface
-    shadow APIs (observed but undocumented), zombie APIs (observed but marked deprecated) and
-    drift. Served under /api/modules/spec_differ.
-  humanURL: https://github.com/openclarity/apiclarity/tree/master/backend/pkg/modules/internal/spec_differ
-  baseURL: https://apiclarity-server/api/modules/spec_differ
-  tags:
-  - Spec Diff
-  - Shadow APIs
-  - API Governance
-  properties:
-  - type: OpenAPI
-    url: openapi/apiclarity-spec-differ-module-openapi.yml
-  - type: Overlay
-    url: overlays/apiclarity-spec-differ-module-overlay.yaml
-  - type: AgentSkill
-    url: skills/apiclarity-hunt-shadow-and-zombie-apis.md
-  - type: GitHubRepository
-    url: https://github.com/openclarity/apiclarity
-- aid: apiclarity:apiclarity-spec-reconstructor-module-api
-  name: APIClarity Spec Reconstructor Module API
-  description: >-
-    Controls reconstruction of an OpenAPI specification from live traffic for a discovered API.
-    Served under /api/modules/specreconstructor.
-  humanURL: https://github.com/openclarity/apiclarity/tree/master/backend/pkg/modules/internal/specreconstructor
-  baseURL: https://apiclarity-server/api/modules/specreconstructor
-  tags:
-  - OpenAPI Reconstruction
-  - API Discovery
-  properties:
-  - type: OpenAPI
-    url: openapi/apiclarity-spec-reconstructor-module-openapi.yml
-  - type: Overlay
-    url: overlays/apiclarity-spec-reconstructor-module-overlay.yaml
-  - type: AgentSkill
-    url: skills/apiclarity-reconstruct-and-approve-a-spec.md
-  - type: GitHubRepository
-    url: https://github.com/openclarity/apiclarity
-- aid: apiclarity:apiclarity-plugins-telemetry-api
-  name: APIClarity Plugins Telemetry API
-  description: >-
-    The Swagger 2.0 contract every APIClarity traffic-source plugin implements to push captured
-    traffic into a deployment — POST /telemetry, GET /hostsToTrace and
-    POST /control/newDiscoveredAPIs. Authenticated with the optional X-Trace-Source-Token header
-    issued when a trace source is registered. Implemented by the Istio WASM filter, the tap
-    DaemonSet, and the Kong, Tyk, Kuma and OpenTelemetry Collector plugins.
-  humanURL: https://github.com/openclarity/apiclarity/tree/master/plugins/api
+- aid: apiclarity:apiclarity-apievents-api
+  name: APIClarity API Events API
+  description: The ApiEvents API from APIClarity — 4 operation(s) for apievents.
+  humanURL: https://github.com/openclarity/apiclarity
   baseURL: https://apiclarity-server/api
   tags:
-  - Telemetry
-  - Traffic Capture
-  - Plugins
+  - ApiEvents
   properties:
   - type: OpenAPI
-    url: openapi/apiclarity-plugins-telemetry-swagger.yml
-  - type: Overlay
-    url: overlays/apiclarity-plugins-telemetry-swagger-overlay.yaml
+    url: openapi/apiclarity-apievents-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
   - type: Authentication
     url: authentication/apiclarity-authentication.yml
   - type: Documentation
     url: https://github.com/openclarity/apiclarity/tree/master/plugins
-  - type: GitHubRepository
-    url: https://github.com/openclarity/apiclarity
-- aid: apiclarity:apiclarity-notifications-api
-  name: APIClarity Notifications API
-  description: >-
-    An inverted contract — the endpoint a registered listener must implement, which APIClarity
-    POSTs to. Six notification types share one polymorphic envelope discriminated on
-    notificationType: NewDiscoveredAPINotification, SpecDiffsNotification,
-    ApiFindingsNotification, AuthorizationModelNotification, TestProgressNotification and
-    TestReportNotification. This is APIClarity's webhook surface; no AsyncAPI document is
-    published.
-  humanURL: https://github.com/openclarity/apiclarity/tree/master/api3
-  tags:
-  - Webhooks
-  - Notifications
-  - Events
-  properties:
-  - type: OpenAPI
-    url: openapi/apiclarity-notifications-openapi.yml
   - type: Webhooks
     url: asyncapi/apiclarity-notifications-webhooks.yml
-  - type: Overlay
-    url: overlays/apiclarity-notifications-overlay.yaml
   - type: Documentation
-    url: https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+    url: >-
+      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+- aid: apiclarity:apiclarity-apifindings-api
+  name: APIClarity API Findings API
+  description: The ApiFindings API from APIClarity — 2 operation(s) for apifindings.
+  humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
+  tags:
+  - ApiFindings
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-apifindings-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
   - type: GitHubRepository
     url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
+  - type: Authentication
+    url: authentication/apiclarity-authentication.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/plugins
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+- aid: apiclarity:apiclarity-apiinventory-api
+  name: APIClarity API Inventory API
+  description: The ApiInventory API from APIClarity — 11 operation(s) for apiinventory.
+  humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
+  tags:
+  - ApiInventory
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-apiinventory-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
+  - type: Authentication
+    url: authentication/apiclarity-authentication.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/plugins
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+- aid: apiclarity:apiclarity-apiusage-api
+  name: APIClarity API Usage API
+  description: The ApiUsage API from APIClarity — 1 operation(s) for apiusage.
+  humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
+  tags:
+  - ApiUsage
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-apiusage-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
+  - type: Authentication
+    url: authentication/apiclarity-authentication.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/plugins
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+- aid: apiclarity:apiclarity-bfla-api
+  name: APIClarity Bfla API
+  description: The bfla API from APIClarity — 16 operation(s) for bfla.
+  humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
+  tags:
+  - bfla
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-bfla-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
+  - type: Authentication
+    url: authentication/apiclarity-authentication.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/plugins
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+- aid: apiclarity:apiclarity-dashboard-api
+  name: APIClarity Dashboard API
+  description: The Dashboard API from APIClarity — 3 operation(s) for dashboard.
+  humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
+  tags:
+  - Dashboard
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-dashboard-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
+  - type: Authentication
+    url: authentication/apiclarity-authentication.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/plugins
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+- aid: apiclarity:apiclarity-enable-api
+  name: APIClarity Enable API
+  description: The Enable API from APIClarity — 1 operation(s) for enable.
+  humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
+  tags:
+  - Enable
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-enable-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
+  - type: Authentication
+    url: authentication/apiclarity-authentication.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/plugins
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+- aid: apiclarity:apiclarity-eventannotations-api
+  name: APIClarity Event Annotations API
+  description: The EventAnnotations API from APIClarity — 1 operation(s) for eventannotations.
+  humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
+  tags:
+  - EventAnnotations
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-eventannotations-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
+  - type: Authentication
+    url: authentication/apiclarity-authentication.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/plugins
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+- aid: apiclarity:apiclarity-fuzzer-api
+  name: APIClarity Fuzzer API
+  description: The fuzzer API from APIClarity — 8 operation(s) for fuzzer.
+  humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
+  tags:
+  - fuzzer
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-fuzzer-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
+  - type: Authentication
+    url: authentication/apiclarity-authentication.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/plugins
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+- aid: apiclarity:apiclarity-hoststotrace-api
+  name: APIClarity Hosts To Trace API
+  description: The HostsToTrace API from APIClarity — 1 operation(s) for hoststotrace.
+  humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
+  tags:
+  - HostsToTrace
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-hoststotrace-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
+  - type: Authentication
+    url: authentication/apiclarity-authentication.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/plugins
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+- aid: apiclarity:apiclarity-local-bfla-api
+  name: APIClarity Local Bfla API
+  description: The local-bfla API from APIClarity — 10 operation(s) for local-bfla.
+  humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
+  tags:
+  - local-bfla
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-local-bfla-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
+  - type: Authentication
+    url: authentication/apiclarity-authentication.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/plugins
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+- aid: apiclarity:apiclarity-local-fuzzer-api
+  name: APIClarity Local Fuzzer API
+  description: The local-fuzzer API from APIClarity — 10 operation(s) for local-fuzzer.
+  humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
+  tags:
+  - local-fuzzer
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-local-fuzzer-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
+  - type: Authentication
+    url: authentication/apiclarity-authentication.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/plugins
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+- aid: apiclarity:apiclarity-modules-api
+  name: APIClarity Modules API
+  description: The Modules API from APIClarity — 14 operation(s) for modules.
+  humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
+  tags:
+  - Modules
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-modules-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
+  - type: Authentication
+    url: authentication/apiclarity-authentication.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/plugins
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+- aid: apiclarity:apiclarity-notification-api
+  name: APIClarity Notification API
+  description: The Notification API from APIClarity — 1 operation(s) for notification.
+  humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
+  tags:
+  - Notification
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-notification-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
+  - type: Authentication
+    url: authentication/apiclarity-authentication.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/plugins
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+- aid: apiclarity:apiclarity-start-api
+  name: APIClarity Start API
+  description: The Start API from APIClarity — 1 operation(s) for start.
+  humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
+  tags:
+  - Start
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-start-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
+  - type: Authentication
+    url: authentication/apiclarity-authentication.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/plugins
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+- aid: apiclarity:apiclarity-state-api
+  name: APIClarity State API
+  description: The State API from APIClarity — 1 operation(s) for state.
+  humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
+  tags:
+  - State
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-state-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
+  - type: Authentication
+    url: authentication/apiclarity-authentication.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/plugins
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+- aid: apiclarity:apiclarity-stop-api
+  name: APIClarity Stop API
+  description: The Stop API from APIClarity — 1 operation(s) for stop.
+  humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
+  tags:
+  - Stop
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-stop-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
+  - type: Authentication
+    url: authentication/apiclarity-authentication.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/plugins
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+- aid: apiclarity:apiclarity-telemetry-api
+  name: APIClarity Telemetry API
+  description: The Telemetry API from APIClarity — 1 operation(s) for telemetry.
+  humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
+  tags:
+  - Telemetry
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-telemetry-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
+  - type: Authentication
+    url: authentication/apiclarity-authentication.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/plugins
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+- aid: apiclarity:apiclarity-version-api
+  name: APIClarity Version API
+  description: The Version API from APIClarity — 1 operation(s) for version.
+  humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
+  tags:
+  - Version
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-version-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
+  - type: Authentication
+    url: authentication/apiclarity-authentication.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/plugins
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
 common:
+  - type: Overlay
+    url: overlays/apiclarity-api-events-api-overlay.yaml
+  - type: Overlay
+    url: overlays/apiclarity-api-inventory-api-overlay.yaml
+  - type: Overlay
+    url: overlays/apiclarity-bfla-module-overlay.yaml
+  - type: Overlay
+    url: overlays/apiclarity-fuzzer-module-overlay.yaml
+  - type: AgentSkill
+    url: skills/apiclarity-run-a-fuzz-test.md
+  - type: Overlay
+    url: overlays/apiclarity-trace-analyzer-module-overlay.yaml
+  - type: Overlay
+    url: overlays/apiclarity-spec-differ-module-overlay.yaml
+  - type: AgentSkill
+    url: skills/apiclarity-hunt-shadow-and-zombie-apis.md
+  - type: Overlay
+    url: overlays/apiclarity-spec-reconstructor-module-overlay.yaml
+  - type: AgentSkill
+    url: skills/apiclarity-reconstruct-and-approve-a-spec.md
+  - type: Overlay
+    url: overlays/apiclarity-plugins-telemetry-swagger-overlay.yaml
+  - type: Overlay
+    url: overlays/apiclarity-notifications-overlay.yaml
   - type: AgenticAccess
     url: agentic-access/apiclarity-agentic-access.yml
   - type: Packages
