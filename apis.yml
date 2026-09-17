@@ -202,37 +202,6 @@ apis:
   - type: Documentation
     url: >-
       https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
-- aid: apiclarity:apiclarity-apiusage-api
-  name: APIClarity API Usage API
-  description: The ApiUsage API from APIClarity — 1 operation(s) for apiusage.
-  humanURL: https://github.com/openclarity/apiclarity
-  baseURL: https://apiclarity-server/api
-  tags:
-  - ApiUsage
-  properties:
-  - type: OpenAPI
-    url: openapi/apiclarity-apiusage-api-openapi.yml
-  - type: Documentation
-    url: https://github.com/openclarity/apiclarity#readme
-  - type: GettingStarted
-    url: https://github.com/openclarity/apiclarity#getting-started
-  - type: GitHubRepository
-    url: https://github.com/openclarity/apiclarity
-  - type: Documentation
-    url: >-
-      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
-  - type: Documentation
-    url: >-
-      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
-  - type: Authentication
-    url: authentication/apiclarity-authentication.yml
-  - type: Documentation
-    url: https://github.com/openclarity/apiclarity/tree/master/plugins
-  - type: Webhooks
-    url: asyncapi/apiclarity-notifications-webhooks.yml
-  - type: Documentation
-    url: >-
-      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
 - aid: apiclarity:apiclarity-bfla-api
   name: APIClarity Bfla API
   description: The bfla API from APIClarity — 16 operation(s) for bfla.
@@ -677,6 +646,37 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/apiclarity-version-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity#readme
+  - type: GettingStarted
+    url: https://github.com/openclarity/apiclarity#getting-started
+  - type: GitHubRepository
+    url: https://github.com/openclarity/apiclarity
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/bfla/README.md
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/blob/master/backend/pkg/modules/internal/traceanalyzer/README.md
+  - type: Authentication
+    url: authentication/apiclarity-authentication.yml
+  - type: Documentation
+    url: https://github.com/openclarity/apiclarity/tree/master/plugins
+  - type: Webhooks
+    url: asyncapi/apiclarity-notifications-webhooks.yml
+  - type: Documentation
+    url: >-
+      https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
+- aid: apiclarity:apiclarity-api-usage-api
+  name: APIClarity API Usage API
+  description: The API Usage API from APIClarity — 1 operation(s) for api usage.
+  humanURL: https://github.com/openclarity/apiclarity
+  baseURL: https://apiclarity-server/api
+  tags:
+  - API Usage
+  properties:
+  - type: OpenAPI
+    url: openapi/apiclarity-api-usage-api-openapi.yml
   - type: Documentation
     url: https://github.com/openclarity/apiclarity#readme
   - type: GettingStarted
