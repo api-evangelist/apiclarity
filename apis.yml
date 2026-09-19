@@ -177,6 +177,8 @@ apis:
   humanURL: https://github.com/openclarity/apiclarity
   baseURL: https://apiclarity-server/api
   tags:
+  - API Inventory
+  tags_raw:
   - ApiInventory
   properties:
   - type: OpenAPI
@@ -239,6 +241,8 @@ apis:
   humanURL: https://github.com/openclarity/apiclarity
   baseURL: https://apiclarity-server/api
   tags:
+  - Dashboards
+  tags_raw:
   - Dashboard
   properties:
   - type: OpenAPI
@@ -549,6 +553,8 @@ apis:
   humanURL: https://github.com/openclarity/apiclarity
   baseURL: https://apiclarity-server/api
   tags:
+  - States
+  tags_raw:
   - State
   properties:
   - type: OpenAPI
