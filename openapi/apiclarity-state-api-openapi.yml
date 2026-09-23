@@ -1,0 +1,37 @@
+openapi: 3.2.0
+info:
+  title: APIClarity PluginFuzzer State API
+  version: 0.0.1
+  description: APIClarity PluginFuzzer API
+servers:
+- url: /
+  description: Override base path for all operations
+tags:
+- name: State
+paths:
+  /state:
+    get:
+      operationId: getState
+      summary: Get the current running state of this module
+      description: Get useful informations about the current running state of the testing module
+      responses:
+        '200':
+          description: Current testing module running state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestingModuleState'
+      tags:
+      - State
+components:
+  schemas:
+    TestingModuleState:
+      type: object
+      required:
+      - version
+      - APIsInCache
+      properties:
+        version:
+          type: string
+        APIsInCache:
+          type: integer

@@ -1,0 +1,129 @@
+openapi: 3.2.0
+info:
+  version: 1.0.0
+  title: APIClarity Plugins telemetries Telemetry API
+servers:
+- url: /api
+tags:
+- name: Telemetry
+paths:
+  /telemetry:
+    post:
+      summary: Post an http telemetry
+      parameters:
+      - $ref: '#/components/parameters/TraceSourceTokenHeader'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Success'
+        default:
+          $ref: '#/components/responses/UnknownError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: Telemetry
+              $ref: '#/components/schemas/Telemetry'
+        required: true
+      tags:
+      - Telemetry
+      operationId: postTelemetry
+      x-operation-id-source: derived
+components:
+  schemas:
+    Request:
+      type: object
+      properties:
+        method:
+          type: string
+        path:
+          type: string
+        host:
+          type: string
+        common:
+          $ref: '#/components/schemas/Common'
+    Response:
+      type: object
+      properties:
+        statusCode:
+          type: string
+        common:
+          $ref: '#/components/schemas/Common'
+    Telemetry:
+      type: object
+      properties:
+        requestID:
+          type: string
+        scheme:
+          type: string
+        destinationAddress:
+          type: string
+        destinationNamespace:
+          type: string
+        sourceAddress:
+          type: string
+        request:
+          $ref: '#/components/schemas/Request'
+        response:
+          $ref: '#/components/schemas/Response'
+    SuccessResponse:
+      description: An object that is return in cases of success that return nothing.
+      type: object
+      properties:
+        message:
+          type: string
+    Header:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    Common:
+      type: object
+      properties:
+        version:
+          type: string
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Header'
+        body:
+          type: string
+          format: byte
+        TruncatedBody:
+          type: boolean
+        time:
+          description: Time since epoch (milliseconds)
+          type: integer
+          format: int64
+    ApiResponse:
+      description: An object that is return in all cases of failures.
+      type: object
+      properties:
+        message:
+          type: string
+  responses:
+    Success:
+      description: success message
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponse'
+    UnknownError:
+      description: unknown error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse'
+  parameters:
+    TraceSourceTokenHeader:
+      name: X-Trace-Source-Token
+      description: Optional header to authenticate the trace source
+      in: header
+      required: false
+      schema:
+        type: string

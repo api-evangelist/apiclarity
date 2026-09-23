@@ -1,0 +1,375 @@
+openapi: 3.2.0
+info:
+  title: APIClarity Modules API
+  version: 1.0.0
+servers:
+- url: /api
+tags:
+- name: Modules
+paths:
+  /modules/fuzzer/apiFindings/{apiID}:
+    get:
+      description: Asks for findings of an APIClarity module, and API. Implemented by each module
+      operationId: fuzzerGetAPIFindings
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      - $ref: ../common/openapi.yaml#/components/parameters/Sensitive
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/APIFindings
+          description: An API Findings Bundle
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      summary: Get findings for an API and module
+      tags:
+      - Modules
+  /modules/fuzzer/state:
+    get:
+      description: Get useful informations about the current running state of the testing module
+      operationId: fuzzergetState
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestingModuleState'
+          description: Current testing module running state
+      summary: Get the current running state of this module
+      tags:
+      - Modules
+  /modules/fuzzer/version:
+    get:
+      operationId: fuzzergetVersion
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Version'
+          description: Version of the Module
+      summary: Get the version of this Module
+      tags:
+      - Modules
+  /modules/spec_differ/{apiID}/start:
+    post:
+      description: Start Differ for an API.
+      operationId: spec_differStartDiffer
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      summary: Start Differ for an API
+      tags:
+      - Modules
+  /modules/spec_differ/{apiID}/stop:
+    post:
+      description: Stop Differ for an API.
+      operationId: spec_differStopDiffer
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      summary: Stop Differ for an API
+      tags:
+      - Modules
+  /modules/specreconstructor/{apiID}/start:
+    post:
+      operationId: specreconstructorPostAPIIDStart
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '204':
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      summary: Start the spec reconstruction for this API
+      tags:
+      - Modules
+  /modules/specreconstructor/{apiID}/stop:
+    post:
+      operationId: specreconstructorPostAPIIDStop
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '204':
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      summary: Stop the spec reconstruction for this API
+      tags:
+      - Modules
+  /modules/specreconstructor/enable:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeatureEnable'
+      responses:
+        '204':
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      summary: enable/disable the spec reconstruction
+      tags:
+      - Modules
+      operationId: postModulesSpecreconstructorEnable
+      x-operation-id-source: derived
+  /modules/specreconstructor/version:
+    get:
+      operationId: specreconstructorgetVersion
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ModuleVersion
+          description: Version of the Plugin
+      summary: Get the version of this Plugin
+      tags:
+      - Modules
+  /modules/traceanalyzer/{apiID}/start:
+    post:
+      description: Start Trace Analysis for an API.
+      operationId: traceanalyzerStartTraceAnalysis
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      summary: Start Trace Analysis for an API
+      tags:
+      - Modules
+  /modules/traceanalyzer/{apiID}/stop:
+    post:
+      description: Stop Trace Analysis for an API.
+      operationId: traceanalyzerStopTraceAnalysis
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      summary: Stop Trace Analysis for an API
+      tags:
+      - Modules
+  /modules/traceanalyzer/apiFindings/{apiID}:
+    get:
+      description: Asks for findings of an APIClarity module, and API. Implemented by each module
+      operationId: traceanalyzerGetApiFindings
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      - $ref: ../common/openapi.yaml#/components/parameters/Sensitive
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/APIFindings
+          description: An API Findings Bundle
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      summary: Get findings for an API and module
+      tags:
+      - Modules
+  /modules/traceanalyzer/apiFindings/{apiID}/reset:
+    post:
+      operationId: traceanalyzerResetApiFindings
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '204':
+          description: Reset
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      summary: Delete all API findings for an API
+      tags:
+      - Modules
+  /modules/traceanalyzer/eventAnnotations/{eventID}:
+    get:
+      description: Get Trace Analyzer Annotations for a specific event
+      operationId: traceanalyzerGetEventAnnotations
+      parameters:
+      - in: path
+        name: eventID
+        required: true
+        schema:
+          format: int64
+          type: integer
+      - $ref: '#/components/parameters/redacted'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annotations'
+          description: Annotation
+      summary: Get Annotations for an event
+      tags:
+      - Modules
+components:
+  schemas:
+    TestingModuleState:
+      properties:
+        APIsInCache:
+          type: integer
+        version:
+          type: string
+      required:
+      - version
+      - APIsInCache
+      type: object
+    Annotations:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/Annotation'
+          type: array
+        total:
+          description: Total event annotations count
+          type: integer
+      required:
+      - total
+      type: object
+    FeatureEnable:
+      description: Enable/disable a feature
+      properties:
+        enable:
+          description: enable flag
+          type: boolean
+      type: object
+    Annotation:
+      properties:
+        annotation:
+          type: string
+        kind:
+          type: string
+        name:
+          type: string
+        severity:
+          type: string
+      required:
+      - id
+      - name
+      - annotation
+      - severity
+      - kind
+      type: object
+    Version:
+      properties:
+        version:
+          type: string
+      required:
+      - version
+      type: object
+  parameters:
+    redacted:
+      in: query
+      name: redacted
+      schema:
+        default: false
+        type: boolean

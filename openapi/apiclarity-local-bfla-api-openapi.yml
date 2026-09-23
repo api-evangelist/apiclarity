@@ -1,0 +1,389 @@
+openapi: 3.2.0
+info:
+  title: Apiclarity Local Bfla API
+  version: '1.0'
+  description: 'Operations tagged local-bfla across 2 of this provider''s published API definitions: apiclarity-bfla-module-openapi.yml, apiclarity-global-openapi.gen.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /api
+tags:
+- name: local-bfla
+paths:
+  /version:
+    get:
+      operationId: getVersion
+      summary: Get the version of this Module
+      tags:
+      - local-bfla
+      responses:
+        '200':
+          description: Version of the Module
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ModuleVersion
+  /authorizationModel/{apiID}/approve:
+    put:
+      tags:
+      - local-bfla
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      - in: query
+        name: method
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: path
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: k8sClientUid
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+      summary: Replace authorization model by api id approve
+      x-summary-source: derived
+      operationId: putAuthorizationModelByApiIDApprove
+      x-operation-id-source: derived
+  /authorizationModel/{apiID}/deny:
+    put:
+      tags:
+      - local-bfla
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      - in: query
+        name: method
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: path
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: k8sClientUid
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+      summary: Replace authorization model by api id deny
+      x-summary-source: derived
+      operationId: putAuthorizationModelByApiIDDeny
+      x-operation-id-source: derived
+  /event/{id}:
+    get:
+      tags:
+      - local-bfla
+      operationId: get_event
+      parameters:
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      summary: Get the event with the annotations and bfla status
+      responses:
+        '200':
+          description: API Event with annotations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIEventAnnotations'
+  /event/{id}/{operation}:
+    put:
+      tags:
+      - local-bfla
+      parameters:
+      - in: path
+        schema:
+          type: integer
+        required: true
+        name: id
+      - in: path
+        required: true
+        name: operation
+        schema:
+          $ref: '#/components/schemas/OperationEnum'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+      summary: Replace event by id by operation
+      x-summary-source: derived
+      operationId: putEventByIdByOperation
+      x-operation-id-source: derived
+  /modules/bfla/authorizationModel/{apiID}/approve:
+    put:
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      - in: query
+        name: method
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: path
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: k8sClientUid
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      tags:
+      - local-bfla
+      summary: Replace modules bfla authorization model by api id approve
+      x-summary-source: derived
+      operationId: putModulesBflaAuthorizationModelByApiIDApprove
+      x-operation-id-source: derived
+    servers:
+    - url: /api
+  /modules/bfla/authorizationModel/{apiID}/deny:
+    put:
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      - in: query
+        name: method
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: path
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: k8sClientUid
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      tags:
+      - local-bfla
+      summary: Replace modules bfla authorization model by api id deny
+      x-summary-source: derived
+      operationId: putModulesBflaAuthorizationModelByApiIDDeny
+      x-operation-id-source: derived
+    servers:
+    - url: /api
+  /modules/bfla/event/{id}:
+    get:
+      operationId: bflaget_event
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIEventAnnotations'
+          description: API Event with annotations
+      summary: Get the event with the annotations and bfla status
+      tags:
+      - local-bfla
+    servers:
+    - url: /api
+  /modules/bfla/event/{id}/{operation}:
+    put:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: operation
+        required: true
+        schema:
+          $ref: '#/components/schemas/OperationEnum'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      tags:
+      - local-bfla
+      summary: Replace modules bfla event by id by operation
+      x-summary-source: derived
+      operationId: putModulesBflaEventByIdByOperation
+      x-operation-id-source: derived
+    servers:
+    - url: /api
+  /modules/bfla/version:
+    get:
+      operationId: bflagetVersion
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ModuleVersion
+          description: Version of the Module
+      summary: Get the version of this Module
+      tags:
+      - local-bfla
+    servers:
+    - url: /api
+components:
+  schemas:
+    DetectedUser:
+      required:
+      - id
+      - source
+      - ip_address
+      properties:
+        id:
+          type: string
+        source:
+          type: string
+          enum:
+          - JWT
+          - BASIC
+          - KONG_X_CONSUMER_ID
+        ip_address:
+          type: string
+    APIEventAnnotations:
+      required:
+      - bflaStatus
+      - external
+      - mismatchedScopes
+      properties:
+        external:
+          type: boolean
+        mismatchedScopes:
+          type: boolean
+        destinationK8sObject:
+          $ref: '#/components/schemas/K8sObjectRef'
+        sourceK8sObject:
+          $ref: '#/components/schemas/K8sObjectRef'
+        bflaStatus:
+          $ref: '#/components/schemas/BFLAStatus'
+        detectedUser:
+          $ref: '#/components/schemas/DetectedUser'
+    K8sObjectRef:
+      type: object
+      required:
+      - uid
+      - kind
+      - name
+      - namespace
+      - apiVersion
+      properties:
+        uid:
+          type: string
+        kind:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+        apiVersion:
+          type: string
+    OperationEnum:
+      type: string
+      enum:
+      - approve
+      - deny
+      - approve_user
+      - deny_user
+    BFLAStatus:
+      type: string
+      enum:
+      - NO_SPEC
+      - LEARNING
+      - LEGITIMATE
+      - SUSPICIOUS_MEDIUM
+      - SUSPICIOUS_HIGH
+x-refined-from:
+- apiclarity-bfla-module-openapi.yml
+- apiclarity-global-openapi.gen.yml

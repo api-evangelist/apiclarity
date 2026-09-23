@@ -1,0 +1,633 @@
+openapi: 3.2.0
+info:
+  title: Apiclarity Local Fuzzer API
+  version: '1.0'
+  description: 'Operations tagged local-fuzzer across 2 of this provider''s published API definitions: apiclarity-fuzzer-module-openapi.yml, apiclarity-global-openapi.gen.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /
+  description: Override base path for all operations
+- url: /api
+tags:
+- name: local-fuzzer
+  description: Methods used by APIClarity UI
+paths:
+  /updateStatus/{apiID}:
+    parameters:
+    - name: apiID
+      in: path
+      required: true
+      schema:
+        $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+    get:
+      operationId: GetUpdateStatus
+      summary: Retreive last update status for an API under fuzzing
+      tags:
+      - local-fuzzer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FuzzingStatusAndReport'
+          description: Raw Finding Bundle
+    post:
+      operationId: PostUpdateStatus
+      summary: Update status for an API under fuzzing
+      description: Provide the Update status for an API under fuzzing
+      tags:
+      - local-fuzzer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FuzzingStatusAndReport'
+        required: true
+      responses:
+        '204':
+          description: Successful Response
+    servers:
+    - url: /
+      description: Override base path for all operations
+  /tests/{apiID}:
+    get:
+      operationId: GetTests
+      summary: Retreieve the list of tests for an API
+      description: Retreive the list of tests for an API (without report)
+      tags:
+      - local-fuzzer
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tests'
+          description: List of tests
+    servers:
+    - url: /
+      description: Override base path for all operations
+  /report/{apiID}/{timestamp}:
+    get:
+      operationId: GetReport
+      summary: Retreive a report for an API
+      description: Retreive a report for an API identified by its timestamp
+      tags:
+      - local-fuzzer
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      - name: timestamp
+        in: path
+        description: Timestamp of the start of the test
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestWithReport'
+          description: List of tests
+    servers:
+    - url: /
+      description: Override base path for all operations
+  /report/{apiID}/{timestamp}/short:
+    get:
+      operationId: GetShortReportByTimestamp
+      summary: Retrieve a report for an API for a specific test
+      description: Retreive a report for an API identified by its timestamp
+      tags:
+      - local-fuzzer
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      - name: timestamp
+        in: path
+        description: Timestamp of the start of the test
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShortTestReport'
+          description: List of tests
+    servers:
+    - url: /
+      description: Override base path for all operations
+  /annotatedspec/{apiID}:
+    get:
+      operationId: GetAnnotatedSpec
+      summary: Retreive the annotated spec for an API
+      description: Retreive the annotated spec for an API if any, 404 Not Found otherwise
+      tags:
+      - local-fuzzer
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                description: spec in json format
+                type: object
+          description: List of tests
+        '404':
+          description: Spec not found
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+    servers:
+    - url: /
+      description: Override base path for all operations
+  /modules/fuzzer/annotatedspec/{apiID}:
+    get:
+      description: Retreive the annotated spec for an API if any, 404 Not Found otherwise
+      operationId: fuzzerGetAnnotatedSpec
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                description: spec in json format
+                type: object
+          description: List of tests
+        '404':
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+          description: Spec not found
+      summary: Retreive the annotated spec for an API
+      tags:
+      - local-fuzzer
+    servers:
+    - url: /api
+  /modules/fuzzer/report/{apiID}/{timestamp}:
+    get:
+      description: Retreive a report for an API identified by its timestamp
+      operationId: fuzzerGetReport
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      - description: Timestamp of the start of the test
+        in: path
+        name: timestamp
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestWithReport'
+          description: List of tests
+      summary: Retreive a report for an API
+      tags:
+      - local-fuzzer
+    servers:
+    - url: /api
+  /modules/fuzzer/report/{apiID}/{timestamp}/short:
+    get:
+      description: Retreive a report for an API identified by its timestamp
+      operationId: fuzzerGetShortReportByTimestamp
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      - description: Timestamp of the start of the test
+        in: path
+        name: timestamp
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShortTestReport_2'
+          description: List of tests
+      summary: Retrieve a report for an API for a specific test
+      tags:
+      - local-fuzzer
+    servers:
+    - url: /api
+  /modules/fuzzer/tests/{apiID}:
+    get:
+      description: Retreive the list of tests for an API (without report)
+      operationId: fuzzerGetTests
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tests'
+          description: List of tests
+      summary: Retreieve the list of tests for an API
+      tags:
+      - local-fuzzer
+    servers:
+    - url: /api
+  /modules/fuzzer/updateStatus/{apiID}:
+    parameters:
+    - in: path
+      name: apiID
+      required: true
+      schema:
+        $ref: ../common/openapi.yaml#/components/schemas/ApiID
+    get:
+      operationId: fuzzerGetUpdateStatus
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FuzzingStatusAndReport'
+          description: Raw Finding Bundle
+      summary: Retreive last update status for an API under fuzzing
+      tags:
+      - local-fuzzer
+    post:
+      description: Provide the Update status for an API under fuzzing
+      operationId: fuzzerPostUpdateStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FuzzingStatusAndReport'
+        required: true
+      responses:
+        '204':
+          description: Successful Response
+      summary: Update status for an API under fuzzing
+      tags:
+      - local-fuzzer
+    servers:
+    - url: /api
+components:
+  schemas:
+    FuzzingReportPath:
+      description: Current fuzzer report
+      properties:
+        result:
+          type: integer
+        uri:
+          type: string
+        verb:
+          type: string
+        payload:
+          type: string
+        response:
+          type: string
+      title: FuzzingReportPath
+      type: object
+    FuzzingStatusEnum:
+      description: An enumeration.
+      enum:
+      - DONE
+      - ERROR
+      - IN_PROGRESS
+      title: FuzzingStatus
+      type: string
+    Vulnerabilities:
+      description: risk of the finding
+      title: Risk
+      type: object
+      properties:
+        total:
+          description: Total of vuln
+          title: Total
+          type: integer
+        critical:
+          description: Total of vuln
+          title: Critical
+          type: integer
+        high:
+          description: Total of vuln
+          title: High
+          type: integer
+        medium:
+          description: Total of vuln
+          title: Medium
+          type: integer
+        low:
+          description: Total of vuln
+          title: Low
+          type: integer
+    RawFindings:
+      properties:
+        namespace:
+          type: string
+        location:
+          type: array
+          items:
+            type: string
+          title: Paths location
+          description: location string token
+        type:
+          type: string
+        description:
+          type: string
+        request:
+          $ref: '#/components/schemas/RawFindingsSeverity'
+        additionalInfo:
+          type: string
+      title: RawFindings
+      type: object
+    FuzzingReportOperation:
+      description: Report tag operation
+      title: Report tag operation
+      type: object
+      properties:
+        operation:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/MethodAndPath
+        requestsCount:
+          title: Request count to the opea
+          description: Request count to this operation item during the test
+          type: integer
+          format: int32
+        findings:
+          title: Findings list
+          type: array
+          items:
+            $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/APIFinding
+        highestSeverity:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/Severity
+      required:
+      - operation
+      - requestsCount
+    TestWithReport:
+      title: Test
+      type: object
+      properties:
+        starttime:
+          description: Timestamp of the start of the test
+          title: Start time
+          type: integer
+          format: int64
+        progress:
+          description: Progress of the test
+          maximum: 100.0
+          minimum: 0.0
+          title: Description
+          type: integer
+        vulnerabilities:
+          $ref: '#/components/schemas/Vulnerabilities'
+        report:
+          $ref: '#/components/schemas/FuzzingStatusAndReport'
+        lastReportTime:
+          description: Timestamp of the last report received for the test
+          title: Start time
+          type: integer
+          format: int64
+        errorMessage:
+          description: A message in case of error
+          title: ErrorMessage
+          type: string
+    Test:
+      title: Test
+      type: object
+      properties:
+        starttime:
+          description: Timestamp of the start of the test
+          title: Start time
+          type: integer
+          format: int64
+        progress:
+          description: Progress of the test
+          maximum: 100.0
+          minimum: 0.0
+          title: Progress
+          type: integer
+        errorMessage:
+          description: A message in case of error
+          title: ErrorMessage
+          type: string
+        vulnerabilities:
+          $ref: '#/components/schemas/Vulnerabilities'
+    ShortTestReport:
+      title: Short Test Report
+      description: Short Test Report
+      type: object
+      properties:
+        apiID:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+        starttime:
+          description: Timestamp of the start of the test
+          title: Start time
+          type: integer
+          format: int64
+        status:
+          $ref: '#/components/schemas/FuzzingStatusEnum'
+        statusMessage:
+          title: Status message details
+          description: Message for status details, if any
+          type: string
+        tags:
+          title: Tags list
+          type: array
+          items:
+            $ref: '#/components/schemas/FuzzingReportTag'
+        highestSeverity:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/Severity
+      required:
+      - starttime
+      - status
+    FuzzingReportItem:
+      description: Current fuzzer report
+      properties:
+        name:
+          type: string
+        source:
+          type: string
+        status:
+          type: string
+        description:
+          type: string
+        testType:
+          type: string
+        paths:
+          items:
+            $ref: '#/components/schemas/FuzzingReportPath'
+          title: Paths
+          description: List of paths that has been fuzzed
+          type: array
+        findings:
+          items:
+            $ref: '#/components/schemas/RawFindings'
+          title: Paths
+          description: List of paths that has been fuzzed
+          type: array
+      title: FuzzingReportItem
+      type: object
+    FuzzingStatusAndReport:
+      description: fuzzing status and reporting
+      properties:
+        status:
+          $ref: '#/components/schemas/FuzzingStatusEnum'
+        report:
+          additionalProperties:
+            $ref: '#/components/schemas/FuzzingReportItem'
+          title: Report
+          type: object
+          description: List of report item
+        progress:
+          type: integer
+      title: FuzzingStatusAndReport
+      type: object
+      required:
+      - status
+      - report
+      - progress
+    FuzzingReportTag:
+      title: Report tag item
+      description: Report tag item
+      type: object
+      properties:
+        name:
+          title: Tag name
+          description: Tag name
+          type: string
+        operations:
+          title: Operations list
+          type: array
+          items:
+            $ref: '#/components/schemas/FuzzingReportOperation'
+        highestSeverity:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/Severity
+      required:
+      - name
+      - operations
+    Tests:
+      title: Tests
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/Test'
+        total:
+          description: Nb of items, used for pagination
+          title: Total
+          type: integer
+    RawFindingsSeverity:
+      properties:
+        severity:
+          type: string
+    FuzzingReportOperation_2:
+      description: Report tag operation
+      properties:
+        findings:
+          items:
+            $ref: ../common/openapi.yaml#/components/schemas/APIFinding
+          title: Findings list
+          type: array
+        highestSeverity:
+          $ref: ../common/openapi.yaml#/components/schemas/Severity
+        operation:
+          $ref: ../common/openapi.yaml#/components/schemas/MethodAndPath
+        requestsCount:
+          description: Request count to this operation item during the test
+          format: int32
+          title: Request count to the opea
+          type: integer
+      required:
+      - operation
+      - requestsCount
+      title: Report tag operation
+      type: object
+    ShortTestReport_2:
+      description: Short Test Report
+      properties:
+        apiID:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+        highestSeverity:
+          $ref: ../common/openapi.yaml#/components/schemas/Severity
+        starttime:
+          description: Timestamp of the start of the test
+          format: int64
+          title: Start time
+          type: integer
+        status:
+          $ref: '#/components/schemas/FuzzingStatusEnum'
+        statusMessage:
+          description: Message for status details, if any
+          title: Status message details
+          type: string
+        tags:
+          items:
+            $ref: '#/components/schemas/FuzzingReportTag_2'
+          title: Tags list
+          type: array
+      required:
+      - starttime
+      - status
+      title: Short Test Report
+      type: object
+    FuzzingReportTag_2:
+      description: Report tag item
+      properties:
+        highestSeverity:
+          $ref: ../common/openapi.yaml#/components/schemas/Severity
+        name:
+          description: Tag name
+          title: Tag name
+          type: string
+        operations:
+          items:
+            $ref: '#/components/schemas/FuzzingReportOperation_2'
+          title: Operations list
+          type: array
+      required:
+      - name
+      - operations
+      title: Report tag item
+      type: object
+x-refined-from:
+- apiclarity-fuzzer-module-openapi.yml
+- apiclarity-global-openapi.gen.yml

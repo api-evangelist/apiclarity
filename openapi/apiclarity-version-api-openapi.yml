@@ -1,0 +1,39 @@
+openapi: 3.2.0
+info:
+  title: Apiclarity Version API
+  version: 0.0.1
+  description: 'Operations tagged Version across 2 of this provider''s published API definitions: apiclarity-fuzzer-module-openapi.yml, apiclarity-spec-reconstructor-module-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /
+  description: Override base path for all operations
+tags:
+- name: Version
+paths:
+  /version:
+    get:
+      operationId: getVersion
+      summary: Get the version of this Module
+      responses:
+        '200':
+          description: Version of the Module
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Version'
+      tags:
+      - Version
+    servers:
+    - url: /
+      description: Override base path for all operations
+components:
+  schemas:
+    Version:
+      type: object
+      required:
+      - version
+      properties:
+        version:
+          type: string
+x-refined-from:
+- apiclarity-fuzzer-module-openapi.yml
+- apiclarity-spec-reconstructor-module-openapi.yml

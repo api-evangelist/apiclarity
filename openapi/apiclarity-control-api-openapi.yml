@@ -1,180 +1,211 @@
 openapi: 3.2.0
 info:
-  title: APIClarity API Events Control API
-  description: APIClarity is an open source API security and observability tool that analyzes API traffic to reconstruct OpenAPI specifications, detect shadow and zombie APIs, identify API differences and changes, and provide API security alerts. This is the REST API exposed by an APIClarity deployment.
+  title: Apiclarity Control API
   version: 1.0.0
-  contact:
-    name: OpenClarity
-    url: https://github.com/openclarity/apiclarity
-  license:
-    name: Apache 2.0
-    url: https://www.apache.org/licenses/LICENSE-2.0
+  description: 'Operations tagged Control across 2 of this provider''s published API definitions: apiclarity-global-openapi.gen.yml, apiclarity-plugins-telemetry-swagger.yml. Each path carries the servers of the definition it was published in.'
 servers:
-- url: http://localhost:8080/api
-  description: Local APIClarity deployment
+- url: /api
 tags:
 - name: Control
-  description: Control-plane endpoints for trace sources and discovered APIs.
 paths:
   /control/newDiscoveredAPIs:
     post:
-      summary: Allows a client to notify APIClarity about new APIs.
       description: This allows a client (a gateway for example) to notify APIclarity about newly discovered APIs. If one of the APIs already exists, it is ignored.
-      tags:
-      - Control
       requestBody:
-        required: true
         content:
           application/json:
             schema:
-              type: object
-              required:
-              - hosts
               properties:
                 hosts:
-                  type: array
                   description: List of discovered APIs, format of hostname:port
                   items:
                     type: string
-        description: List of new discovered APIs
+                  type: array
+              required:
+              - hosts
+              type: object
       responses:
         '200':
-          description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessResponse'
+                $ref: ../common/openapi.yaml#/components/schemas/SuccessResponse
+          description: Success
         default:
-          description: Response
-  /control/traceSources:
-    get:
-      summary: List of configured trace sources
+          $ref: '#/components/responses/UnknownError'
+      summary: Allows a client to notify APIClarity about new APIs
       tags:
       - Control
+      operationId: postControlNewDiscoveredAPIs
+      x-operation-id-source: derived
+    servers:
+    - url: /api
+  /control/traceSources:
+    get:
       responses:
         '200':
-          description: Success
           content:
             application/json:
               schema:
-                type: object
-                required:
-                - trace_sources
                 properties:
                   trace_sources:
-                    type: array
                     description: List of trace sources
                     items:
                       $ref: '#/components/schemas/TraceSource'
+                    type: array
+                required:
+                - trace_sources
+                type: object
+          description: Success
         default:
-          description: Response
-    post:
-      summary: Create a new Trace Source
+          $ref: '#/components/responses/UnknownError'
+      summary: List of configured trace sources
       tags:
       - Control
+      operationId: getControlTraceSources
+      x-operation-id-source: derived
+    post:
       requestBody:
-        required: true
         content:
           application/json:
             schema:
-              description: Create a new Trace Source
               $ref: '#/components/schemas/TraceSource'
       responses:
         '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceSource'
           description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TraceSource'
         default:
-          description: Response
+          $ref: '#/components/responses/UnknownError'
+      summary: Create a new Trace Source
+      tags:
+      - Control
+      operationId: postControlTraceSources
+      x-operation-id-source: derived
+    servers:
+    - url: /api
   /control/traceSources/{traceSourceId}:
-    get:
-      summary: Get Trace Source information
-      tags:
-      - Control
-      parameters:
-      - $ref: '#/components/parameters/traceSourceId'
-      responses:
-        '200':
-          description: Trace Source information
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TraceSource'
-        '404':
-          description: Trace Source not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-        default:
-          description: Response
+    parameters:
+    - $ref: '#/components/parameters/traceSourceId'
     delete:
-      summary: Delete a Trace Source
-      tags:
-      - Control
-      parameters:
-      - $ref: '#/components/parameters/traceSourceId'
       responses:
         '204':
           description: Success
         '404':
-          description: Trace Source not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Trace Source not found
         default:
-          description: Response
+          $ref: '#/components/responses/UnknownError'
+      summary: Delete a Trace Source
+      tags:
+      - Control
+      operationId: deleteControlTraceSourcesByTraceSourceId
+      x-operation-id-source: derived
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceSource'
+          description: Trace Source information
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Trace Source not found
+        default:
+          $ref: '#/components/responses/UnknownError'
+      summary: Get Trace Source information
+      tags:
+      - Control
+      operationId: getControlTraceSourcesByTraceSourceId
+      x-operation-id-source: derived
+    servers:
+    - url: /api
 components:
-  parameters:
-    traceSourceId:
-      name: traceSourceId
-      in: path
-      required: true
-      description: Trace Source ID
-      schema:
-        type: string
-        format: uuid
   schemas:
+    TraceSourceType:
+      enum:
+      - APIGEE_X
+      - F5_BIG_IP
+      - KONG_INTERNAL
+      - TYK_INTERNAL
+      type: string
+    TraceSource:
+      description: A Source which is sending traces to APIClarity
+      properties:
+        description:
+          type: string
+        id:
+          type: integer
+        name:
+          description: Unique name identifying a Trace Source
+          type: string
+        token:
+          type: string
+        type:
+          $ref: '#/components/schemas/TraceSourceType'
+        uid:
+          format: uuid
+          type: string
+      required:
+      - name
+      - type
+      type: object
+    SuccessResponse:
+      description: An object that is return in cases of success that return nothing.
+      type: object
+      properties:
+        message:
+          type: string
     ApiResponse:
       description: An object that is return in all cases of failures.
       type: object
       properties:
         message:
           type: string
-    SuccessResponse:
-      type: object
-      description: 'An object that is return in cases of success that return nothing.'
-      properties:
-        message:
-          type: string
-    TraceSource:
-      description: A Source which is sending traces to APIClarity
-      type: object
-      properties:
-        id:
-          type: integer
-        uid:
-          type: string
-          format: uuid
-        name:
-          description: Unique name identifying a Trace Source
-          type: string
-        type:
-          $ref: '#/components/schemas/TraceSourceType'
-        description:
-          type: string
-        token:
-          type: string
-      required:
-      - name
-      - type
-    TraceSourceType:
-      type: string
-      enum:
-      - APIGEE_X
-      - F5_BIG_IP
-      - KONG_INTERNAL
-      - TYK_INTERNAL
+  responses:
+    UnknownError:
+      content:
+        application/json:
+          schema:
+            $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+      description: unknown error
+    Success:
+      description: success message
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponse'
+    UnknownError_2:
+      description: unknown error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse'
+  parameters:
+    traceSourceId:
+      description: Trace Source ID
+      in: path
+      name: traceSourceId
+      required: true
+      schema:
+        format: uuid
+        type: string
+    TraceSourceTokenHeader:
+      name: X-Trace-Source-Token
+      description: Optional header to authenticate the trace source
+      in: header
+      required: false
+      schema:
+        type: string
+x-refined-from:
+- apiclarity-global-openapi.gen.yml
+- apiclarity-plugins-telemetry-swagger.yml

@@ -1,0 +1,650 @@
+openapi: 3.2.0
+info:
+  title: Apiclarity Bfla API
+  version: '1.0'
+  description: 'Operations tagged bfla across 2 of this provider''s published API definitions: apiclarity-bfla-module-openapi.yml, apiclarity-global-openapi.gen.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /api
+tags:
+- name: bfla
+paths:
+  /authorizationModel/{apiID}:
+    post:
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      tags:
+      - bfla
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorizationModel'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+      summary: Create authorization model by api id
+      x-summary-source: derived
+      operationId: postAuthorizationModelByApiID
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      tags:
+      - bfla
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthorizationModel'
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+      summary: Get authorization model by api id
+      x-summary-source: derived
+      operationId: getAuthorizationModelByApiID
+      x-operation-id-source: derived
+  /authorizationModel/{apiID}/state:
+    get:
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      tags:
+      - bfla
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BFLAState'
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+      summary: Get authorization model by api id state
+      x-summary-source: derived
+      operationId: getAuthorizationModelByApiIDState
+      x-operation-id-source: derived
+  /authorizationModel/{apiID}/learning/start:
+    put:
+      tags:
+      - bfla
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      - in: query
+        name: nr_traces
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+      summary: Replace authorization model by api id learning start
+      x-summary-source: derived
+      operationId: putAuthorizationModelByApiIDLearningStart
+      x-operation-id-source: derived
+  /authorizationModel/{apiID}/reset:
+    post:
+      tags:
+      - bfla
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+      summary: Create authorization model by api id reset
+      x-summary-source: derived
+      operationId: postAuthorizationModelByApiIDReset
+      x-operation-id-source: derived
+  /authorizationModel/{apiID}/learning/stop:
+    put:
+      tags:
+      - bfla
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+      summary: Replace authorization model by api id learning stop
+      x-summary-source: derived
+      operationId: putAuthorizationModelByApiIDLearningStop
+      x-operation-id-source: derived
+  /authorizationModel/{apiID}/detection/start:
+    put:
+      tags:
+      - bfla
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+      summary: Replace authorization model by api id detection start
+      x-summary-source: derived
+      operationId: putAuthorizationModelByApiIDDetectionStart
+      x-operation-id-source: derived
+  /authorizationModel/{apiID}/detection/stop:
+    put:
+      tags:
+      - bfla
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+      summary: Replace authorization model by api id detection stop
+      x-summary-source: derived
+      operationId: putAuthorizationModelByApiIDDetectionStop
+      x-operation-id-source: derived
+  /apiFindings/{apiID}:
+    get:
+      tags:
+      - bfla
+      operationId: GetApiFindings
+      summary: Get findings for an API and module
+      description: Asks for findings of an APIClarity module, and API. Implemented by each module
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      - $ref: ../../../../../../api3/common/openapi.yaml#/components/parameters/Sensitive
+      responses:
+        '200':
+          description: An API Findings Bundle
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/APIFindings
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+  /modules/bfla/apiFindings/{apiID}:
+    get:
+      description: Asks for findings of an APIClarity module, and API. Implemented by each module
+      operationId: bflaGetApiFindings
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      - $ref: ../common/openapi.yaml#/components/parameters/Sensitive
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/APIFindings
+          description: An API Findings Bundle
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      summary: Get findings for an API and module
+      tags:
+      - bfla
+    servers:
+    - url: /api
+  /modules/bfla/authorizationModel/{apiID}:
+    get:
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthorizationModel'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      tags:
+      - bfla
+      summary: Get modules bfla authorization model by api id
+      x-summary-source: derived
+      operationId: getModulesBflaAuthorizationModelByApiID
+      x-operation-id-source: derived
+    post:
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorizationModel'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      tags:
+      - bfla
+      summary: Create modules bfla authorization model by api id
+      x-summary-source: derived
+      operationId: postModulesBflaAuthorizationModelByApiID
+      x-operation-id-source: derived
+    servers:
+    - url: /api
+  /modules/bfla/authorizationModel/{apiID}/detection/start:
+    put:
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      tags:
+      - bfla
+      summary: Replace modules bfla authorization model by api id detection start
+      x-summary-source: derived
+      operationId: putModulesBflaAuthorizationModelByApiIDDetectionStart
+      x-operation-id-source: derived
+    servers:
+    - url: /api
+  /modules/bfla/authorizationModel/{apiID}/detection/stop:
+    put:
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      tags:
+      - bfla
+      summary: Replace modules bfla authorization model by api id detection stop
+      x-summary-source: derived
+      operationId: putModulesBflaAuthorizationModelByApiIDDetectionStop
+      x-operation-id-source: derived
+    servers:
+    - url: /api
+  /modules/bfla/authorizationModel/{apiID}/learning/start:
+    put:
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      - in: query
+        name: nr_traces
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      tags:
+      - bfla
+      summary: Replace modules bfla authorization model by api id learning start
+      x-summary-source: derived
+      operationId: putModulesBflaAuthorizationModelByApiIDLearningStart
+      x-operation-id-source: derived
+    servers:
+    - url: /api
+  /modules/bfla/authorizationModel/{apiID}/learning/stop:
+    put:
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      tags:
+      - bfla
+      summary: Replace modules bfla authorization model by api id learning stop
+      x-summary-source: derived
+      operationId: putModulesBflaAuthorizationModelByApiIDLearningStop
+      x-operation-id-source: derived
+    servers:
+    - url: /api
+  /modules/bfla/authorizationModel/{apiID}/reset:
+    post:
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      tags:
+      - bfla
+      summary: Create modules bfla authorization model by api id reset
+      x-summary-source: derived
+      operationId: postModulesBflaAuthorizationModelByApiIDReset
+      x-operation-id-source: derived
+    servers:
+    - url: /api
+  /modules/bfla/authorizationModel/{apiID}/state:
+    get:
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BFLAState'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: Error response
+      tags:
+      - bfla
+      summary: Get modules bfla authorization model by api id state
+      x-summary-source: derived
+      operationId: getModulesBflaAuthorizationModelByApiIDState
+      x-operation-id-source: derived
+    servers:
+    - url: /api
+components:
+  schemas:
+    BFLAStatus:
+      type: string
+      enum:
+      - NO_SPEC
+      - LEARNING
+      - LEGITIMATE
+      - SUSPICIOUS_MEDIUM
+      - SUSPICIOUS_HIGH
+    AuthorizationModel:
+      type: object
+      required:
+      - specType
+      - operations
+      - learning
+      properties:
+        specType:
+          $ref: '#/components/schemas/SpecType'
+        learning:
+          type: boolean
+        operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthorizationModelOperation'
+    DetectedUser:
+      required:
+      - id
+      - source
+      - ip_address
+      properties:
+        id:
+          type: string
+        source:
+          type: string
+          enum:
+          - JWT
+          - BASIC
+          - KONG_X_CONSUMER_ID
+        ip_address:
+          type: string
+    K8sObjectRef:
+      type: object
+      required:
+      - uid
+      - kind
+      - name
+      - namespace
+      - apiVersion
+      properties:
+        uid:
+          type: string
+        kind:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+        apiVersion:
+          type: string
+    SpecType:
+      type: string
+      enum:
+      - NONE
+      - PROVIDED
+      - RECONSTRUCTED
+    BFLAState:
+      type: string
+      enum:
+      - BFLA_START
+      - BFLA_LEARNING
+      - BFLA_DETECTING
+      - BFLA_LEARNT
+    AuthorizationModelOperation:
+      type: object
+      required:
+      - path
+      - method
+      - audience
+      - tags
+      properties:
+        path:
+          type: string
+        method:
+          type: string
+        tags:
+          items:
+            type: string
+          type: array
+        audience:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthorizationModelAudience'
+    AuthorizationModelAudience:
+      type: object
+      required:
+      - end_users
+      - authorized
+      - external
+      - statusCode
+      - warningStatus
+      properties:
+        warningStatus:
+          $ref: '#/components/schemas/BFLAStatus'
+        statusCode:
+          type: integer
+        lastTime:
+          type: string
+          format: date-time
+        authorized:
+          type: boolean
+        external:
+          type: boolean
+        end_users:
+          type: array
+          items:
+            $ref: '#/components/schemas/DetectedUser'
+        k8s_object:
+          $ref: '#/components/schemas/K8sObjectRef'
+x-refined-from:
+- apiclarity-bfla-module-openapi.yml
+- apiclarity-global-openapi.gen.yml

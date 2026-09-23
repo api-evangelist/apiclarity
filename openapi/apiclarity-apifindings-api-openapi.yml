@@ -1,0 +1,65 @@
+openapi: 3.2.0
+info:
+  title: Apiclarity API Findings API
+  version: 0.0.1
+  description: 'Operations tagged ApiFindings across 2 of this provider''s published API definitions: apiclarity-fuzzer-module-openapi.yml, apiclarity-trace-analyzer-module-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /
+  description: Override base path for all operations
+tags:
+- name: ApiFindings
+paths:
+  /apiFindings/{apiID}:
+    get:
+      operationId: GetAPIFindings
+      summary: Get findings for an API and module
+      description: Asks for findings of an APIClarity module, and API. Implemented by each module
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      - $ref: ../../../../../../api3/common/openapi.yaml#/components/parameters/Sensitive
+      responses:
+        '200':
+          description: An API Findings Bundle
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/APIFindings
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+      tags:
+      - ApiFindings
+    servers:
+    - url: /
+      description: Override base path for all operations
+  /apiFindings/{apiID}/reset:
+    post:
+      operationId: ResetApiFindings
+      summary: Delete all API findings for an API
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '204':
+          description: Reset
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+      tags:
+      - ApiFindings
+x-refined-from:
+- apiclarity-fuzzer-module-openapi.yml
+- apiclarity-trace-analyzer-module-openapi.yml

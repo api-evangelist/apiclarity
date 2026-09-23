@@ -1,0 +1,63 @@
+openapi: 3.2.0
+info:
+  version: 1.0.0
+  title: APIClarity Plugins telemetries Hosts To Trace API
+servers:
+- url: /api
+tags:
+- name: HostsToTrace
+paths:
+  /hostsToTrace:
+    get:
+      summary: Get a list of hosts to trace
+      parameters:
+      - $ref: '#/components/parameters/TraceSourceTokenHeader'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostsToTrace'
+        default:
+          $ref: '#/components/responses/UnknownError'
+      tags:
+      - HostsToTrace
+      operationId: getHostsToTrace
+      x-operation-id-source: derived
+components:
+  schemas:
+    HostsList:
+      description: List of hosts
+      type: array
+      items:
+        type: string
+    HostsToTrace:
+      description: List of hosts to trace
+      type: object
+      properties:
+        hosts:
+          $ref: '#/components/schemas/HostsList'
+      required:
+      - hosts
+    ApiResponse:
+      description: An object that is return in all cases of failures.
+      type: object
+      properties:
+        message:
+          type: string
+  responses:
+    UnknownError:
+      description: unknown error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse'
+  parameters:
+    TraceSourceTokenHeader:
+      name: X-Trace-Source-Token
+      description: Optional header to authenticate the trace source
+      in: header
+      required: false
+      schema:
+        type: string

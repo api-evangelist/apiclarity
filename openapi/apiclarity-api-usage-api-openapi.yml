@@ -1,0 +1,250 @@
+openapi: 3.2.0
+info:
+  title: APIClarity API Usage API
+  version: 1.0.0
+servers:
+- url: /api
+tags:
+- name: API Usage
+paths:
+  /apiUsage/hitCount:
+    get:
+      parameters:
+      - $ref: '#/components/parameters/startTime'
+      - $ref: '#/components/parameters/endTime'
+      - $ref: '#/components/parameters/showNonApi'
+      - $ref: '#/components/parameters/methodIsFilter'
+      - $ref: '#/components/parameters/providedPathIDIsFilter'
+      - $ref: '#/components/parameters/reconstructedPathIDIsFilter'
+      - $ref: '#/components/parameters/pathIsFilter'
+      - $ref: '#/components/parameters/pathIsNotFilter'
+      - $ref: '#/components/parameters/pathStartsWithFilter'
+      - $ref: '#/components/parameters/pathEndsWithFilter'
+      - $ref: '#/components/parameters/pathContainsFilter'
+      - $ref: '#/components/parameters/statusCodeIsFilter'
+      - $ref: '#/components/parameters/statusCodeIsNotFilter'
+      - $ref: '#/components/parameters/statusCodeGteFilter'
+      - $ref: '#/components/parameters/statusCodeLteFilter'
+      - $ref: '#/components/parameters/sourceIPIsFilter'
+      - $ref: '#/components/parameters/sourceIPIsNotFilter'
+      - $ref: '#/components/parameters/destinationIPIsFilter'
+      - $ref: '#/components/parameters/destinationIPIsNotFilter'
+      - $ref: '#/components/parameters/destinationPortIsFilter'
+      - $ref: '#/components/parameters/destinationPortIsNotFilter'
+      - $ref: '#/components/parameters/hasSpecDiffFilter'
+      - $ref: '#/components/parameters/specDiffTypeIsFilter'
+      - $ref: '#/components/parameters/specIsFilter'
+      - $ref: '#/components/parameters/specIsNotFilter'
+      - $ref: '#/components/parameters/specStartsWithFilter'
+      - $ref: '#/components/parameters/specEndsWithFilter'
+      - $ref: '#/components/parameters/specContainsFilter'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: ../common/openapi.yaml#/components/schemas/HitCount
+                type: array
+          description: Success
+        default:
+          $ref: '#/components/responses/UnknownError'
+      summary: Get a hit count within a selected timeframe for the filtered API events
+      tags:
+      - API Usage
+      operationId: getApiUsageHitCount
+      x-operation-id-source: derived
+components:
+  parameters:
+    pathIsFilter:
+      in: query
+      name: path[is]
+      schema:
+        items:
+          type: string
+        type: array
+    pathContainsFilter:
+      in: query
+      name: path[contains]
+      schema:
+        items:
+          type: string
+        type: array
+    methodIsFilter:
+      in: query
+      name: method[is]
+      schema:
+        items:
+          $ref: ../common/openapi.yaml#/components/schemas/HttpMethod
+        type: array
+    sourceIPIsNotFilter:
+      in: query
+      name: sourceIP[isNot]
+      schema:
+        items:
+          type: string
+        type: array
+    specDiffTypeIsFilter:
+      in: query
+      name: specDiffType[is]
+      schema:
+        items:
+          $ref: ../common/openapi.yaml#/components/schemas/DiffType
+        type: array
+    specStartsWithFilter:
+      in: query
+      name: spec[start]
+      schema:
+        type: string
+    startTime:
+      description: Start time of the query
+      in: query
+      name: startTime
+      required: true
+      schema:
+        format: date-time
+        type: string
+    pathStartsWithFilter:
+      in: query
+      name: path[start]
+      schema:
+        type: string
+    reconstructedPathIDIsFilter:
+      in: query
+      name: reconstructedPathID[is]
+      schema:
+        items:
+          type: string
+        type: array
+    statusCodeIsFilter:
+      in: query
+      name: statusCode[is]
+      schema:
+        items:
+          type: string
+        type: array
+    destinationPortIsNotFilter:
+      in: query
+      name: destinationPort[isNot]
+      schema:
+        items:
+          type: string
+        type: array
+    destinationIPIsNotFilter:
+      in: query
+      name: destinationIP[isNot]
+      schema:
+        items:
+          type: string
+        type: array
+    specIsNotFilter:
+      in: query
+      name: spec[isNot]
+      schema:
+        items:
+          type: string
+        type: array
+    providedPathIDIsFilter:
+      in: query
+      name: providedPathID[is]
+      schema:
+        items:
+          type: string
+        type: array
+    statusCodeLteFilter:
+      description: less than or equal
+      in: query
+      name: statusCode[lte]
+      schema:
+        type: string
+    statusCodeGteFilter:
+      description: greater than or equal
+      in: query
+      name: statusCode[gte]
+      schema:
+        type: string
+    destinationPortIsFilter:
+      in: query
+      name: destinationPort[is]
+      schema:
+        items:
+          type: string
+        type: array
+    specIsFilter:
+      in: query
+      name: spec[is]
+      schema:
+        items:
+          type: string
+        type: array
+    statusCodeIsNotFilter:
+      in: query
+      name: statusCode[isNot]
+      schema:
+        items:
+          type: string
+        type: array
+    pathEndsWithFilter:
+      in: query
+      name: path[end]
+      schema:
+        type: string
+    sourceIPIsFilter:
+      in: query
+      name: sourceIP[is]
+      schema:
+        items:
+          type: string
+        type: array
+    destinationIPIsFilter:
+      in: query
+      name: destinationIP[is]
+      schema:
+        items:
+          type: string
+        type: array
+    hasSpecDiffFilter:
+      in: query
+      name: hasSpecDiff[is]
+      schema:
+        type: boolean
+    specContainsFilter:
+      in: query
+      name: spec[contains]
+      schema:
+        items:
+          type: string
+        type: array
+    endTime:
+      description: End time of the query
+      in: query
+      name: endTime
+      required: true
+      schema:
+        format: date-time
+        type: string
+    pathIsNotFilter:
+      in: query
+      name: path[isNot]
+      schema:
+        items:
+          type: string
+        type: array
+    specEndsWithFilter:
+      in: query
+      name: spec[end]
+      schema:
+        type: string
+    showNonApi:
+      in: query
+      name: showNonApi
+      required: true
+      schema:
+        type: boolean
+  responses:
+    UnknownError:
+      content:
+        application/json:
+          schema:
+            $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+      description: unknown error

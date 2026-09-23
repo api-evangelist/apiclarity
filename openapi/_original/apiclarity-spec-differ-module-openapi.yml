@@ -1,3 +1,5 @@
+# x-archived-from: apiclarity-spec-differ-module-openapi.yml
+# x-archived-on: 2026-09-16
 openapi: 3.0.3
 info:
   title: APIClarity Differ

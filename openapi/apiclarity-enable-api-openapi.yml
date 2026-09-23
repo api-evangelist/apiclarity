@@ -1,0 +1,38 @@
+openapi: 3.2.0
+info:
+  title: APIClarity Spec Reconstructor Module Enable API
+  version: 0.0.1
+  description: APIClarity Spec Reconstructor Module API
+tags:
+- name: Enable
+paths:
+  /enable:
+    post:
+      summary: enable/disable the spec reconstruction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeatureEnable'
+      responses:
+        '204':
+          description: Success
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+      tags:
+      - Enable
+      operationId: postEnable
+      x-operation-id-source: derived
+components:
+  schemas:
+    FeatureEnable:
+      description: Enable/disable a feature
+      type: object
+      properties:
+        enable:
+          description: enable flag
+          type: boolean

@@ -1,0 +1,32 @@
+openapi: 3.2.0
+info:
+  title: Apiclarity Stop API
+  version: 0.0.1
+  description: 'Operations tagged Stop across 2 of this provider''s published API definitions: apiclarity-spec-reconstructor-module-openapi.yml, apiclarity-trace-analyzer-module-openapi.yml. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Stop
+paths:
+  /{apiID}/stop:
+    post:
+      summary: Stop the spec reconstruction for this API
+      operationId: PostAPIIDStop
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '204':
+          description: Success
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiResponse
+      tags:
+      - Stop
+x-refined-from:
+- apiclarity-spec-reconstructor-module-openapi.yml
+- apiclarity-trace-analyzer-module-openapi.yml

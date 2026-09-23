@@ -1,87 +1,81 @@
 openapi: 3.2.0
 info:
-  title: APIClarity API Events Features API
-  description: APIClarity is an open source API security and observability tool that analyzes API traffic to reconstruct OpenAPI specifications, detect shadow and zombie APIs, identify API differences and changes, and provide API security alerts. This is the REST API exposed by an APIClarity deployment.
+  title: APIClarity Features API
   version: 1.0.0
-  contact:
-    name: OpenClarity
-    url: https://github.com/openclarity/apiclarity
-  license:
-    name: Apache 2.0
-    url: https://www.apache.org/licenses/LICENSE-2.0
 servers:
-- url: http://localhost:8080/api
-  description: Local APIClarity deployment
+- url: /api
 tags:
 - name: Features
-  description: Enabled features in the deployment.
 paths:
   /features:
     get:
-      summary: Get the list of APIClarity features and for each feature the list of API hosts (in the form 'host:port') the feature requires to get trace for
-      tags:
-      - Features
       responses:
         '200':
-          description: Success
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/APIClarityFeatureList'
+          description: Success
+      summary: Get the list of APIClarity features and for each feature the list of API hosts…
+      tags:
+      - Features
+      operationId: getFeatures
+      x-operation-id-source: derived
 components:
   schemas:
     APIClarityFeatureEnum:
       description: APIClarity Feature Name
-      type: string
       enum:
-      - specreconstructor
-      - specdiffs
-      - traceanalyzer
       - bfla
-      - spec_differ
       - fuzzer
-    HostsToTraceForComponent:
+      - spec_differ
+      - specdiffs
+      - specreconstructor
+      - specreconstructor
+      - traceanalyzer
+      type: string
+    APIClarityFeatureList:
+      description: List of APIClarity features and for each feature the list of API hosts (Group by trace sources, in the form 'host:port') the feature requires to get trace for
+      properties:
+        features:
+          items:
+            $ref: '#/components/schemas/APIClarityFeature'
+          type: array
       type: object
+    HostsToTraceForTraceSource:
+      description: list of API hosts (in the form 'host:port') managed by a traceSource
+      properties:
+        hostsToTrace:
+          description: List of hosts (in the form 'host:port')
+          items:
+            type: string
+          type: array
+        traceSourceID:
+          description: ID of the trace source
+          format: uint32
+          type: integer
+      type: object
+    APIClarityFeature:
+      description: Description of APIClarity feature and the list of API hosts (Group by trace sources, in the form 'host:port') the feature requires to get trace for
+      properties:
+        featureDescription:
+          description: Short human readable description of the feature
+          type: string
+        featureName:
+          $ref: '#/components/schemas/APIClarityFeatureEnum'
+        hostsToTrace:
+          $ref: '#/components/schemas/HostsToTraceForComponent'
+      required:
+      - featureName
+      type: object
+    HostsToTraceForComponent:
       description: List of trace sources for a component, with theirs list of API hosts to get trace for
       properties:
         component:
           description: Component name
           type: string
         traceSourcesHosts:
-          type: array
           items:
             $ref: '#/components/schemas/HostsToTraceForTraceSource'
-    APIClarityFeature:
-      type: object
-      description: Description of APIClarity feature and the list of API hosts (Group by trace sources, in the form 'host:port') the feature requires to get trace for
-      properties:
-        featureName:
-          $ref: '#/components/schemas/APIClarityFeatureEnum'
-        featureDescription:
-          description: Short human readable description of the feature
-          type: string
-        hostsToTrace:
-          $ref: '#/components/schemas/HostsToTraceForComponent'
-      required:
-      - featureName
-    APIClarityFeatureList:
-      type: object
-      description: List of APIClarity features and for each feature the list of API hosts (Group by trace sources, in the form 'host:port') the feature requires to get trace for
-      properties:
-        features:
           type: array
-          items:
-            $ref: '#/components/schemas/APIClarityFeature'
-    HostsToTraceForTraceSource:
       type: object
-      description: list of API hosts (in the form 'host:port') managed by a traceSource
-      properties:
-        traceSourceID:
-          description: ID of the trace source
-          type: integer
-          format: uint32
-        hostsToTrace:
-          description: List of hosts (in the form 'host:port')
-          type: array
-          items:
-            type: string

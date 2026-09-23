@@ -60,10 +60,7 @@ artifacts:
   finops/apiclarity-finops.yml:
     method: generated
     evidence: declared in the artifact
-  kin/checks-2026-09-04T062714.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-05T153418.yml:
+  kin/checks-2026-09-05T072335.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-08-06T210741.yml:
@@ -186,6 +183,18 @@ artifacts:
   kin/score-2026-09-04T062714.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-04T212454.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-04T224856.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T055819.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T072335.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/apiclarity-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
@@ -195,24 +204,39 @@ artifacts:
   mcp/apiclarity-mcp.yml:
     method: derived
     evidence: declared in the artifact
+  openapi/_original/apiclarity-common-schemas-openapi.yml:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apiclarity-core-openapi.yml:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apiclarity-global-openapi.gen.yml:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apiclarity-legacy-swagger.yml:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
+  openapi/_original/apiclarity-openapi.yml:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
   openapi/_sources.yml:
     method: searched
     evidence: declared in the artifact
   openapi/apiclarity-api-events-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apiclarity-api-inventory-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apiclarity-bfla-module-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/apiclarity-control-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apiclarity-features-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/apiclarity-fuzzer-module-openapi.yml:
     method: unknown
     evidence: no authorship recorded

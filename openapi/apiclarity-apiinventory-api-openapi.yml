@@ -1,0 +1,454 @@
+openapi: 3.2.0
+info:
+  title: APIClarity API Inventory API
+  version: 1.0.0
+servers:
+- url: /api
+tags:
+- name: ApiInventory
+paths:
+  /apiInventory:
+    get:
+      parameters:
+      - $ref: '#/components/parameters/apiType'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/apiInventorySortKey'
+      - $ref: '#/components/parameters/sortDir'
+      - $ref: '#/components/parameters/apiNameIsFilter'
+      - $ref: '#/components/parameters/apiNameIsNotFilter'
+      - $ref: '#/components/parameters/apiNameStartsWithFilter'
+      - $ref: '#/components/parameters/apiNameEndsWithFilter'
+      - $ref: '#/components/parameters/apiNameContainsFilter'
+      - $ref: '#/components/parameters/portIsFilter'
+      - $ref: '#/components/parameters/portIsNotFilter'
+      - $ref: '#/components/parameters/hasProvidedSpecFilter'
+      - $ref: '#/components/parameters/hasReconstructedSpecFilter'
+      - $ref: '#/components/parameters/apiIdFilter'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  items:
+                    description: List of filtered APIs in the given page. List length must be lower or equal to pageSize
+                    items:
+                      $ref: ../common/openapi.yaml#/components/schemas/ApiInfo
+                    type: array
+                  total:
+                    description: Total filtered APIs count
+                    type: integer
+                required:
+                - total
+                type: object
+          description: Success
+        default:
+          $ref: '#/components/responses/UnknownError'
+      summary: Get API inventory
+      tags:
+      - ApiInventory
+      operationId: getApiInventory
+      x-operation-id-source: derived
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../common/openapi.yaml#/components/schemas/ApiInfoWithType
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiInfo
+          description: Success
+        default:
+          $ref: '#/components/responses/UnknownError'
+      summary: Create API inventory item
+      tags:
+      - ApiInventory
+      operationId: postApiInventory
+      x-operation-id-source: derived
+  /apiInventory/{apiId}/apiInfo:
+    get:
+      parameters:
+      - $ref: '#/components/parameters/apiId'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiInfoWithType
+          description: Success
+        default:
+          $ref: '#/components/responses/UnknownError'
+      summary: Get api info from apiId
+      tags:
+      - ApiInventory
+      operationId: getApiInventoryByApiIdApiInfo
+      x-operation-id-source: derived
+  /apiInventory/{apiId}/provided_swagger.json:
+    get:
+      parameters:
+      - $ref: '#/components/parameters/apiId'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                description: spec in json format
+                type: object
+          description: Success
+        default:
+          $ref: '#/components/responses/UnknownError'
+      summary: Get provided API spec json file
+      tags:
+      - ApiInventory
+      operationId: getApiInventoryByApiIdProvidedSwaggerJson
+      x-operation-id-source: derived
+  /apiInventory/{apiId}/reconstructed_swagger.json:
+    get:
+      parameters:
+      - $ref: '#/components/parameters/apiId'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                description: spec in json format
+                type: object
+          description: Success
+        default:
+          $ref: '#/components/responses/UnknownError'
+      summary: Get reconstructed API spec json file
+      tags:
+      - ApiInventory
+      operationId: getApiInventoryByApiIdReconstructedSwaggerJson
+      x-operation-id-source: derived
+  /apiInventory/{apiId}/specs:
+    get:
+      parameters:
+      - $ref: '#/components/parameters/apiId'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/OpenApiSpecs
+          description: Success
+        default:
+          $ref: '#/components/responses/UnknownError'
+      summary: Get provided and reconstructed open api specs for a specific API
+      tags:
+      - ApiInventory
+      operationId: getApiInventoryByApiIdSpecs
+      x-operation-id-source: derived
+  /apiInventory/{apiId}/specs/providedSpec:
+    delete:
+      parameters:
+      - $ref: '#/components/parameters/apiId'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/SuccessResponse
+          description: Success
+        default:
+          $ref: '#/components/responses/UnknownError'
+      summary: Unset a provided spec for a specific API
+      tags:
+      - ApiInventory
+      operationId: deleteApiInventoryByApiIdSpecsProvidedSpec
+      x-operation-id-source: derived
+    put:
+      parameters:
+      - $ref: '#/components/parameters/apiId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../common/openapi.yaml#/components/schemas/rawSpec
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/rawSpec
+          description: Success
+        '400':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Spec validation failure
+        default:
+          $ref: '#/components/responses/UnknownError'
+      summary: Add or edit a spec for a specific API
+      tags:
+      - ApiInventory
+      operationId: putApiInventoryByApiIdSpecsProvidedSpec
+      x-operation-id-source: derived
+  /apiInventory/{apiId}/specs/reconstructedSpec:
+    delete:
+      parameters:
+      - $ref: '#/components/parameters/apiId'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/SuccessResponse
+          description: Success
+        default:
+          $ref: '#/components/responses/UnknownError'
+      summary: Unset a reconstructed spec for a specific API
+      tags:
+      - ApiInventory
+      operationId: deleteApiInventoryByApiIdSpecsReconstructedSpec
+      x-operation-id-source: derived
+  /apiInventory/{apiId}/suggestedReview:
+    get:
+      parameters:
+      - $ref: '#/components/parameters/apiId'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/SuggestedReview
+          description: Success
+        default:
+          $ref: '#/components/responses/UnknownError'
+      summary: Get reconstructed spec for review
+      tags:
+      - ApiInventory
+      operationId: getApiInventoryByApiIdSuggestedReview
+      x-operation-id-source: derived
+  /apiInventory/{reviewId}/approvedReview:
+    post:
+      parameters:
+      - $ref: '#/components/parameters/reviewId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../common/openapi.yaml#/components/schemas/ApprovedReview
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/SuccessResponse
+          description: Success
+        default:
+          $ref: '#/components/responses/UnknownError'
+      summary: Apply the approved review to create the reconstructed spec
+      tags:
+      - ApiInventory
+      operationId: postApiInventoryByReviewIdApprovedReview
+      x-operation-id-source: derived
+  /apiInventory/apiId/fromHostAndPort:
+    get:
+      parameters:
+      - $ref: '#/components/parameters/host'
+      - $ref: '#/components/parameters/port'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                description: api id
+                format: uint32
+                type: integer
+          description: Success
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: API ID Not Found
+        default:
+          $ref: '#/components/responses/UnknownError'
+      summary: Get apiId from host and port
+      tags:
+      - ApiInventory
+      operationId: getApiInventoryApiIdFromHostAndPort
+      x-operation-id-source: derived
+  /apiInventory/apiId/fromHostAndPortAndTraceSourceID:
+    get:
+      parameters:
+      - $ref: '#/components/parameters/host'
+      - $ref: '#/components/parameters/port'
+      - $ref: '#/components/parameters/traceSourceIdQuery'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                description: api id
+                format: uint32
+                type: integer
+          description: Success
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+          description: API ID Not Found
+        default:
+          $ref: '#/components/responses/UnknownError'
+      summary: Get apiId from host and port and Trace Source ID
+      tags:
+      - ApiInventory
+      operationId: getApiInventoryApiIdFromHostAndPortAndTraceSourceID
+      x-operation-id-source: derived
+components:
+  parameters:
+    port:
+      description: api port
+      in: query
+      name: port
+      required: true
+      schema:
+        type: string
+    apiIdFilter:
+      description: api id to return
+      in: query
+      name: apiId
+      schema:
+        type: string
+    page:
+      description: Page number of the query
+      in: query
+      name: page
+      required: true
+      schema:
+        type: integer
+    portIsFilter:
+      in: query
+      name: port[is]
+      schema:
+        items:
+          type: string
+        type: array
+    sortDir:
+      description: Sorting direction
+      in: query
+      name: sortDir
+      schema:
+        default: ASC
+        enum:
+        - ASC
+        - DESC
+        type: string
+    apiNameIsFilter:
+      in: query
+      name: name[is]
+      schema:
+        items:
+          type: string
+        type: array
+    pageSize:
+      description: Maximum items to return
+      in: query
+      name: pageSize
+      required: true
+      schema:
+        maximum: 50
+        minimum: 1
+        type: integer
+    apiNameIsNotFilter:
+      in: query
+      name: name[isNot]
+      schema:
+        items:
+          type: string
+        type: array
+    traceSourceIdQuery:
+      description: Trace Source ID
+      in: query
+      name: traceSourceId
+      required: true
+      schema:
+        format: uuid
+        type: string
+    hasProvidedSpecFilter:
+      in: query
+      name: hasProvidedSpec[is]
+      schema:
+        type: boolean
+    apiInventorySortKey:
+      description: Sort key
+      in: query
+      name: sortKey
+      required: true
+      schema:
+        $ref: ../common/openapi.yaml#/components/schemas/ApiInventorySortKey
+    reviewId:
+      in: path
+      name: reviewId
+      required: true
+      schema:
+        format: uint32
+        type: integer
+    host:
+      description: api host name
+      in: query
+      name: host
+      required: true
+      schema:
+        type: string
+    apiNameStartsWithFilter:
+      in: query
+      name: name[start]
+      schema:
+        type: string
+    portIsNotFilter:
+      in: query
+      name: port[isNot]
+      schema:
+        items:
+          type: string
+        type: array
+    apiNameContainsFilter:
+      in: query
+      name: name[contains]
+      schema:
+        items:
+          type: string
+        type: array
+    apiNameEndsWithFilter:
+      in: query
+      name: name[end]
+      schema:
+        type: string
+    hasReconstructedSpecFilter:
+      in: query
+      name: hasReconstructedSpec[is]
+      schema:
+        type: boolean
+    apiType:
+      description: API type [INTERNAL or EXTERNAL]
+      in: query
+      name: type
+      required: true
+      schema:
+        $ref: ../common/openapi.yaml#/components/schemas/ApiTypeEnum
+    apiId:
+      in: path
+      name: apiId
+      required: true
+      schema:
+        format: uint32
+        type: integer
+  responses:
+    UnknownError:
+      content:
+        application/json:
+          schema:
+            $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+      description: unknown error

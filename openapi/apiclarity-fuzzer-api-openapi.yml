@@ -1,0 +1,613 @@
+openapi: 3.2.0
+info:
+  title: Apiclarity Fuzzer API
+  version: '1.0'
+  description: 'Operations tagged fuzzer across 2 of this provider''s published API definitions: apiclarity-fuzzer-module-openapi.yml, apiclarity-global-openapi.gen.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /
+  description: Override base path for all operations
+- url: /api
+tags:
+- name: fuzzer
+  description: Everything about Fuzzer
+paths:
+  /fuzz/{apiID}/start:
+    post:
+      operationId: StartTest
+      summary: Start a test for an API
+      tags:
+      - fuzzer
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestInput'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestHandle'
+        '400':
+          description: Status Bad Request
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+        '404':
+          description: Service not found
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+        '500':
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+    servers:
+    - url: /
+      description: Override base path for all operations
+  /fuzz/{apiID}/stop:
+    post:
+      operationId: StopTest
+      summary: Stop (cancel) a running test for an API
+      tags:
+      - fuzzer
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '204':
+          description: Successful Response
+        '404':
+          description: Service not found
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+        '400':
+          description: Status Bad Request
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+        '500':
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+    servers:
+    - url: /
+      description: Override base path for all operations
+  /fuzz/{apiID}/progress:
+    get:
+      operationId: GetTestProgress
+      summary: Start a test for an API
+      tags:
+      - fuzzer
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShortTestProgress'
+        '404':
+          description: Service not found
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+        '500':
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+    servers:
+    - url: /
+      description: Override base path for all operations
+  /fuzz/{apiID}/report:
+    get:
+      operationId: GetTestReport
+      summary: Start a test for an API
+      tags:
+      - fuzzer
+      parameters:
+      - name: apiID
+        in: path
+        required: true
+        schema:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShortTestReport'
+        '404':
+          description: Service not found
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+        '500':
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+    servers:
+    - url: /
+      description: Override base path for all operations
+  /modules/fuzzer/fuzz/{apiID}/progress:
+    get:
+      operationId: fuzzerGetTestProgress
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShortTestProgress_2'
+          description: Successful Response
+        '404':
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+          description: Service not found
+        '500':
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+          description: Internal Error
+      summary: Start a test for an API
+      tags:
+      - fuzzer
+    servers:
+    - url: /api
+  /modules/fuzzer/fuzz/{apiID}/report:
+    get:
+      operationId: fuzzerGetTestReport
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShortTestReport_2'
+          description: Successful Response
+        '404':
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+          description: Service not found
+        '500':
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+          description: Internal Error
+      summary: Start a test for an API
+      tags:
+      - fuzzer
+    servers:
+    - url: /api
+  /modules/fuzzer/fuzz/{apiID}/start:
+    post:
+      operationId: fuzzerStartTest
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestInput'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestHandle_2'
+          description: Successful Response
+        '400':
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+          description: Status Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+          description: Service not found
+        '500':
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+          description: Internal Error
+      summary: Start a test for an API
+      tags:
+      - fuzzer
+    servers:
+    - url: /api
+  /modules/fuzzer/fuzz/{apiID}/stop:
+    post:
+      operationId: fuzzerStopTest
+      parameters:
+      - in: path
+        name: apiID
+        required: true
+        schema:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+      responses:
+        '204':
+          description: Successful Response
+        '400':
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+          description: Status Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+          description: Service not found
+        '500':
+          content:
+            application/json:
+              schema:
+                description: error message
+                type: string
+          description: Internal Error
+      summary: Stop (cancel) a running test for an API
+      tags:
+      - fuzzer
+    servers:
+    - url: /api
+components:
+  schemas:
+    TestInput:
+      type: object
+      description: contains all input parameters for a test
+      properties:
+        auth:
+          $ref: '#/components/schemas/AuthorizationScheme'
+        depth:
+          $ref: '#/components/schemas/TestInputDepthEnum'
+      required:
+      - depth
+    BasicAuth:
+      allOf:
+      - $ref: '#/components/schemas/AuthorizationSchemeBase'
+      - type: object
+        properties:
+          username:
+            type: string
+          password:
+            type: string
+        required:
+        - username
+        - password
+    ApiToken:
+      allOf:
+      - $ref: '#/components/schemas/AuthorizationSchemeBase'
+      - type: object
+        properties:
+          key:
+            type: string
+          value:
+            type: string
+        required:
+        - key
+        - value
+    FuzzingStatusEnum:
+      description: An enumeration.
+      enum:
+      - DONE
+      - ERROR
+      - IN_PROGRESS
+      title: FuzzingStatus
+      type: string
+    FuzzingReportOperation:
+      description: Report tag operation
+      title: Report tag operation
+      type: object
+      properties:
+        operation:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/MethodAndPath
+        requestsCount:
+          title: Request count to the opea
+          description: Request count to this operation item during the test
+          type: integer
+          format: int32
+        findings:
+          title: Findings list
+          type: array
+          items:
+            $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/APIFinding
+        highestSeverity:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/Severity
+      required:
+      - operation
+      - requestsCount
+    ShortTestProgress:
+      title: Short Test Progress Report
+      description: Describes the progress of an ongoing test
+      type: object
+      properties:
+        apiID:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+        starttime:
+          description: Timestamp of the start of the test
+          title: Start time
+          type: integer
+          format: int64
+        progress:
+          description: Progress of the test
+          maximum: 100.0
+          minimum: 0.0
+          title: Description
+          type: integer
+      required:
+      - starttime
+      - progress
+    AuthorizationScheme:
+      oneOf:
+      - $ref: '#/components/schemas/BasicAuth'
+      - $ref: '#/components/schemas/ApiToken'
+      - $ref: '#/components/schemas/BearerToken'
+      discriminator:
+        propertyName: type
+        mapping:
+          BasicAuth: '#/components/schemas/BasicAuth'
+          ApiToken: '#/components/schemas/ApiToken'
+          BearerToken: '#/components/schemas/BearerToken'
+    ShortTestReport:
+      title: Short Test Report
+      description: Short Test Report
+      type: object
+      properties:
+        apiID:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+        starttime:
+          description: Timestamp of the start of the test
+          title: Start time
+          type: integer
+          format: int64
+        status:
+          $ref: '#/components/schemas/FuzzingStatusEnum'
+        statusMessage:
+          title: Status message details
+          description: Message for status details, if any
+          type: string
+        tags:
+          title: Tags list
+          type: array
+          items:
+            $ref: '#/components/schemas/FuzzingReportTag'
+        highestSeverity:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/Severity
+      required:
+      - starttime
+      - status
+    BearerToken:
+      allOf:
+      - $ref: '#/components/schemas/AuthorizationSchemeBase'
+      - type: object
+        properties:
+          token:
+            type: string
+        required:
+        - token
+    FuzzingReportTag:
+      title: Report tag item
+      description: Report tag item
+      type: object
+      properties:
+        name:
+          title: Tag name
+          description: Tag name
+          type: string
+        operations:
+          title: Operations list
+          type: array
+          items:
+            $ref: '#/components/schemas/FuzzingReportOperation'
+        highestSeverity:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/Severity
+      required:
+      - name
+      - operations
+    AuthorizationSchemeBase:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AuthorizationTypeEnum'
+      required:
+      - type
+    AuthorizationTypeEnum:
+      description: An enumeration for the authorization type parameter.
+      enum:
+      - BASICAUTH
+      - APITOKEN
+      - BEARERTOKEN
+      title: AuthorizationType
+      type: string
+    TestInputDepthEnum:
+      description: An enumeration for input depth parameter.
+      enum:
+      - QUICK
+      - DEFAULT
+      - DEEP
+      title: TestInputDepth
+      type: string
+    TestHandle:
+      type: object
+      properties:
+        apiID:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+        timestamp:
+          type: integer
+          format: int64
+    FuzzingReportOperation_2:
+      description: Report tag operation
+      properties:
+        findings:
+          items:
+            $ref: ../common/openapi.yaml#/components/schemas/APIFinding
+          title: Findings list
+          type: array
+        highestSeverity:
+          $ref: ../common/openapi.yaml#/components/schemas/Severity
+        operation:
+          $ref: ../common/openapi.yaml#/components/schemas/MethodAndPath
+        requestsCount:
+          description: Request count to this operation item during the test
+          format: int32
+          title: Request count to the opea
+          type: integer
+      required:
+      - operation
+      - requestsCount
+      title: Report tag operation
+      type: object
+    ShortTestProgress_2:
+      description: Describes the progress of an ongoing test
+      properties:
+        apiID:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+        progress:
+          description: Progress of the test
+          maximum: 100
+          minimum: 0
+          title: Description
+          type: integer
+        starttime:
+          description: Timestamp of the start of the test
+          format: int64
+          title: Start time
+          type: integer
+      required:
+      - starttime
+      - progress
+      title: Short Test Progress Report
+      type: object
+    ShortTestReport_2:
+      description: Short Test Report
+      properties:
+        apiID:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+        highestSeverity:
+          $ref: ../common/openapi.yaml#/components/schemas/Severity
+        starttime:
+          description: Timestamp of the start of the test
+          format: int64
+          title: Start time
+          type: integer
+        status:
+          $ref: '#/components/schemas/FuzzingStatusEnum'
+        statusMessage:
+          description: Message for status details, if any
+          title: Status message details
+          type: string
+        tags:
+          items:
+            $ref: '#/components/schemas/FuzzingReportTag_2'
+          title: Tags list
+          type: array
+      required:
+      - starttime
+      - status
+      title: Short Test Report
+      type: object
+    FuzzingReportTag_2:
+      description: Report tag item
+      properties:
+        highestSeverity:
+          $ref: ../common/openapi.yaml#/components/schemas/Severity
+        name:
+          description: Tag name
+          title: Tag name
+          type: string
+        operations:
+          items:
+            $ref: '#/components/schemas/FuzzingReportOperation_2'
+          title: Operations list
+          type: array
+      required:
+      - name
+      - operations
+      title: Report tag item
+      type: object
+    TestHandle_2:
+      properties:
+        apiID:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+        timestamp:
+          format: int64
+          type: integer
+      type: object
+x-refined-from:
+- apiclarity-fuzzer-module-openapi.yml
+- apiclarity-global-openapi.gen.yml

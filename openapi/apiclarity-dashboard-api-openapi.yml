@@ -1,0 +1,89 @@
+openapi: 3.2.0
+info:
+  title: APIClarity Dashboard API
+  version: 1.0.0
+servers:
+- url: /api
+tags:
+- name: Dashboard
+paths:
+  /dashboard/apiUsage:
+    get:
+      parameters:
+      - $ref: '#/components/parameters/startTime'
+      - $ref: '#/components/parameters/endTime'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: ../common/openapi.yaml#/components/schemas/ApiUsages
+          description: Success
+        default:
+          $ref: '#/components/responses/UnknownError'
+      summary: Get API usage
+      tags:
+      - Dashboard
+      operationId: getDashboardApiUsage
+      x-operation-id-source: derived
+  /dashboard/apiUsage/latestDiffs:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: ../common/openapi.yaml#/components/schemas/SpecDiffTime
+                type: array
+          description: Success
+        default:
+          $ref: '#/components/responses/UnknownError'
+      summary: Get latest spec diffs
+      tags:
+      - Dashboard
+      operationId: getDashboardApiUsageLatestDiffs
+      x-operation-id-source: derived
+  /dashboard/apiUsage/mostUsed:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: ../common/openapi.yaml#/components/schemas/ApiCount
+                type: array
+          description: Success
+        default:
+          $ref: '#/components/responses/UnknownError'
+      summary: Get most used APIs
+      tags:
+      - Dashboard
+      operationId: getDashboardApiUsageMostUsed
+      x-operation-id-source: derived
+components:
+  responses:
+    UnknownError:
+      content:
+        application/json:
+          schema:
+            $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+      description: unknown error
+  parameters:
+    startTime:
+      description: Start time of the query
+      in: query
+      name: startTime
+      required: true
+      schema:
+        format: date-time
+        type: string
+    endTime:
+      description: End time of the query
+      in: query
+      name: endTime
+      required: true
+      schema:
+        format: date-time
+        type: string
