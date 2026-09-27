@@ -332,6 +332,14 @@ components:
           - KONG_X_CONSUMER_ID
         ip_address:
           type: string
+    BFLAStatus:
+      type: string
+      enum:
+      - NO_SPEC
+      - LEARNING
+      - LEGITIMATE
+      - SUSPICIOUS_MEDIUM
+      - SUSPICIOUS_HIGH
     APIEventAnnotations:
       required:
       - bflaStatus
@@ -376,14 +384,6 @@ components:
       - deny
       - approve_user
       - deny_user
-    BFLAStatus:
-      type: string
-      enum:
-      - NO_SPEC
-      - LEARNING
-      - LEGITIMATE
-      - SUSPICIOUS_MEDIUM
-      - SUSPICIOUS_HIGH
 x-refined-from:
 - apiclarity-bfla-module-openapi.yml
 - apiclarity-global-openapi.gen.yml

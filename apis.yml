@@ -46,7 +46,7 @@ tags:
   - API Traffic Analysis
   - Cisco
   - Kubernetes
-  - Open-Source
+  - Open Source
   - OpenAPI Reconstruction
   - OpenClarity
   - Service Mesh
@@ -62,6 +62,7 @@ tags_raw:
   - OpenClarity
   - Service Mesh
   - Shadow APIs
+  - Open-Source
 url: >-
   https://raw.githubusercontent.com/api-evangelist/apiclarity/refs/heads/main/apis.yml
 created: '2026-03-26'

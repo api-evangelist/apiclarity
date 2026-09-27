@@ -310,6 +310,46 @@ paths:
     - url: /api
 components:
   schemas:
+    FuzzingReportItem:
+      description: Current fuzzer report
+      properties:
+        name:
+          type: string
+        source:
+          type: string
+        status:
+          type: string
+        description:
+          type: string
+        testType:
+          type: string
+        paths:
+          items:
+            $ref: '#/components/schemas/FuzzingReportPath'
+          title: Paths
+          description: List of paths that has been fuzzed
+          type: array
+        findings:
+          items:
+            $ref: '#/components/schemas/RawFindings'
+          title: Paths
+          description: List of paths that has been fuzzed
+          type: array
+      title: FuzzingReportItem
+      type: object
+    Tests:
+      title: Tests
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/Test'
+        total:
+          description: Nb of items, used for pagination
+          title: Total
+          type: integer
     FuzzingReportPath:
       description: Current fuzzer report
       properties:
@@ -325,81 +365,27 @@ components:
           type: string
       title: FuzzingReportPath
       type: object
-    FuzzingStatusEnum:
-      description: An enumeration.
-      enum:
-      - DONE
-      - ERROR
-      - IN_PROGRESS
-      title: FuzzingStatus
-      type: string
-    Vulnerabilities:
-      description: risk of the finding
-      title: Risk
+    Test:
+      title: Test
       type: object
       properties:
-        total:
-          description: Total of vuln
-          title: Total
+        starttime:
+          description: Timestamp of the start of the test
+          title: Start time
           type: integer
-        critical:
-          description: Total of vuln
-          title: Critical
+          format: int64
+        progress:
+          description: Progress of the test
+          maximum: 100.0
+          minimum: 0.0
+          title: Progress
           type: integer
-        high:
-          description: Total of vuln
-          title: High
-          type: integer
-        medium:
-          description: Total of vuln
-          title: Medium
-          type: integer
-        low:
-          description: Total of vuln
-          title: Low
-          type: integer
-    RawFindings:
-      properties:
-        namespace:
+        errorMessage:
+          description: A message in case of error
+          title: ErrorMessage
           type: string
-        location:
-          type: array
-          items:
-            type: string
-          title: Paths location
-          description: location string token
-        type:
-          type: string
-        description:
-          type: string
-        request:
-          $ref: '#/components/schemas/RawFindingsSeverity'
-        additionalInfo:
-          type: string
-      title: RawFindings
-      type: object
-    FuzzingReportOperation:
-      description: Report tag operation
-      title: Report tag operation
-      type: object
-      properties:
-        operation:
-          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/MethodAndPath
-        requestsCount:
-          title: Request count to the opea
-          description: Request count to this operation item during the test
-          type: integer
-          format: int32
-        findings:
-          title: Findings list
-          type: array
-          items:
-            $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/APIFinding
-        highestSeverity:
-          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/Severity
-      required:
-      - operation
-      - requestsCount
+        vulnerabilities:
+          $ref: '#/components/schemas/Vulnerabilities'
     TestWithReport:
       title: Test
       type: object
@@ -428,27 +414,58 @@ components:
           description: A message in case of error
           title: ErrorMessage
           type: string
-    Test:
-      title: Test
+    FuzzingStatusAndReport:
+      description: fuzzing status and reporting
+      properties:
+        status:
+          $ref: '#/components/schemas/FuzzingStatusEnum'
+        report:
+          additionalProperties:
+            $ref: '#/components/schemas/FuzzingReportItem'
+          title: Report
+          type: object
+          description: List of report item
+        progress:
+          type: integer
+      title: FuzzingStatusAndReport
+      type: object
+      required:
+      - status
+      - report
+      - progress
+    Vulnerabilities:
+      description: risk of the finding
+      title: Risk
       type: object
       properties:
-        starttime:
-          description: Timestamp of the start of the test
-          title: Start time
+        total:
+          description: Total of vuln
+          title: Total
           type: integer
-          format: int64
-        progress:
-          description: Progress of the test
-          maximum: 100.0
-          minimum: 0.0
-          title: Progress
+        critical:
+          description: Total of vuln
+          title: Critical
           type: integer
-        errorMessage:
-          description: A message in case of error
-          title: ErrorMessage
-          type: string
-        vulnerabilities:
-          $ref: '#/components/schemas/Vulnerabilities'
+        high:
+          description: Total of vuln
+          title: High
+          type: integer
+        medium:
+          description: Total of vuln
+          title: Medium
+          type: integer
+        low:
+          description: Total of vuln
+          title: Low
+          type: integer
+    FuzzingStatusEnum:
+      description: An enumeration.
+      enum:
+      - DONE
+      - ERROR
+      - IN_PROGRESS
+      title: FuzzingStatus
+      type: string
     ShortTestReport:
       title: Short Test Report
       description: Short Test Report
@@ -477,52 +494,6 @@ components:
       required:
       - starttime
       - status
-    FuzzingReportItem:
-      description: Current fuzzer report
-      properties:
-        name:
-          type: string
-        source:
-          type: string
-        status:
-          type: string
-        description:
-          type: string
-        testType:
-          type: string
-        paths:
-          items:
-            $ref: '#/components/schemas/FuzzingReportPath'
-          title: Paths
-          description: List of paths that has been fuzzed
-          type: array
-        findings:
-          items:
-            $ref: '#/components/schemas/RawFindings'
-          title: Paths
-          description: List of paths that has been fuzzed
-          type: array
-      title: FuzzingReportItem
-      type: object
-    FuzzingStatusAndReport:
-      description: fuzzing status and reporting
-      properties:
-        status:
-          $ref: '#/components/schemas/FuzzingStatusEnum'
-        report:
-          additionalProperties:
-            $ref: '#/components/schemas/FuzzingReportItem'
-          title: Report
-          type: object
-          description: List of report item
-        progress:
-          type: integer
-      title: FuzzingStatusAndReport
-      type: object
-      required:
-      - status
-      - report
-      - progress
     FuzzingReportTag:
       title: Report tag item
       description: Report tag item
@@ -542,44 +513,51 @@ components:
       required:
       - name
       - operations
-    Tests:
-      title: Tests
+    FuzzingReportOperation:
+      description: Report tag operation
+      title: Report tag operation
       type: object
       properties:
-        items:
-          title: Items
+        operation:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/MethodAndPath
+        requestsCount:
+          title: Request count to the opea
+          description: Request count to this operation item during the test
+          type: integer
+          format: int32
+        findings:
+          title: Findings list
           type: array
           items:
-            $ref: '#/components/schemas/Test'
-        total:
-          description: Nb of items, used for pagination
-          title: Total
-          type: integer
+            $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/APIFinding
+        highestSeverity:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/Severity
+      required:
+      - operation
+      - requestsCount
     RawFindingsSeverity:
       properties:
         severity:
           type: string
-    FuzzingReportOperation_2:
-      description: Report tag operation
+    RawFindings:
       properties:
-        findings:
-          items:
-            $ref: ../common/openapi.yaml#/components/schemas/APIFinding
-          title: Findings list
+        namespace:
+          type: string
+        location:
           type: array
-        highestSeverity:
-          $ref: ../common/openapi.yaml#/components/schemas/Severity
-        operation:
-          $ref: ../common/openapi.yaml#/components/schemas/MethodAndPath
-        requestsCount:
-          description: Request count to this operation item during the test
-          format: int32
-          title: Request count to the opea
-          type: integer
-      required:
-      - operation
-      - requestsCount
-      title: Report tag operation
+          items:
+            type: string
+          title: Paths location
+          description: location string token
+        type:
+          type: string
+        description:
+          type: string
+        request:
+          $ref: '#/components/schemas/RawFindingsSeverity'
+        additionalInfo:
+          type: string
+      title: RawFindings
       type: object
     ShortTestReport_2:
       description: Short Test Report
@@ -627,6 +605,28 @@ components:
       - name
       - operations
       title: Report tag item
+      type: object
+    FuzzingReportOperation_2:
+      description: Report tag operation
+      properties:
+        findings:
+          items:
+            $ref: ../common/openapi.yaml#/components/schemas/APIFinding
+          title: Findings list
+          type: array
+        highestSeverity:
+          $ref: ../common/openapi.yaml#/components/schemas/Severity
+        operation:
+          $ref: ../common/openapi.yaml#/components/schemas/MethodAndPath
+        requestsCount:
+          description: Request count to this operation item during the test
+          format: int32
+          title: Request count to the opea
+          type: integer
+      required:
+      - operation
+      - requestsCount
+      title: Report tag operation
       type: object
 x-refined-from:
 - apiclarity-fuzzer-module-openapi.yml

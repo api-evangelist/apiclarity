@@ -27,11 +27,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    HostsList:
-      description: List of hosts
-      type: array
-      items:
-        type: string
     HostsToTrace:
       description: List of hosts to trace
       type: object
@@ -46,6 +41,11 @@ components:
       properties:
         message:
           type: string
+    HostsList:
+      description: List of hosts
+      type: array
+      items:
+        type: string
   responses:
     UnknownError:
       description: unknown error

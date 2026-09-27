@@ -159,37 +159,18 @@ components:
       - name
       - type
       type: object
-    SuccessResponse:
-      description: An object that is return in cases of success that return nothing.
-      type: object
-      properties:
-        message:
-          type: string
     ApiResponse:
       description: An object that is return in all cases of failures.
       type: object
       properties:
         message:
           type: string
-  responses:
-    UnknownError:
-      content:
-        application/json:
-          schema:
-            $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
-      description: unknown error
-    Success:
-      description: success message
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SuccessResponse'
-    UnknownError_2:
-      description: unknown error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiResponse'
+    SuccessResponse:
+      description: An object that is return in cases of success that return nothing.
+      type: object
+      properties:
+        message:
+          type: string
   parameters:
     traceSourceId:
       description: Trace Source ID
@@ -206,6 +187,25 @@ components:
       required: false
       schema:
         type: string
+  responses:
+    UnknownError:
+      content:
+        application/json:
+          schema:
+            $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+      description: unknown error
+    UnknownError_2:
+      description: unknown error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse'
+    Success:
+      description: success message
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponse'
 x-refined-from:
 - apiclarity-global-openapi.gen.yml
 - apiclarity-plugins-telemetry-swagger.yml

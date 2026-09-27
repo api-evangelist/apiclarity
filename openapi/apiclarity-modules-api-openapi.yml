@@ -312,28 +312,20 @@ paths:
       tags:
       - Modules
 components:
+  parameters:
+    redacted:
+      in: query
+      name: redacted
+      schema:
+        default: false
+        type: boolean
   schemas:
-    TestingModuleState:
+    Version:
       properties:
-        APIsInCache:
-          type: integer
         version:
           type: string
       required:
       - version
-      - APIsInCache
-      type: object
-    Annotations:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/Annotation'
-          type: array
-        total:
-          description: Total event annotations count
-          type: integer
-      required:
-      - total
       type: object
     FeatureEnable:
       description: Enable/disable a feature
@@ -359,17 +351,25 @@ components:
       - severity
       - kind
       type: object
-    Version:
+    TestingModuleState:
       properties:
+        APIsInCache:
+          type: integer
         version:
           type: string
       required:
       - version
+      - APIsInCache
       type: object
-  parameters:
-    redacted:
-      in: query
-      name: redacted
-      schema:
-        default: false
-        type: boolean
+    Annotations:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/Annotation'
+          type: array
+        total:
+          description: Total event annotations count
+          type: integer
+      required:
+      - total
+      type: object

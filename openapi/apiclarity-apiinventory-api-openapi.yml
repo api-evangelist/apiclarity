@@ -308,50 +308,6 @@ paths:
       x-operation-id-source: derived
 components:
   parameters:
-    port:
-      description: api port
-      in: query
-      name: port
-      required: true
-      schema:
-        type: string
-    apiIdFilter:
-      description: api id to return
-      in: query
-      name: apiId
-      schema:
-        type: string
-    page:
-      description: Page number of the query
-      in: query
-      name: page
-      required: true
-      schema:
-        type: integer
-    portIsFilter:
-      in: query
-      name: port[is]
-      schema:
-        items:
-          type: string
-        type: array
-    sortDir:
-      description: Sorting direction
-      in: query
-      name: sortDir
-      schema:
-        default: ASC
-        enum:
-        - ASC
-        - DESC
-        type: string
-    apiNameIsFilter:
-      in: query
-      name: name[is]
-      schema:
-        items:
-          type: string
-        type: array
     pageSize:
       description: Maximum items to return
       in: query
@@ -368,6 +324,91 @@ components:
         items:
           type: string
         type: array
+    apiInventorySortKey:
+      description: Sort key
+      in: query
+      name: sortKey
+      required: true
+      schema:
+        $ref: ../common/openapi.yaml#/components/schemas/ApiInventorySortKey
+    apiId:
+      in: path
+      name: apiId
+      required: true
+      schema:
+        format: uint32
+        type: integer
+    portIsNotFilter:
+      in: query
+      name: port[isNot]
+      schema:
+        items:
+          type: string
+        type: array
+    apiNameIsFilter:
+      in: query
+      name: name[is]
+      schema:
+        items:
+          type: string
+        type: array
+    port:
+      description: api port
+      in: query
+      name: port
+      required: true
+      schema:
+        type: string
+    sortDir:
+      description: Sorting direction
+      in: query
+      name: sortDir
+      schema:
+        default: ASC
+        enum:
+        - ASC
+        - DESC
+        type: string
+    apiIdFilter:
+      description: api id to return
+      in: query
+      name: apiId
+      schema:
+        type: string
+    hasReconstructedSpecFilter:
+      in: query
+      name: hasReconstructedSpec[is]
+      schema:
+        type: boolean
+    apiNameEndsWithFilter:
+      in: query
+      name: name[end]
+      schema:
+        type: string
+    hasProvidedSpecFilter:
+      in: query
+      name: hasProvidedSpec[is]
+      schema:
+        type: boolean
+    apiNameStartsWithFilter:
+      in: query
+      name: name[start]
+      schema:
+        type: string
+    apiNameContainsFilter:
+      in: query
+      name: name[contains]
+      schema:
+        items:
+          type: string
+        type: array
+    reviewId:
+      in: path
+      name: reviewId
+      required: true
+      schema:
+        format: uint32
+        type: integer
     traceSourceIdQuery:
       description: Trace Source ID
       in: query
@@ -376,61 +417,13 @@ components:
       schema:
         format: uuid
         type: string
-    hasProvidedSpecFilter:
+    portIsFilter:
       in: query
-      name: hasProvidedSpec[is]
-      schema:
-        type: boolean
-    apiInventorySortKey:
-      description: Sort key
-      in: query
-      name: sortKey
-      required: true
-      schema:
-        $ref: ../common/openapi.yaml#/components/schemas/ApiInventorySortKey
-    reviewId:
-      in: path
-      name: reviewId
-      required: true
-      schema:
-        format: uint32
-        type: integer
-    host:
-      description: api host name
-      in: query
-      name: host
-      required: true
-      schema:
-        type: string
-    apiNameStartsWithFilter:
-      in: query
-      name: name[start]
-      schema:
-        type: string
-    portIsNotFilter:
-      in: query
-      name: port[isNot]
+      name: port[is]
       schema:
         items:
           type: string
         type: array
-    apiNameContainsFilter:
-      in: query
-      name: name[contains]
-      schema:
-        items:
-          type: string
-        type: array
-    apiNameEndsWithFilter:
-      in: query
-      name: name[end]
-      schema:
-        type: string
-    hasReconstructedSpecFilter:
-      in: query
-      name: hasReconstructedSpec[is]
-      schema:
-        type: boolean
     apiType:
       description: API type [INTERNAL or EXTERNAL]
       in: query
@@ -438,12 +431,19 @@ components:
       required: true
       schema:
         $ref: ../common/openapi.yaml#/components/schemas/ApiTypeEnum
-    apiId:
-      in: path
-      name: apiId
+    host:
+      description: api host name
+      in: query
+      name: host
       required: true
       schema:
-        format: uint32
+        type: string
+    page:
+      description: Page number of the query
+      in: query
+      name: page
+      required: true
+      schema:
         type: integer
   responses:
     UnknownError:

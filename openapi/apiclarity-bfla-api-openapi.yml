@@ -536,21 +536,52 @@ components:
       - LEGITIMATE
       - SUSPICIOUS_MEDIUM
       - SUSPICIOUS_HIGH
-    AuthorizationModel:
+    AuthorizationModelOperation:
       type: object
       required:
-      - specType
-      - operations
-      - learning
+      - path
+      - method
+      - audience
+      - tags
       properties:
-        specType:
-          $ref: '#/components/schemas/SpecType'
-        learning:
-          type: boolean
-        operations:
+        path:
+          type: string
+        method:
+          type: string
+        tags:
+          items:
+            type: string
+          type: array
+        audience:
           type: array
           items:
-            $ref: '#/components/schemas/AuthorizationModelOperation'
+            $ref: '#/components/schemas/AuthorizationModelAudience'
+    AuthorizationModelAudience:
+      type: object
+      required:
+      - end_users
+      - authorized
+      - external
+      - statusCode
+      - warningStatus
+      properties:
+        warningStatus:
+          $ref: '#/components/schemas/BFLAStatus'
+        statusCode:
+          type: integer
+        lastTime:
+          type: string
+          format: date-time
+        authorized:
+          type: boolean
+        external:
+          type: boolean
+        end_users:
+          type: array
+          items:
+            $ref: '#/components/schemas/DetectedUser'
+        k8s_object:
+          $ref: '#/components/schemas/K8sObjectRef'
     DetectedUser:
       required:
       - id
@@ -599,52 +630,21 @@ components:
       - BFLA_LEARNING
       - BFLA_DETECTING
       - BFLA_LEARNT
-    AuthorizationModelOperation:
+    AuthorizationModel:
       type: object
       required:
-      - path
-      - method
-      - audience
-      - tags
+      - specType
+      - operations
+      - learning
       properties:
-        path:
-          type: string
-        method:
-          type: string
-        tags:
-          items:
-            type: string
-          type: array
-        audience:
-          type: array
-          items:
-            $ref: '#/components/schemas/AuthorizationModelAudience'
-    AuthorizationModelAudience:
-      type: object
-      required:
-      - end_users
-      - authorized
-      - external
-      - statusCode
-      - warningStatus
-      properties:
-        warningStatus:
-          $ref: '#/components/schemas/BFLAStatus'
-        statusCode:
-          type: integer
-        lastTime:
-          type: string
-          format: date-time
-        authorized:
+        specType:
+          $ref: '#/components/schemas/SpecType'
+        learning:
           type: boolean
-        external:
-          type: boolean
-        end_users:
+        operations:
           type: array
           items:
-            $ref: '#/components/schemas/DetectedUser'
-        k8s_object:
-          $ref: '#/components/schemas/K8sObjectRef'
+            $ref: '#/components/schemas/AuthorizationModelOperation'
 x-refined-from:
 - apiclarity-bfla-module-openapi.yml
 - apiclarity-global-openapi.gen.yml
