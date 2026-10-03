@@ -64,18 +64,18 @@ paths:
       x-operation-id-source: derived
 components:
   parameters:
-    startTime:
-      description: Start time of the query
-      in: query
-      name: startTime
-      required: true
-      schema:
-        format: date-time
-        type: string
     endTime:
       description: End time of the query
       in: query
       name: endTime
+      required: true
+      schema:
+        format: date-time
+        type: string
+    startTime:
+      description: Start time of the query
+      in: query
+      name: startTime
       required: true
       schema:
         format: date-time

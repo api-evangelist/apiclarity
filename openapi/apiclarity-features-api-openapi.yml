@@ -23,14 +23,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    APIClarityFeatureList:
-      description: List of APIClarity features and for each feature the list of API hosts (Group by trace sources, in the form 'host:port') the feature requires to get trace for
-      properties:
-        features:
-          items:
-            $ref: '#/components/schemas/APIClarityFeature'
-          type: array
-      type: object
     APIClarityFeatureEnum:
       description: APIClarity Feature Name
       enum:
@@ -42,6 +34,27 @@ components:
       - specreconstructor
       - traceanalyzer
       type: string
+    HostsToTraceForTraceSource:
+      description: list of API hosts (in the form 'host:port') managed by a traceSource
+      properties:
+        hostsToTrace:
+          description: List of hosts (in the form 'host:port')
+          items:
+            type: string
+          type: array
+        traceSourceID:
+          description: ID of the trace source
+          format: uint32
+          type: integer
+      type: object
+    APIClarityFeatureList:
+      description: List of APIClarity features and for each feature the list of API hosts (Group by trace sources, in the form 'host:port') the feature requires to get trace for
+      properties:
+        features:
+          items:
+            $ref: '#/components/schemas/APIClarityFeature'
+          type: array
+      type: object
     HostsToTraceForComponent:
       description: List of trace sources for a component, with theirs list of API hosts to get trace for
       properties:
@@ -65,17 +78,4 @@ components:
           $ref: '#/components/schemas/HostsToTraceForComponent'
       required:
       - featureName
-      type: object
-    HostsToTraceForTraceSource:
-      description: list of API hosts (in the form 'host:port') managed by a traceSource
-      properties:
-        hostsToTrace:
-          description: List of hosts (in the form 'host:port')
-          items:
-            type: string
-          type: array
-        traceSourceID:
-          description: ID of the trace source
-          format: uint32
-          type: integer
       type: object

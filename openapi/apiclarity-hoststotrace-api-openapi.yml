@@ -27,6 +27,17 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    HostsList:
+      description: List of hosts
+      type: array
+      items:
+        type: string
+    ApiResponse:
+      description: An object that is return in all cases of failures.
+      type: object
+      properties:
+        message:
+          type: string
     HostsToTrace:
       description: List of hosts to trace
       type: object
@@ -35,17 +46,6 @@ components:
           $ref: '#/components/schemas/HostsList'
       required:
       - hosts
-    ApiResponse:
-      description: An object that is return in all cases of failures.
-      type: object
-      properties:
-        message:
-          type: string
-    HostsList:
-      description: List of hosts
-      type: array
-      items:
-        type: string
   responses:
     UnknownError:
       description: unknown error

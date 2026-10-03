@@ -327,79 +327,6 @@ paths:
     - url: /api
 components:
   schemas:
-    TestInputDepthEnum:
-      description: An enumeration for input depth parameter.
-      enum:
-      - QUICK
-      - DEFAULT
-      - DEEP
-      title: TestInputDepth
-      type: string
-    ShortTestProgress:
-      title: Short Test Progress Report
-      description: Describes the progress of an ongoing test
-      type: object
-      properties:
-        apiID:
-          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
-        starttime:
-          description: Timestamp of the start of the test
-          title: Start time
-          type: integer
-          format: int64
-        progress:
-          description: Progress of the test
-          maximum: 100.0
-          minimum: 0.0
-          title: Description
-          type: integer
-      required:
-      - starttime
-      - progress
-    BasicAuth:
-      allOf:
-      - $ref: '#/components/schemas/AuthorizationSchemeBase'
-      - type: object
-        properties:
-          username:
-            type: string
-          password:
-            type: string
-        required:
-        - username
-        - password
-    TestInput:
-      type: object
-      description: contains all input parameters for a test
-      properties:
-        auth:
-          $ref: '#/components/schemas/AuthorizationScheme'
-        depth:
-          $ref: '#/components/schemas/TestInputDepthEnum'
-      required:
-      - depth
-    FuzzingReportOperation:
-      description: Report tag operation
-      title: Report tag operation
-      type: object
-      properties:
-        operation:
-          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/MethodAndPath
-        requestsCount:
-          title: Request count to the opea
-          description: Request count to this operation item during the test
-          type: integer
-          format: int32
-        findings:
-          title: Findings list
-          type: array
-          items:
-            $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/APIFinding
-        highestSeverity:
-          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/Severity
-      required:
-      - operation
-      - requestsCount
     ApiToken:
       allOf:
       - $ref: '#/components/schemas/AuthorizationSchemeBase'
@@ -412,6 +339,35 @@ components:
         required:
         - key
         - value
+    AuthorizationScheme:
+      oneOf:
+      - $ref: '#/components/schemas/BasicAuth'
+      - $ref: '#/components/schemas/ApiToken'
+      - $ref: '#/components/schemas/BearerToken'
+      discriminator:
+        propertyName: type
+        mapping:
+          BasicAuth: '#/components/schemas/BasicAuth'
+          ApiToken: '#/components/schemas/ApiToken'
+          BearerToken: '#/components/schemas/BearerToken'
+    TestInput:
+      type: object
+      description: contains all input parameters for a test
+      properties:
+        auth:
+          $ref: '#/components/schemas/AuthorizationScheme'
+        depth:
+          $ref: '#/components/schemas/TestInputDepthEnum'
+      required:
+      - depth
+    TestInputDepthEnum:
+      description: An enumeration for input depth parameter.
+      enum:
+      - QUICK
+      - DEFAULT
+      - DEEP
+      title: TestInputDepth
+      type: string
     ShortTestReport:
       title: Short Test Report
       description: Short Test Report
@@ -440,26 +396,6 @@ components:
       required:
       - starttime
       - status
-    AuthorizationScheme:
-      oneOf:
-      - $ref: '#/components/schemas/BasicAuth'
-      - $ref: '#/components/schemas/ApiToken'
-      - $ref: '#/components/schemas/BearerToken'
-      discriminator:
-        propertyName: type
-        mapping:
-          BasicAuth: '#/components/schemas/BasicAuth'
-          ApiToken: '#/components/schemas/ApiToken'
-          BearerToken: '#/components/schemas/BearerToken'
-    BearerToken:
-      allOf:
-      - $ref: '#/components/schemas/AuthorizationSchemeBase'
-      - type: object
-        properties:
-          token:
-            type: string
-        required:
-        - token
     FuzzingReportTag:
       title: Report tag item
       description: Report tag item
@@ -479,6 +415,27 @@ components:
       required:
       - name
       - operations
+    ShortTestProgress:
+      title: Short Test Progress Report
+      description: Describes the progress of an ongoing test
+      type: object
+      properties:
+        apiID:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+        starttime:
+          description: Timestamp of the start of the test
+          title: Start time
+          type: integer
+          format: int64
+        progress:
+          description: Progress of the test
+          maximum: 100.0
+          minimum: 0.0
+          title: Description
+          type: integer
+      required:
+      - starttime
+      - progress
     FuzzingStatusEnum:
       description: An enumeration.
       enum:
@@ -487,6 +444,37 @@ components:
       - IN_PROGRESS
       title: FuzzingStatus
       type: string
+    BearerToken:
+      allOf:
+      - $ref: '#/components/schemas/AuthorizationSchemeBase'
+      - type: object
+        properties:
+          token:
+            type: string
+        required:
+        - token
+    FuzzingReportOperation:
+      description: Report tag operation
+      title: Report tag operation
+      type: object
+      properties:
+        operation:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/MethodAndPath
+        requestsCount:
+          title: Request count to the opea
+          description: Request count to this operation item during the test
+          type: integer
+          format: int32
+        findings:
+          title: Findings list
+          type: array
+          items:
+            $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/APIFinding
+        highestSeverity:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/Severity
+      required:
+      - operation
+      - requestsCount
     AuthorizationSchemeBase:
       type: object
       properties:
@@ -494,14 +482,18 @@ components:
           $ref: '#/components/schemas/AuthorizationTypeEnum'
       required:
       - type
-    AuthorizationTypeEnum:
-      description: An enumeration for the authorization type parameter.
-      enum:
-      - BASICAUTH
-      - APITOKEN
-      - BEARERTOKEN
-      title: AuthorizationType
-      type: string
+    BasicAuth:
+      allOf:
+      - $ref: '#/components/schemas/AuthorizationSchemeBase'
+      - type: object
+        properties:
+          username:
+            type: string
+          password:
+            type: string
+        required:
+        - username
+        - password
     TestHandle:
       type: object
       properties:
@@ -510,27 +502,14 @@ components:
         timestamp:
           type: integer
           format: int64
-    ShortTestProgress_2:
-      description: Describes the progress of an ongoing test
-      properties:
-        apiID:
-          $ref: ../common/openapi.yaml#/components/schemas/ApiID
-        progress:
-          description: Progress of the test
-          maximum: 100
-          minimum: 0
-          title: Description
-          type: integer
-        starttime:
-          description: Timestamp of the start of the test
-          format: int64
-          title: Start time
-          type: integer
-      required:
-      - starttime
-      - progress
-      title: Short Test Progress Report
-      type: object
+    AuthorizationTypeEnum:
+      description: An enumeration for the authorization type parameter.
+      enum:
+      - BASICAUTH
+      - APITOKEN
+      - BEARERTOKEN
+      title: AuthorizationType
+      type: string
     ShortTestReport_2:
       description: Short Test Report
       properties:
@@ -577,6 +556,27 @@ components:
       - name
       - operations
       title: Report tag item
+      type: object
+    ShortTestProgress_2:
+      description: Describes the progress of an ongoing test
+      properties:
+        apiID:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+        progress:
+          description: Progress of the test
+          maximum: 100
+          minimum: 0
+          title: Description
+          type: integer
+        starttime:
+          description: Timestamp of the start of the test
+          format: int64
+          title: Start time
+          type: integer
+      required:
+      - starttime
+      - progress
+      title: Short Test Progress Report
       type: object
     FuzzingReportOperation_2:
       description: Report tag operation

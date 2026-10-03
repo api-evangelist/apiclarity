@@ -56,41 +56,29 @@ paths:
       x-operation-id-source: derived
 components:
   parameters:
-    showNonApi:
+    statusCodeGteFilter:
+      description: greater than or equal
       in: query
-      name: showNonApi
-      required: true
-      schema:
-        type: boolean
-    destinationPortIsFilter:
-      in: query
-      name: destinationPort[is]
-      schema:
-        items:
-          type: string
-        type: array
-    destinationIPIsNotFilter:
-      in: query
-      name: destinationIP[isNot]
-      schema:
-        items:
-          type: string
-        type: array
-    pathStartsWithFilter:
-      in: query
-      name: path[start]
+      name: statusCode[gte]
       schema:
         type: string
-    sourceIPIsFilter:
-      in: query
-      name: sourceIP[is]
-      schema:
-        items:
-          type: string
-        type: array
     pathContainsFilter:
       in: query
       name: path[contains]
+      schema:
+        items:
+          type: string
+        type: array
+    pathIsFilter:
+      in: query
+      name: path[is]
+      schema:
+        items:
+          type: string
+        type: array
+    specContainsFilter:
+      in: query
+      name: spec[contains]
       schema:
         items:
           type: string
@@ -100,15 +88,89 @@ components:
       name: hasSpecDiff[is]
       schema:
         type: boolean
-    statusCodeLteFilter:
-      description: less than or equal
+    specIsFilter:
       in: query
-      name: statusCode[lte]
+      name: spec[is]
       schema:
+        items:
+          type: string
+        type: array
+    destinationPortIsNotFilter:
+      in: query
+      name: destinationPort[isNot]
+      schema:
+        items:
+          type: string
+        type: array
+    specEndsWithFilter:
+      in: query
+      name: spec[end]
+      schema:
+        type: string
+    startTime:
+      description: Start time of the query
+      in: query
+      name: startTime
+      required: true
+      schema:
+        format: date-time
+        type: string
+    pathIsNotFilter:
+      in: query
+      name: path[isNot]
+      schema:
+        items:
+          type: string
+        type: array
+    statusCodeIsFilter:
+      in: query
+      name: statusCode[is]
+      schema:
+        items:
+          type: string
+        type: array
+    destinationPortIsFilter:
+      in: query
+      name: destinationPort[is]
+      schema:
+        items:
+          type: string
+        type: array
+    endTime:
+      description: End time of the query
+      in: query
+      name: endTime
+      required: true
+      schema:
+        format: date-time
         type: string
     specStartsWithFilter:
       in: query
       name: spec[start]
+      schema:
+        type: string
+    pathEndsWithFilter:
+      in: query
+      name: path[end]
+      schema:
+        type: string
+    destinationIPIsNotFilter:
+      in: query
+      name: destinationIP[isNot]
+      schema:
+        items:
+          type: string
+        type: array
+    sourceIPIsNotFilter:
+      in: query
+      name: sourceIP[isNot]
+      schema:
+        items:
+          type: string
+        type: array
+    pathStartsWithFilter:
+      in: query
+      name: path[start]
       schema:
         type: string
     destinationIPIsFilter:
@@ -118,19 +180,23 @@ components:
         items:
           type: string
         type: array
-    pathEndsWithFilter:
+    sourceIPIsFilter:
       in: query
-      name: path[end]
+      name: sourceIP[is]
       schema:
-        type: string
-    specEndsWithFilter:
+        items:
+          type: string
+        type: array
+    reconstructedPathIDIsFilter:
       in: query
-      name: spec[end]
+      name: reconstructedPathID[is]
       schema:
-        type: string
-    statusCodeIsFilter:
+        items:
+          type: string
+        type: array
+    specIsNotFilter:
       in: query
-      name: statusCode[is]
+      name: spec[isNot]
       schema:
         items:
           type: string
@@ -149,56 +215,6 @@ components:
         items:
           $ref: ../common/openapi.yaml#/components/schemas/DiffType
         type: array
-    statusCodeGteFilter:
-      description: greater than or equal
-      in: query
-      name: statusCode[gte]
-      schema:
-        type: string
-    endTime:
-      description: End time of the query
-      in: query
-      name: endTime
-      required: true
-      schema:
-        format: date-time
-        type: string
-    startTime:
-      description: Start time of the query
-      in: query
-      name: startTime
-      required: true
-      schema:
-        format: date-time
-        type: string
-    destinationPortIsNotFilter:
-      in: query
-      name: destinationPort[isNot]
-      schema:
-        items:
-          type: string
-        type: array
-    reconstructedPathIDIsFilter:
-      in: query
-      name: reconstructedPathID[is]
-      schema:
-        items:
-          type: string
-        type: array
-    sourceIPIsNotFilter:
-      in: query
-      name: sourceIP[isNot]
-      schema:
-        items:
-          type: string
-        type: array
-    specIsFilter:
-      in: query
-      name: spec[is]
-      schema:
-        items:
-          type: string
-        type: array
     methodIsFilter:
       in: query
       name: method[is]
@@ -213,34 +229,18 @@ components:
         items:
           type: string
         type: array
-    specContainsFilter:
+    statusCodeLteFilter:
+      description: less than or equal
       in: query
-      name: spec[contains]
+      name: statusCode[lte]
       schema:
-        items:
-          type: string
-        type: array
-    pathIsFilter:
+        type: string
+    showNonApi:
       in: query
-      name: path[is]
+      name: showNonApi
+      required: true
       schema:
-        items:
-          type: string
-        type: array
-    specIsNotFilter:
-      in: query
-      name: spec[isNot]
-      schema:
-        items:
-          type: string
-        type: array
-    pathIsNotFilter:
-      in: query
-      name: path[isNot]
-      schema:
-        items:
-          type: string
-        type: array
+        type: boolean
   responses:
     UnknownError:
       content:

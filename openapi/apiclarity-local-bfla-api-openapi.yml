@@ -316,6 +316,32 @@ paths:
     - url: /api
 components:
   schemas:
+    OperationEnum:
+      type: string
+      enum:
+      - approve
+      - deny
+      - approve_user
+      - deny_user
+    K8sObjectRef:
+      type: object
+      required:
+      - uid
+      - kind
+      - name
+      - namespace
+      - apiVersion
+      properties:
+        uid:
+          type: string
+        kind:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+        apiVersion:
+          type: string
     DetectedUser:
       required:
       - id
@@ -358,32 +384,6 @@ components:
           $ref: '#/components/schemas/BFLAStatus'
         detectedUser:
           $ref: '#/components/schemas/DetectedUser'
-    K8sObjectRef:
-      type: object
-      required:
-      - uid
-      - kind
-      - name
-      - namespace
-      - apiVersion
-      properties:
-        uid:
-          type: string
-        kind:
-          type: string
-        name:
-          type: string
-        namespace:
-          type: string
-        apiVersion:
-          type: string
-    OperationEnum:
-      type: string
-      enum:
-      - approve
-      - deny
-      - approve_user
-      - deny_user
 x-refined-from:
 - apiclarity-bfla-module-openapi.yml
 - apiclarity-global-openapi.gen.yml

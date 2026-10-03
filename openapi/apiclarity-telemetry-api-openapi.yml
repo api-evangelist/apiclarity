@@ -41,6 +41,30 @@ components:
           type: string
         value:
           type: string
+    Response:
+      type: object
+      properties:
+        statusCode:
+          type: string
+        common:
+          $ref: '#/components/schemas/Common'
+    Telemetry:
+      type: object
+      properties:
+        requestID:
+          type: string
+        scheme:
+          type: string
+        destinationAddress:
+          type: string
+        destinationNamespace:
+          type: string
+        sourceAddress:
+          type: string
+        request:
+          $ref: '#/components/schemas/Request'
+        response:
+          $ref: '#/components/schemas/Response'
     ApiResponse:
       description: An object that is return in all cases of failures.
       type: object
@@ -58,19 +82,6 @@ components:
           type: string
         common:
           $ref: '#/components/schemas/Common'
-    Response:
-      type: object
-      properties:
-        statusCode:
-          type: string
-        common:
-          $ref: '#/components/schemas/Common'
-    SuccessResponse:
-      description: An object that is return in cases of success that return nothing.
-      type: object
-      properties:
-        message:
-          type: string
     Common:
       type: object
       properties:
@@ -89,36 +100,25 @@ components:
           description: Time since epoch (milliseconds)
           type: integer
           format: int64
-    Telemetry:
+    SuccessResponse:
+      description: An object that is return in cases of success that return nothing.
       type: object
       properties:
-        requestID:
+        message:
           type: string
-        scheme:
-          type: string
-        destinationAddress:
-          type: string
-        destinationNamespace:
-          type: string
-        sourceAddress:
-          type: string
-        request:
-          $ref: '#/components/schemas/Request'
-        response:
-          $ref: '#/components/schemas/Response'
   responses:
-    UnknownError:
-      description: unknown error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiResponse'
     Success:
       description: success message
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/SuccessResponse'
+    UnknownError:
+      description: unknown error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse'
   parameters:
     TraceSourceTokenHeader:
       name: X-Trace-Source-Token

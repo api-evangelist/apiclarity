@@ -37,94 +37,20 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    AuthorizationModelNotification:
-      allOf:
-      - $ref: '#/components/schemas/BaseNotification'
-      - $ref: '#/components/schemas/AuthorizationModel'
-    APIFindings:
-      description: A group of findings
+    BaseNotification:
+      description: Base Notification all APIClarity notifications must extend
       properties:
-        items:
-          description: A list of findings
-          items:
-            $ref: ../common/openapi.yaml#/components/schemas/APIFinding
-          type: array
-      type: object
-    ShortTestProgress:
-      description: Describes the progress of an ongoing test
-      properties:
-        apiID:
-          $ref: ../common/openapi.yaml#/components/schemas/ApiID
-        progress:
-          description: Progress of the test
-          maximum: 100
-          minimum: 0
-          title: Description
-          type: integer
-        starttime:
-          description: Timestamp of the start of the test
-          format: int64
-          title: Start time
-          type: integer
+        notificationType:
+          type: string
       required:
-      - starttime
-      - progress
-      title: Short Test Progress Report
+      - notificationType
       type: object
-    TestReportNotification:
-      allOf:
-      - $ref: '#/components/schemas/BaseNotification'
-      - $ref: '#/components/schemas/ShortTestReport'
     SpecDiffs:
       properties:
         diffs:
           $ref: ../global/openapi.gen.yaml#/components/schemas/APIDiffs
       required:
       - diffs
-      type: object
-    TestProgressNotification:
-      allOf:
-      - $ref: '#/components/schemas/BaseNotification'
-      - $ref: '#/components/schemas/ShortTestProgress'
-    APIClarityNotification:
-      discriminator:
-        mapping:
-          ApiFindingsNotification: '#/components/schemas/ApiFindingsNotification'
-          AuthorizationModelNotification: '#/components/schemas/AuthorizationModelNotification'
-          NewDiscoveredAPINotification: '#/components/schemas/NewDiscoveredAPINotification'
-          SpecDiffsNotification: '#/components/schemas/SpecDiffsNotification'
-          TestProgressNotification: '#/components/schemas/TestProgressNotification'
-          TestReportNotification: '#/components/schemas/TestReportNotification'
-        propertyName: notificationType
-      oneOf:
-      - $ref: '#/components/schemas/ApiFindingsNotification'
-      - $ref: '#/components/schemas/AuthorizationModelNotification'
-      - $ref: '#/components/schemas/NewDiscoveredAPINotification'
-      - $ref: '#/components/schemas/SpecDiffsNotification'
-      - $ref: '#/components/schemas/TestProgressNotification'
-      - $ref: '#/components/schemas/TestReportNotification'
-    ApiInfo:
-      properties:
-        destinationNamespace:
-          type: string
-        hasProvidedSpec:
-          default: false
-          type: boolean
-        hasReconstructedSpec:
-          default: false
-          type: boolean
-        id:
-          format: uint32
-          type: integer
-        name:
-          description: API name
-          type: string
-        port:
-          type: integer
-        traceSourceId:
-          description: Trace Source ID which created this API. Null UUID 0 means it has been created by APIClarity (from the UI for example)
-          format: uuid
-          type: string
       type: object
     NewDiscoveredAPINotification:
       allOf:
@@ -134,14 +60,14 @@ components:
       allOf:
       - $ref: '#/components/schemas/BaseNotification'
       - $ref: '#/components/schemas/SpecDiffs'
-    BaseNotification:
-      description: Base Notification all APIClarity notifications must extend
-      properties:
-        notificationType:
-          type: string
-      required:
-      - notificationType
-      type: object
+    TestReportNotification:
+      allOf:
+      - $ref: '#/components/schemas/BaseNotification'
+      - $ref: '#/components/schemas/ShortTestReport'
+    ApiFindingsNotification:
+      allOf:
+      - $ref: '#/components/schemas/BaseNotification'
+      - $ref: '#/components/schemas/APIFindings'
     ShortTestReport:
       description: Short Test Report
       properties:
@@ -170,6 +96,71 @@ components:
       - status
       title: Short Test Report
       type: object
+    APIClarityNotification:
+      discriminator:
+        mapping:
+          ApiFindingsNotification: '#/components/schemas/ApiFindingsNotification'
+          AuthorizationModelNotification: '#/components/schemas/AuthorizationModelNotification'
+          NewDiscoveredAPINotification: '#/components/schemas/NewDiscoveredAPINotification'
+          SpecDiffsNotification: '#/components/schemas/SpecDiffsNotification'
+          TestProgressNotification: '#/components/schemas/TestProgressNotification'
+          TestReportNotification: '#/components/schemas/TestReportNotification'
+        propertyName: notificationType
+      oneOf:
+      - $ref: '#/components/schemas/ApiFindingsNotification'
+      - $ref: '#/components/schemas/AuthorizationModelNotification'
+      - $ref: '#/components/schemas/NewDiscoveredAPINotification'
+      - $ref: '#/components/schemas/SpecDiffsNotification'
+      - $ref: '#/components/schemas/TestProgressNotification'
+      - $ref: '#/components/schemas/TestReportNotification'
+    ShortTestProgress:
+      description: Describes the progress of an ongoing test
+      properties:
+        apiID:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+        progress:
+          description: Progress of the test
+          maximum: 100
+          minimum: 0
+          title: Description
+          type: integer
+        starttime:
+          description: Timestamp of the start of the test
+          format: int64
+          title: Start time
+          type: integer
+      required:
+      - starttime
+      - progress
+      title: Short Test Progress Report
+      type: object
+    ApiInfo:
+      properties:
+        destinationNamespace:
+          type: string
+        hasProvidedSpec:
+          default: false
+          type: boolean
+        hasReconstructedSpec:
+          default: false
+          type: boolean
+        id:
+          format: uint32
+          type: integer
+        name:
+          description: API name
+          type: string
+        port:
+          type: integer
+        traceSourceId:
+          description: Trace Source ID which created this API. Null UUID 0 means it has been created by APIClarity (from the UI for example)
+          format: uuid
+          type: string
+      type: object
+    TestProgressNotification:
+      allOf:
+      - $ref: '#/components/schemas/BaseNotification'
+      - $ref: '#/components/schemas/ShortTestProgress'
     AuthorizationModel:
       properties:
         learning:
@@ -185,7 +176,16 @@ components:
       - operations
       - learning
       type: object
-    ApiFindingsNotification:
+    APIFindings:
+      description: A group of findings
+      properties:
+        items:
+          description: A list of findings
+          items:
+            $ref: ../common/openapi.yaml#/components/schemas/APIFinding
+          type: array
+      type: object
+    AuthorizationModelNotification:
       allOf:
       - $ref: '#/components/schemas/BaseNotification'
-      - $ref: '#/components/schemas/APIFindings'
+      - $ref: '#/components/schemas/AuthorizationModel'

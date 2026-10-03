@@ -142,31 +142,95 @@ paths:
       x-operation-id-source: derived
 components:
   parameters:
-    pageSize:
-      description: Maximum items to return
+    statusCodeGteFilter:
+      description: greater than or equal
       in: query
-      name: pageSize
-      required: true
+      name: statusCode[gte]
       schema:
-        maximum: 50
-        minimum: 1
-        type: integer
-    showNonApi:
+        type: string
+    pathContainsFilter:
       in: query
-      name: showNonApi
-      required: true
-      schema:
-        type: boolean
-    destinationPortIsFilter:
-      in: query
-      name: destinationPort[is]
+      name: path[contains]
       schema:
         items:
           type: string
         type: array
-    destinationIPIsNotFilter:
+    pathIsFilter:
       in: query
-      name: destinationIP[isNot]
+      name: path[is]
+      schema:
+        items:
+          type: string
+        type: array
+    specContainsFilter:
+      in: query
+      name: spec[contains]
+      schema:
+        items:
+          type: string
+        type: array
+    hasSpecDiffFilter:
+      in: query
+      name: hasSpecDiff[is]
+      schema:
+        type: boolean
+    specIsFilter:
+      in: query
+      name: spec[is]
+      schema:
+        items:
+          type: string
+        type: array
+    destinationPortIsNotFilter:
+      in: query
+      name: destinationPort[isNot]
+      schema:
+        items:
+          type: string
+        type: array
+    specEndsWithFilter:
+      in: query
+      name: spec[end]
+      schema:
+        type: string
+    page:
+      description: Page number of the query
+      in: query
+      name: page
+      required: true
+      schema:
+        type: integer
+    startTime:
+      description: Start time of the query
+      in: query
+      name: startTime
+      required: true
+      schema:
+        format: date-time
+        type: string
+    pathIsNotFilter:
+      in: query
+      name: path[isNot]
+      schema:
+        items:
+          type: string
+        type: array
+    statusCodeIsFilter:
+      in: query
+      name: statusCode[is]
+      schema:
+        items:
+          type: string
+        type: array
+    apiInfoIdIsFilter:
+      in: query
+      name: apiInfoId[is]
+      schema:
+        format: uint32
+        type: integer
+    destinationPortIsFilter:
+      in: query
+      name: destinationPort[is]
       schema:
         items:
           type: string
@@ -179,108 +243,6 @@ components:
         items:
           $ref: ../common/openapi.yaml#/components/schemas/AlertSeverityEnum
         type: array
-    pathStartsWithFilter:
-      in: query
-      name: path[start]
-      schema:
-        type: string
-    sourceIPIsFilter:
-      in: query
-      name: sourceIP[is]
-      schema:
-        items:
-          type: string
-        type: array
-    pathContainsFilter:
-      in: query
-      name: path[contains]
-      schema:
-        items:
-          type: string
-        type: array
-    hasSpecDiffFilter:
-      in: query
-      name: hasSpecDiff[is]
-      schema:
-        type: boolean
-    sortDir:
-      description: Sorting direction
-      in: query
-      name: sortDir
-      schema:
-        default: ASC
-        enum:
-        - ASC
-        - DESC
-        type: string
-    statusCodeLteFilter:
-      description: less than or equal
-      in: query
-      name: statusCode[lte]
-      schema:
-        type: string
-    specStartsWithFilter:
-      in: query
-      name: spec[start]
-      schema:
-        type: string
-    page:
-      description: Page number of the query
-      in: query
-      name: page
-      required: true
-      schema:
-        type: integer
-    destinationIPIsFilter:
-      in: query
-      name: destinationIP[is]
-      schema:
-        items:
-          type: string
-        type: array
-    apiInfoIdIsFilter:
-      in: query
-      name: apiInfoId[is]
-      schema:
-        format: uint32
-        type: integer
-    pathEndsWithFilter:
-      in: query
-      name: path[end]
-      schema:
-        type: string
-    specEndsWithFilter:
-      in: query
-      name: spec[end]
-      schema:
-        type: string
-    statusCodeIsFilter:
-      in: query
-      name: statusCode[is]
-      schema:
-        items:
-          type: string
-        type: array
-    alertIsType:
-      in: query
-      name: alertType[is]
-      schema:
-        items:
-          type: string
-        type: array
-    specDiffTypeIsFilter:
-      in: query
-      name: specDiffType[is]
-      schema:
-        items:
-          $ref: ../common/openapi.yaml#/components/schemas/DiffType
-        type: array
-    statusCodeGteFilter:
-      description: greater than or equal
-      in: query
-      name: statusCode[gte]
-      schema:
-        type: string
     endTime:
       description: End time of the query
       in: query
@@ -289,17 +251,19 @@ components:
       schema:
         format: date-time
         type: string
-    startTime:
-      description: Start time of the query
+    specStartsWithFilter:
       in: query
-      name: startTime
-      required: true
+      name: spec[start]
       schema:
-        format: date-time
         type: string
-    destinationPortIsNotFilter:
+    pathEndsWithFilter:
       in: query
-      name: destinationPort[isNot]
+      name: path[end]
+      schema:
+        type: string
+    destinationIPIsNotFilter:
+      in: query
+      name: destinationIP[isNot]
       schema:
         items:
           type: string
@@ -311,9 +275,34 @@ components:
         items:
           type: string
         type: array
-    specIsFilter:
+    pathStartsWithFilter:
       in: query
-      name: spec[is]
+      name: path[start]
+      schema:
+        type: string
+    destinationIPIsFilter:
+      in: query
+      name: destinationIP[is]
+      schema:
+        items:
+          type: string
+        type: array
+    sourceIPIsFilter:
+      in: query
+      name: sourceIP[is]
+      schema:
+        items:
+          type: string
+        type: array
+    showNonApi:
+      in: query
+      name: showNonApi
+      required: true
+      schema:
+        type: boolean
+    specIsNotFilter:
+      in: query
+      name: spec[isNot]
       schema:
         items:
           type: string
@@ -332,6 +321,12 @@ components:
         items:
           $ref: ../common/openapi.yaml#/components/schemas/HttpMethod
         type: array
+    statusCodeLteFilter:
+      description: less than or equal
+      in: query
+      name: statusCode[lte]
+      schema:
+        type: string
     statusCodeIsNotFilter:
       in: query
       name: statusCode[isNot]
@@ -339,33 +334,38 @@ components:
         items:
           type: string
         type: array
-    specContainsFilter:
+    pageSize:
+      description: Maximum items to return
       in: query
-      name: spec[contains]
+      name: pageSize
+      required: true
+      schema:
+        maximum: 50
+        minimum: 1
+        type: integer
+    sortDir:
+      description: Sorting direction
+      in: query
+      name: sortDir
+      schema:
+        default: ASC
+        enum:
+        - ASC
+        - DESC
+        type: string
+    alertIsType:
+      in: query
+      name: alertType[is]
       schema:
         items:
           type: string
         type: array
-    pathIsFilter:
+    specDiffTypeIsFilter:
       in: query
-      name: path[is]
+      name: specDiffType[is]
       schema:
         items:
-          type: string
-        type: array
-    specIsNotFilter:
-      in: query
-      name: spec[isNot]
-      schema:
-        items:
-          type: string
-        type: array
-    pathIsNotFilter:
-      in: query
-      name: path[isNot]
-      schema:
-        items:
-          type: string
+          $ref: ../common/openapi.yaml#/components/schemas/DiffType
         type: array
   responses:
     UnknownError:

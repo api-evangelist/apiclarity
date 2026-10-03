@@ -310,110 +310,30 @@ paths:
     - url: /api
 components:
   schemas:
-    FuzzingReportItem:
-      description: Current fuzzer report
+    RawFindingsSeverity:
       properties:
-        name:
+        severity:
           type: string
-        source:
+    RawFindings:
+      properties:
+        namespace:
           type: string
-        status:
+        location:
+          type: array
+          items:
+            type: string
+          title: Paths location
+          description: location string token
+        type:
           type: string
         description:
           type: string
-        testType:
+        request:
+          $ref: '#/components/schemas/RawFindingsSeverity'
+        additionalInfo:
           type: string
-        paths:
-          items:
-            $ref: '#/components/schemas/FuzzingReportPath'
-          title: Paths
-          description: List of paths that has been fuzzed
-          type: array
-        findings:
-          items:
-            $ref: '#/components/schemas/RawFindings'
-          title: Paths
-          description: List of paths that has been fuzzed
-          type: array
-      title: FuzzingReportItem
+      title: RawFindings
       type: object
-    Tests:
-      title: Tests
-      type: object
-      properties:
-        items:
-          title: Items
-          type: array
-          items:
-            $ref: '#/components/schemas/Test'
-        total:
-          description: Nb of items, used for pagination
-          title: Total
-          type: integer
-    FuzzingReportPath:
-      description: Current fuzzer report
-      properties:
-        result:
-          type: integer
-        uri:
-          type: string
-        verb:
-          type: string
-        payload:
-          type: string
-        response:
-          type: string
-      title: FuzzingReportPath
-      type: object
-    Test:
-      title: Test
-      type: object
-      properties:
-        starttime:
-          description: Timestamp of the start of the test
-          title: Start time
-          type: integer
-          format: int64
-        progress:
-          description: Progress of the test
-          maximum: 100.0
-          minimum: 0.0
-          title: Progress
-          type: integer
-        errorMessage:
-          description: A message in case of error
-          title: ErrorMessage
-          type: string
-        vulnerabilities:
-          $ref: '#/components/schemas/Vulnerabilities'
-    TestWithReport:
-      title: Test
-      type: object
-      properties:
-        starttime:
-          description: Timestamp of the start of the test
-          title: Start time
-          type: integer
-          format: int64
-        progress:
-          description: Progress of the test
-          maximum: 100.0
-          minimum: 0.0
-          title: Description
-          type: integer
-        vulnerabilities:
-          $ref: '#/components/schemas/Vulnerabilities'
-        report:
-          $ref: '#/components/schemas/FuzzingStatusAndReport'
-        lastReportTime:
-          description: Timestamp of the last report received for the test
-          title: Start time
-          type: integer
-          format: int64
-        errorMessage:
-          description: A message in case of error
-          title: ErrorMessage
-          type: string
     FuzzingStatusAndReport:
       description: fuzzing status and reporting
       properties:
@@ -433,6 +353,19 @@ components:
       - status
       - report
       - progress
+    Tests:
+      title: Tests
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/Test'
+        total:
+          description: Nb of items, used for pagination
+          title: Total
+          type: integer
     Vulnerabilities:
       description: risk of the finding
       title: Risk
@@ -458,14 +391,6 @@ components:
           description: Total of vuln
           title: Low
           type: integer
-    FuzzingStatusEnum:
-      description: An enumeration.
-      enum:
-      - DONE
-      - ERROR
-      - IN_PROGRESS
-      title: FuzzingStatus
-      type: string
     ShortTestReport:
       title: Short Test Report
       description: Short Test Report
@@ -494,6 +419,21 @@ components:
       required:
       - starttime
       - status
+    FuzzingReportPath:
+      description: Current fuzzer report
+      properties:
+        result:
+          type: integer
+        uri:
+          type: string
+        verb:
+          type: string
+        payload:
+          type: string
+        response:
+          type: string
+      title: FuzzingReportPath
+      type: object
     FuzzingReportTag:
       title: Report tag item
       description: Report tag item
@@ -513,6 +453,14 @@ components:
       required:
       - name
       - operations
+    FuzzingStatusEnum:
+      description: An enumeration.
+      enum:
+      - DONE
+      - ERROR
+      - IN_PROGRESS
+      title: FuzzingStatus
+      type: string
     FuzzingReportOperation:
       description: Report tag operation
       title: Report tag operation
@@ -535,30 +483,82 @@ components:
       required:
       - operation
       - requestsCount
-    RawFindingsSeverity:
+    TestWithReport:
+      title: Test
+      type: object
       properties:
-        severity:
+        starttime:
+          description: Timestamp of the start of the test
+          title: Start time
+          type: integer
+          format: int64
+        progress:
+          description: Progress of the test
+          maximum: 100.0
+          minimum: 0.0
+          title: Description
+          type: integer
+        vulnerabilities:
+          $ref: '#/components/schemas/Vulnerabilities'
+        report:
+          $ref: '#/components/schemas/FuzzingStatusAndReport'
+        lastReportTime:
+          description: Timestamp of the last report received for the test
+          title: Start time
+          type: integer
+          format: int64
+        errorMessage:
+          description: A message in case of error
+          title: ErrorMessage
           type: string
-    RawFindings:
+    FuzzingReportItem:
+      description: Current fuzzer report
       properties:
-        namespace:
+        name:
           type: string
-        location:
-          type: array
-          items:
-            type: string
-          title: Paths location
-          description: location string token
-        type:
+        source:
+          type: string
+        status:
           type: string
         description:
           type: string
-        request:
-          $ref: '#/components/schemas/RawFindingsSeverity'
-        additionalInfo:
+        testType:
           type: string
-      title: RawFindings
+        paths:
+          items:
+            $ref: '#/components/schemas/FuzzingReportPath'
+          title: Paths
+          description: List of paths that has been fuzzed
+          type: array
+        findings:
+          items:
+            $ref: '#/components/schemas/RawFindings'
+          title: Paths
+          description: List of paths that has been fuzzed
+          type: array
+      title: FuzzingReportItem
       type: object
+    Test:
+      title: Test
+      type: object
+      properties:
+        starttime:
+          description: Timestamp of the start of the test
+          title: Start time
+          type: integer
+          format: int64
+        progress:
+          description: Progress of the test
+          maximum: 100.0
+          minimum: 0.0
+          title: Progress
+          type: integer
+        errorMessage:
+          description: A message in case of error
+          title: ErrorMessage
+          type: string
+        vulnerabilities:
+          $ref: '#/components/schemas/Vulnerabilities'
     ShortTestReport_2:
       description: Short Test Report
       properties:

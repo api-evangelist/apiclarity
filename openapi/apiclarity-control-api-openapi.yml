@@ -130,6 +130,41 @@ paths:
     servers:
     - url: /api
 components:
+  parameters:
+    traceSourceId:
+      description: Trace Source ID
+      in: path
+      name: traceSourceId
+      required: true
+      schema:
+        format: uuid
+        type: string
+    TraceSourceTokenHeader:
+      name: X-Trace-Source-Token
+      description: Optional header to authenticate the trace source
+      in: header
+      required: false
+      schema:
+        type: string
+  responses:
+    UnknownError:
+      content:
+        application/json:
+          schema:
+            $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+      description: unknown error
+    Success:
+      description: success message
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponse'
+    UnknownError_2:
+      description: unknown error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse'
   schemas:
     TraceSourceType:
       enum:
@@ -171,41 +206,6 @@ components:
       properties:
         message:
           type: string
-  parameters:
-    traceSourceId:
-      description: Trace Source ID
-      in: path
-      name: traceSourceId
-      required: true
-      schema:
-        format: uuid
-        type: string
-    TraceSourceTokenHeader:
-      name: X-Trace-Source-Token
-      description: Optional header to authenticate the trace source
-      in: header
-      required: false
-      schema:
-        type: string
-  responses:
-    UnknownError:
-      content:
-        application/json:
-          schema:
-            $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
-      description: unknown error
-    UnknownError_2:
-      description: unknown error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiResponse'
-    Success:
-      description: success message
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SuccessResponse'
 x-refined-from:
 - apiclarity-global-openapi.gen.yml
 - apiclarity-plugins-telemetry-swagger.yml
