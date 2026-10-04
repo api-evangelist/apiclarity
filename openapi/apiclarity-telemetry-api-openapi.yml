@@ -33,6 +33,27 @@ paths:
       operationId: postTelemetry
       x-operation-id-source: derived
 components:
+  parameters:
+    TraceSourceTokenHeader:
+      name: X-Trace-Source-Token
+      description: Optional header to authenticate the trace source
+      in: header
+      required: false
+      schema:
+        type: string
+  responses:
+    UnknownError:
+      description: unknown error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse'
+    Success:
+      description: success message
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponse'
   schemas:
     Header:
       type: object
@@ -41,6 +62,29 @@ components:
           type: string
         value:
           type: string
+    ApiResponse:
+      description: An object that is return in all cases of failures.
+      type: object
+      properties:
+        message:
+          type: string
+    SuccessResponse:
+      description: An object that is return in cases of success that return nothing.
+      type: object
+      properties:
+        message:
+          type: string
+    Request:
+      type: object
+      properties:
+        method:
+          type: string
+        path:
+          type: string
+        host:
+          type: string
+        common:
+          $ref: '#/components/schemas/Common'
     Response:
       type: object
       properties:
@@ -65,23 +109,6 @@ components:
           $ref: '#/components/schemas/Request'
         response:
           $ref: '#/components/schemas/Response'
-    ApiResponse:
-      description: An object that is return in all cases of failures.
-      type: object
-      properties:
-        message:
-          type: string
-    Request:
-      type: object
-      properties:
-        method:
-          type: string
-        path:
-          type: string
-        host:
-          type: string
-        common:
-          $ref: '#/components/schemas/Common'
     Common:
       type: object
       properties:
@@ -100,30 +127,3 @@ components:
           description: Time since epoch (milliseconds)
           type: integer
           format: int64
-    SuccessResponse:
-      description: An object that is return in cases of success that return nothing.
-      type: object
-      properties:
-        message:
-          type: string
-  responses:
-    Success:
-      description: success message
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SuccessResponse'
-    UnknownError:
-      description: unknown error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ApiResponse'
-  parameters:
-    TraceSourceTokenHeader:
-      name: X-Trace-Source-Token
-      description: Optional header to authenticate the trace source
-      in: header
-      required: false
-      schema:
-        type: string

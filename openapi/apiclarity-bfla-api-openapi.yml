@@ -528,31 +528,34 @@ paths:
     - url: /api
 components:
   schemas:
-    SpecType:
+    BFLAStatus:
       type: string
       enum:
-      - NONE
-      - PROVIDED
-      - RECONSTRUCTED
-    K8sObjectRef:
+      - NO_SPEC
+      - LEARNING
+      - LEGITIMATE
+      - SUSPICIOUS_MEDIUM
+      - SUSPICIOUS_HIGH
+    AuthorizationModelOperation:
       type: object
       required:
-      - uid
-      - kind
-      - name
-      - namespace
-      - apiVersion
+      - path
+      - method
+      - audience
+      - tags
       properties:
-        uid:
+        path:
           type: string
-        kind:
+        method:
           type: string
-        name:
-          type: string
-        namespace:
-          type: string
-        apiVersion:
-          type: string
+        tags:
+          items:
+            type: string
+          type: array
+        audience:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthorizationModelAudience'
     AuthorizationModelAudience:
       type: object
       required:
@@ -579,6 +582,32 @@ components:
             $ref: '#/components/schemas/DetectedUser'
         k8s_object:
           $ref: '#/components/schemas/K8sObjectRef'
+    K8sObjectRef:
+      type: object
+      required:
+      - uid
+      - kind
+      - name
+      - namespace
+      - apiVersion
+      properties:
+        uid:
+          type: string
+        kind:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+        apiVersion:
+          type: string
+    BFLAState:
+      type: string
+      enum:
+      - BFLA_START
+      - BFLA_LEARNING
+      - BFLA_DETECTING
+      - BFLA_LEARNT
     DetectedUser:
       required:
       - id
@@ -595,26 +624,12 @@ components:
           - KONG_X_CONSUMER_ID
         ip_address:
           type: string
-    AuthorizationModelOperation:
-      type: object
-      required:
-      - path
-      - method
-      - audience
-      - tags
-      properties:
-        path:
-          type: string
-        method:
-          type: string
-        tags:
-          items:
-            type: string
-          type: array
-        audience:
-          type: array
-          items:
-            $ref: '#/components/schemas/AuthorizationModelAudience'
+    SpecType:
+      type: string
+      enum:
+      - NONE
+      - PROVIDED
+      - RECONSTRUCTED
     AuthorizationModel:
       type: object
       required:
@@ -630,21 +645,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AuthorizationModelOperation'
-    BFLAState:
-      type: string
-      enum:
-      - BFLA_START
-      - BFLA_LEARNING
-      - BFLA_DETECTING
-      - BFLA_LEARNT
-    BFLAStatus:
-      type: string
-      enum:
-      - NO_SPEC
-      - LEARNING
-      - LEGITIMATE
-      - SUSPICIOUS_MEDIUM
-      - SUSPICIOUS_HIGH
 x-refined-from:
 - apiclarity-bfla-module-openapi.yml
 - apiclarity-global-openapi.gen.yml

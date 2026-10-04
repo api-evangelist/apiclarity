@@ -130,22 +130,6 @@ paths:
     servers:
     - url: /api
 components:
-  parameters:
-    traceSourceId:
-      description: Trace Source ID
-      in: path
-      name: traceSourceId
-      required: true
-      schema:
-        format: uuid
-        type: string
-    TraceSourceTokenHeader:
-      name: X-Trace-Source-Token
-      description: Optional header to authenticate the trace source
-      in: header
-      required: false
-      schema:
-        type: string
   responses:
     UnknownError:
       content:
@@ -153,26 +137,19 @@ components:
           schema:
             $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
       description: unknown error
-    Success:
-      description: success message
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SuccessResponse'
     UnknownError_2:
       description: unknown error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiResponse'
+    Success:
+      description: success message
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponse'
   schemas:
-    TraceSourceType:
-      enum:
-      - APIGEE_X
-      - F5_BIG_IP
-      - KONG_INTERNAL
-      - TYK_INTERNAL
-      type: string
     TraceSource:
       description: A Source which is sending traces to APIClarity
       properties:
@@ -194,18 +171,41 @@ components:
       - name
       - type
       type: object
-    ApiResponse:
-      description: An object that is return in all cases of failures.
-      type: object
-      properties:
-        message:
-          type: string
+    TraceSourceType:
+      enum:
+      - APIGEE_X
+      - F5_BIG_IP
+      - KONG_INTERNAL
+      - TYK_INTERNAL
+      type: string
     SuccessResponse:
       description: An object that is return in cases of success that return nothing.
       type: object
       properties:
         message:
           type: string
+    ApiResponse:
+      description: An object that is return in all cases of failures.
+      type: object
+      properties:
+        message:
+          type: string
+  parameters:
+    traceSourceId:
+      description: Trace Source ID
+      in: path
+      name: traceSourceId
+      required: true
+      schema:
+        format: uuid
+        type: string
+    TraceSourceTokenHeader:
+      name: X-Trace-Source-Token
+      description: Optional header to authenticate the trace source
+      in: header
+      required: false
+      schema:
+        type: string
 x-refined-from:
 - apiclarity-global-openapi.gen.yml
 - apiclarity-plugins-telemetry-swagger.yml

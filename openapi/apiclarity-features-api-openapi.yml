@@ -23,17 +23,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    APIClarityFeatureEnum:
-      description: APIClarity Feature Name
-      enum:
-      - bfla
-      - fuzzer
-      - spec_differ
-      - specdiffs
-      - specreconstructor
-      - specreconstructor
-      - traceanalyzer
-      type: string
     HostsToTraceForTraceSource:
       description: list of API hosts (in the form 'host:port') managed by a traceSource
       properties:
@@ -47,25 +36,6 @@ components:
           format: uint32
           type: integer
       type: object
-    APIClarityFeatureList:
-      description: List of APIClarity features and for each feature the list of API hosts (Group by trace sources, in the form 'host:port') the feature requires to get trace for
-      properties:
-        features:
-          items:
-            $ref: '#/components/schemas/APIClarityFeature'
-          type: array
-      type: object
-    HostsToTraceForComponent:
-      description: List of trace sources for a component, with theirs list of API hosts to get trace for
-      properties:
-        component:
-          description: Component name
-          type: string
-        traceSourcesHosts:
-          items:
-            $ref: '#/components/schemas/HostsToTraceForTraceSource'
-          type: array
-      type: object
     APIClarityFeature:
       description: Description of APIClarity feature and the list of API hosts (Group by trace sources, in the form 'host:port') the feature requires to get trace for
       properties:
@@ -78,4 +48,34 @@ components:
           $ref: '#/components/schemas/HostsToTraceForComponent'
       required:
       - featureName
+      type: object
+    APIClarityFeatureList:
+      description: List of APIClarity features and for each feature the list of API hosts (Group by trace sources, in the form 'host:port') the feature requires to get trace for
+      properties:
+        features:
+          items:
+            $ref: '#/components/schemas/APIClarityFeature'
+          type: array
+      type: object
+    APIClarityFeatureEnum:
+      description: APIClarity Feature Name
+      enum:
+      - bfla
+      - fuzzer
+      - spec_differ
+      - specdiffs
+      - specreconstructor
+      - specreconstructor
+      - traceanalyzer
+      type: string
+    HostsToTraceForComponent:
+      description: List of trace sources for a component, with theirs list of API hosts to get trace for
+      properties:
+        component:
+          description: Component name
+          type: string
+        traceSourcesHosts:
+          items:
+            $ref: '#/components/schemas/HostsToTraceForTraceSource'
+          type: array
       type: object

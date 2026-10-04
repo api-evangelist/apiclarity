@@ -310,30 +310,25 @@ paths:
     - url: /api
 components:
   schemas:
-    RawFindingsSeverity:
+    FuzzingReportTag:
+      title: Report tag item
+      description: Report tag item
+      type: object
       properties:
-        severity:
+        name:
+          title: Tag name
+          description: Tag name
           type: string
-    RawFindings:
-      properties:
-        namespace:
-          type: string
-        location:
+        operations:
+          title: Operations list
           type: array
           items:
-            type: string
-          title: Paths location
-          description: location string token
-        type:
-          type: string
-        description:
-          type: string
-        request:
-          $ref: '#/components/schemas/RawFindingsSeverity'
-        additionalInfo:
-          type: string
-      title: RawFindings
-      type: object
+            $ref: '#/components/schemas/FuzzingReportOperation'
+        highestSeverity:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/Severity
+      required:
+      - name
+      - operations
     FuzzingStatusAndReport:
       description: fuzzing status and reporting
       properties:
@@ -353,19 +348,78 @@ components:
       - status
       - report
       - progress
-    Tests:
-      title: Tests
+    FuzzingReportPath:
+      description: Current fuzzer report
+      properties:
+        result:
+          type: integer
+        uri:
+          type: string
+        verb:
+          type: string
+        payload:
+          type: string
+        response:
+          type: string
+      title: FuzzingReportPath
+      type: object
+    TestWithReport:
+      title: Test
       type: object
       properties:
-        items:
-          title: Items
-          type: array
-          items:
-            $ref: '#/components/schemas/Test'
-        total:
-          description: Nb of items, used for pagination
-          title: Total
+        starttime:
+          description: Timestamp of the start of the test
+          title: Start time
           type: integer
+          format: int64
+        progress:
+          description: Progress of the test
+          maximum: 100.0
+          minimum: 0.0
+          title: Description
+          type: integer
+        vulnerabilities:
+          $ref: '#/components/schemas/Vulnerabilities'
+        report:
+          $ref: '#/components/schemas/FuzzingStatusAndReport'
+        lastReportTime:
+          description: Timestamp of the last report received for the test
+          title: Start time
+          type: integer
+          format: int64
+        errorMessage:
+          description: A message in case of error
+          title: ErrorMessage
+          type: string
+    Test:
+      title: Test
+      type: object
+      properties:
+        starttime:
+          description: Timestamp of the start of the test
+          title: Start time
+          type: integer
+          format: int64
+        progress:
+          description: Progress of the test
+          maximum: 100.0
+          minimum: 0.0
+          title: Progress
+          type: integer
+        errorMessage:
+          description: A message in case of error
+          title: ErrorMessage
+          type: string
+        vulnerabilities:
+          $ref: '#/components/schemas/Vulnerabilities'
+    FuzzingStatusEnum:
+      description: An enumeration.
+      enum:
+      - DONE
+      - ERROR
+      - IN_PROGRESS
+      title: FuzzingStatus
+      type: string
     Vulnerabilities:
       description: risk of the finding
       title: Risk
@@ -419,48 +473,23 @@ components:
       required:
       - starttime
       - status
-    FuzzingReportPath:
-      description: Current fuzzer report
+    RawFindingsSeverity:
       properties:
-        result:
-          type: integer
-        uri:
+        severity:
           type: string
-        verb:
-          type: string
-        payload:
-          type: string
-        response:
-          type: string
-      title: FuzzingReportPath
-      type: object
-    FuzzingReportTag:
-      title: Report tag item
-      description: Report tag item
+    Tests:
+      title: Tests
       type: object
       properties:
-        name:
-          title: Tag name
-          description: Tag name
-          type: string
-        operations:
-          title: Operations list
+        items:
+          title: Items
           type: array
           items:
-            $ref: '#/components/schemas/FuzzingReportOperation'
-        highestSeverity:
-          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/Severity
-      required:
-      - name
-      - operations
-    FuzzingStatusEnum:
-      description: An enumeration.
-      enum:
-      - DONE
-      - ERROR
-      - IN_PROGRESS
-      title: FuzzingStatus
-      type: string
+            $ref: '#/components/schemas/Test'
+        total:
+          description: Nb of items, used for pagination
+          title: Total
+          type: integer
     FuzzingReportOperation:
       description: Report tag operation
       title: Report tag operation
@@ -483,34 +512,6 @@ components:
       required:
       - operation
       - requestsCount
-    TestWithReport:
-      title: Test
-      type: object
-      properties:
-        starttime:
-          description: Timestamp of the start of the test
-          title: Start time
-          type: integer
-          format: int64
-        progress:
-          description: Progress of the test
-          maximum: 100.0
-          minimum: 0.0
-          title: Description
-          type: integer
-        vulnerabilities:
-          $ref: '#/components/schemas/Vulnerabilities'
-        report:
-          $ref: '#/components/schemas/FuzzingStatusAndReport'
-        lastReportTime:
-          description: Timestamp of the last report received for the test
-          title: Start time
-          type: integer
-          format: int64
-        errorMessage:
-          description: A message in case of error
-          title: ErrorMessage
-          type: string
     FuzzingReportItem:
       description: Current fuzzer report
       properties:
@@ -538,27 +539,45 @@ components:
           type: array
       title: FuzzingReportItem
       type: object
-    Test:
-      title: Test
-      type: object
+    RawFindings:
       properties:
-        starttime:
-          description: Timestamp of the start of the test
-          title: Start time
-          type: integer
-          format: int64
-        progress:
-          description: Progress of the test
-          maximum: 100.0
-          minimum: 0.0
-          title: Progress
-          type: integer
-        errorMessage:
-          description: A message in case of error
-          title: ErrorMessage
+        namespace:
           type: string
-        vulnerabilities:
-          $ref: '#/components/schemas/Vulnerabilities'
+        location:
+          type: array
+          items:
+            type: string
+          title: Paths location
+          description: location string token
+        type:
+          type: string
+        description:
+          type: string
+        request:
+          $ref: '#/components/schemas/RawFindingsSeverity'
+        additionalInfo:
+          type: string
+      title: RawFindings
+      type: object
+    FuzzingReportTag_2:
+      description: Report tag item
+      properties:
+        highestSeverity:
+          $ref: ../common/openapi.yaml#/components/schemas/Severity
+        name:
+          description: Tag name
+          title: Tag name
+          type: string
+        operations:
+          items:
+            $ref: '#/components/schemas/FuzzingReportOperation_2'
+          title: Operations list
+          type: array
+      required:
+      - name
+      - operations
+      title: Report tag item
+      type: object
     ShortTestReport_2:
       description: Short Test Report
       properties:
@@ -586,25 +605,6 @@ components:
       - starttime
       - status
       title: Short Test Report
-      type: object
-    FuzzingReportTag_2:
-      description: Report tag item
-      properties:
-        highestSeverity:
-          $ref: ../common/openapi.yaml#/components/schemas/Severity
-        name:
-          description: Tag name
-          title: Tag name
-          type: string
-        operations:
-          items:
-            $ref: '#/components/schemas/FuzzingReportOperation_2'
-          title: Operations list
-          type: array
-      required:
-      - name
-      - operations
-      title: Report tag item
       type: object
     FuzzingReportOperation_2:
       description: Report tag operation

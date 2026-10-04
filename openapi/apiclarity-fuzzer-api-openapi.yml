@@ -327,6 +327,84 @@ paths:
     - url: /api
 components:
   schemas:
+    TestInput:
+      type: object
+      description: contains all input parameters for a test
+      properties:
+        auth:
+          $ref: '#/components/schemas/AuthorizationScheme'
+        depth:
+          $ref: '#/components/schemas/TestInputDepthEnum'
+      required:
+      - depth
+    TestHandle:
+      type: object
+      properties:
+        apiID:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+        timestamp:
+          type: integer
+          format: int64
+    AuthorizationSchemeBase:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AuthorizationTypeEnum'
+      required:
+      - type
+    AuthorizationScheme:
+      oneOf:
+      - $ref: '#/components/schemas/BasicAuth'
+      - $ref: '#/components/schemas/ApiToken'
+      - $ref: '#/components/schemas/BearerToken'
+      discriminator:
+        propertyName: type
+        mapping:
+          BasicAuth: '#/components/schemas/BasicAuth'
+          ApiToken: '#/components/schemas/ApiToken'
+          BearerToken: '#/components/schemas/BearerToken'
+    BasicAuth:
+      allOf:
+      - $ref: '#/components/schemas/AuthorizationSchemeBase'
+      - type: object
+        properties:
+          username:
+            type: string
+          password:
+            type: string
+        required:
+        - username
+        - password
+    BearerToken:
+      allOf:
+      - $ref: '#/components/schemas/AuthorizationSchemeBase'
+      - type: object
+        properties:
+          token:
+            type: string
+        required:
+        - token
+    ShortTestProgress:
+      title: Short Test Progress Report
+      description: Describes the progress of an ongoing test
+      type: object
+      properties:
+        apiID:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+        starttime:
+          description: Timestamp of the start of the test
+          title: Start time
+          type: integer
+          format: int64
+        progress:
+          description: Progress of the test
+          maximum: 100.0
+          minimum: 0.0
+          title: Description
+          type: integer
+      required:
+      - starttime
+      - progress
     ApiToken:
       allOf:
       - $ref: '#/components/schemas/AuthorizationSchemeBase'
@@ -339,34 +417,13 @@ components:
         required:
         - key
         - value
-    AuthorizationScheme:
-      oneOf:
-      - $ref: '#/components/schemas/BasicAuth'
-      - $ref: '#/components/schemas/ApiToken'
-      - $ref: '#/components/schemas/BearerToken'
-      discriminator:
-        propertyName: type
-        mapping:
-          BasicAuth: '#/components/schemas/BasicAuth'
-          ApiToken: '#/components/schemas/ApiToken'
-          BearerToken: '#/components/schemas/BearerToken'
-    TestInput:
-      type: object
-      description: contains all input parameters for a test
-      properties:
-        auth:
-          $ref: '#/components/schemas/AuthorizationScheme'
-        depth:
-          $ref: '#/components/schemas/TestInputDepthEnum'
-      required:
-      - depth
-    TestInputDepthEnum:
-      description: An enumeration for input depth parameter.
+    FuzzingStatusEnum:
+      description: An enumeration.
       enum:
-      - QUICK
-      - DEFAULT
-      - DEEP
-      title: TestInputDepth
+      - DONE
+      - ERROR
+      - IN_PROGRESS
+      title: FuzzingStatus
       type: string
     ShortTestReport:
       title: Short Test Report
@@ -396,63 +453,22 @@ components:
       required:
       - starttime
       - status
-    FuzzingReportTag:
-      title: Report tag item
-      description: Report tag item
-      type: object
-      properties:
-        name:
-          title: Tag name
-          description: Tag name
-          type: string
-        operations:
-          title: Operations list
-          type: array
-          items:
-            $ref: '#/components/schemas/FuzzingReportOperation'
-        highestSeverity:
-          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/Severity
-      required:
-      - name
-      - operations
-    ShortTestProgress:
-      title: Short Test Progress Report
-      description: Describes the progress of an ongoing test
-      type: object
-      properties:
-        apiID:
-          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
-        starttime:
-          description: Timestamp of the start of the test
-          title: Start time
-          type: integer
-          format: int64
-        progress:
-          description: Progress of the test
-          maximum: 100.0
-          minimum: 0.0
-          title: Description
-          type: integer
-      required:
-      - starttime
-      - progress
-    FuzzingStatusEnum:
-      description: An enumeration.
+    AuthorizationTypeEnum:
+      description: An enumeration for the authorization type parameter.
       enum:
-      - DONE
-      - ERROR
-      - IN_PROGRESS
-      title: FuzzingStatus
+      - BASICAUTH
+      - APITOKEN
+      - BEARERTOKEN
+      title: AuthorizationType
       type: string
-    BearerToken:
-      allOf:
-      - $ref: '#/components/schemas/AuthorizationSchemeBase'
-      - type: object
-        properties:
-          token:
-            type: string
-        required:
-        - token
+    TestInputDepthEnum:
+      description: An enumeration for input depth parameter.
+      enum:
+      - QUICK
+      - DEFAULT
+      - DEEP
+      title: TestInputDepth
+      type: string
     FuzzingReportOperation:
       description: Report tag operation
       title: Report tag operation
@@ -475,41 +491,54 @@ components:
       required:
       - operation
       - requestsCount
-    AuthorizationSchemeBase:
+    FuzzingReportTag:
+      title: Report tag item
+      description: Report tag item
       type: object
       properties:
-        type:
-          $ref: '#/components/schemas/AuthorizationTypeEnum'
+        name:
+          title: Tag name
+          description: Tag name
+          type: string
+        operations:
+          title: Operations list
+          type: array
+          items:
+            $ref: '#/components/schemas/FuzzingReportOperation'
+        highestSeverity:
+          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/Severity
       required:
-      - type
-    BasicAuth:
-      allOf:
-      - $ref: '#/components/schemas/AuthorizationSchemeBase'
-      - type: object
-        properties:
-          username:
-            type: string
-          password:
-            type: string
-        required:
-        - username
-        - password
-    TestHandle:
-      type: object
+      - name
+      - operations
+    TestHandle_2:
       properties:
         apiID:
-          $ref: ../../../../../../api3/common/openapi.yaml#/components/schemas/ApiID
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
         timestamp:
-          type: integer
           format: int64
-    AuthorizationTypeEnum:
-      description: An enumeration for the authorization type parameter.
-      enum:
-      - BASICAUTH
-      - APITOKEN
-      - BEARERTOKEN
-      title: AuthorizationType
-      type: string
+          type: integer
+      type: object
+    ShortTestProgress_2:
+      description: Describes the progress of an ongoing test
+      properties:
+        apiID:
+          $ref: ../common/openapi.yaml#/components/schemas/ApiID
+        progress:
+          description: Progress of the test
+          maximum: 100
+          minimum: 0
+          title: Description
+          type: integer
+        starttime:
+          description: Timestamp of the start of the test
+          format: int64
+          title: Start time
+          type: integer
+      required:
+      - starttime
+      - progress
+      title: Short Test Progress Report
+      type: object
     ShortTestReport_2:
       description: Short Test Report
       properties:
@@ -538,46 +567,6 @@ components:
       - status
       title: Short Test Report
       type: object
-    FuzzingReportTag_2:
-      description: Report tag item
-      properties:
-        highestSeverity:
-          $ref: ../common/openapi.yaml#/components/schemas/Severity
-        name:
-          description: Tag name
-          title: Tag name
-          type: string
-        operations:
-          items:
-            $ref: '#/components/schemas/FuzzingReportOperation_2'
-          title: Operations list
-          type: array
-      required:
-      - name
-      - operations
-      title: Report tag item
-      type: object
-    ShortTestProgress_2:
-      description: Describes the progress of an ongoing test
-      properties:
-        apiID:
-          $ref: ../common/openapi.yaml#/components/schemas/ApiID
-        progress:
-          description: Progress of the test
-          maximum: 100
-          minimum: 0
-          title: Description
-          type: integer
-        starttime:
-          description: Timestamp of the start of the test
-          format: int64
-          title: Start time
-          type: integer
-      required:
-      - starttime
-      - progress
-      title: Short Test Progress Report
-      type: object
     FuzzingReportOperation_2:
       description: Report tag operation
       properties:
@@ -600,13 +589,24 @@ components:
       - requestsCount
       title: Report tag operation
       type: object
-    TestHandle_2:
+    FuzzingReportTag_2:
+      description: Report tag item
       properties:
-        apiID:
-          $ref: ../common/openapi.yaml#/components/schemas/ApiID
-        timestamp:
-          format: int64
-          type: integer
+        highestSeverity:
+          $ref: ../common/openapi.yaml#/components/schemas/Severity
+        name:
+          description: Tag name
+          title: Tag name
+          type: string
+        operations:
+          items:
+            $ref: '#/components/schemas/FuzzingReportOperation_2'
+          title: Operations list
+          type: array
+      required:
+      - name
+      - operations
+      title: Report tag item
       type: object
 x-refined-from:
 - apiclarity-fuzzer-module-openapi.yml

@@ -142,11 +142,43 @@ paths:
       x-operation-id-source: derived
 components:
   parameters:
-    statusCodeGteFilter:
-      description: greater than or equal
+    apiEventSortKey:
+      description: Sort key
       in: query
-      name: statusCode[gte]
+      name: sortKey
+      required: true
       schema:
+        $ref: ../common/openapi.yaml#/components/schemas/ApiEventSortKey
+    specContainsFilter:
+      in: query
+      name: spec[contains]
+      schema:
+        items:
+          type: string
+        type: array
+    destinationIPIsNotFilter:
+      in: query
+      name: destinationIP[isNot]
+      schema:
+        items:
+          type: string
+        type: array
+    specDiffTypeIsFilter:
+      in: query
+      name: specDiffType[is]
+      schema:
+        items:
+          $ref: ../common/openapi.yaml#/components/schemas/DiffType
+        type: array
+    sortDir:
+      description: Sorting direction
+      in: query
+      name: sortDir
+      schema:
+        default: ASC
+        enum:
+        - ASC
+        - DESC
         type: string
     pathContainsFilter:
       in: query
@@ -155,28 +187,9 @@ components:
         items:
           type: string
         type: array
-    pathIsFilter:
+    alertIsType:
       in: query
-      name: path[is]
-      schema:
-        items:
-          type: string
-        type: array
-    specContainsFilter:
-      in: query
-      name: spec[contains]
-      schema:
-        items:
-          type: string
-        type: array
-    hasSpecDiffFilter:
-      in: query
-      name: hasSpecDiff[is]
-      schema:
-        type: boolean
-    specIsFilter:
-      in: query
-      name: spec[is]
+      name: alertType[is]
       schema:
         items:
           type: string
@@ -188,49 +201,37 @@ components:
         items:
           type: string
         type: array
+    endTime:
+      description: End time of the query
+      in: query
+      name: endTime
+      required: true
+      schema:
+        format: date-time
+        type: string
+    showNonApi:
+      in: query
+      name: showNonApi
+      required: true
+      schema:
+        type: boolean
     specEndsWithFilter:
       in: query
       name: spec[end]
       schema:
         type: string
-    page:
-      description: Page number of the query
+    pageSize:
+      description: Maximum items to return
       in: query
-      name: page
+      name: pageSize
       required: true
       schema:
+        maximum: 50
+        minimum: 1
         type: integer
-    startTime:
-      description: Start time of the query
-      in: query
-      name: startTime
-      required: true
-      schema:
-        format: date-time
-        type: string
     pathIsNotFilter:
       in: query
       name: path[isNot]
-      schema:
-        items:
-          type: string
-        type: array
-    statusCodeIsFilter:
-      in: query
-      name: statusCode[is]
-      schema:
-        items:
-          type: string
-        type: array
-    apiInfoIdIsFilter:
-      in: query
-      name: apiInfoId[is]
-      schema:
-        format: uint32
-        type: integer
-    destinationPortIsFilter:
-      in: query
-      name: destinationPort[is]
       schema:
         items:
           type: string
@@ -243,27 +244,99 @@ components:
         items:
           $ref: ../common/openapi.yaml#/components/schemas/AlertSeverityEnum
         type: array
-    endTime:
-      description: End time of the query
+    statusCodeIsFilter:
       in: query
-      name: endTime
+      name: statusCode[is]
+      schema:
+        items:
+          type: string
+        type: array
+    methodIsFilter:
+      in: query
+      name: method[is]
+      schema:
+        items:
+          $ref: ../common/openapi.yaml#/components/schemas/HttpMethod
+        type: array
+    apiInfoIdIsFilter:
+      in: query
+      name: apiInfoId[is]
+      schema:
+        format: uint32
+        type: integer
+    hasSpecDiffFilter:
+      in: query
+      name: hasSpecDiff[is]
+      schema:
+        type: boolean
+    destinationPortIsFilter:
+      in: query
+      name: destinationPort[is]
+      schema:
+        items:
+          type: string
+        type: array
+    statusCodeLteFilter:
+      description: less than or equal
+      in: query
+      name: statusCode[lte]
+      schema:
+        type: string
+    pathStartsWithFilter:
+      in: query
+      name: path[start]
+      schema:
+        type: string
+    page:
+      description: Page number of the query
+      in: query
+      name: page
       required: true
       schema:
-        format: date-time
-        type: string
+        type: integer
+    statusCodeIsNotFilter:
+      in: query
+      name: statusCode[isNot]
+      schema:
+        items:
+          type: string
+        type: array
     specStartsWithFilter:
       in: query
       name: spec[start]
       schema:
         type: string
-    pathEndsWithFilter:
+    statusCodeGteFilter:
+      description: greater than or equal
       in: query
-      name: path[end]
+      name: statusCode[gte]
       schema:
         type: string
-    destinationIPIsNotFilter:
+    sourceIPIsFilter:
       in: query
-      name: destinationIP[isNot]
+      name: sourceIP[is]
+      schema:
+        items:
+          type: string
+        type: array
+    specIsNotFilter:
+      in: query
+      name: spec[isNot]
+      schema:
+        items:
+          type: string
+        type: array
+    startTime:
+      description: Start time of the query
+      in: query
+      name: startTime
+      required: true
+      schema:
+        format: date-time
+        type: string
+    destinationIPIsFilter:
+      in: query
+      name: destinationIP[is]
       schema:
         items:
           type: string
@@ -275,97 +348,24 @@ components:
         items:
           type: string
         type: array
-    pathStartsWithFilter:
+    pathIsFilter:
       in: query
-      name: path[start]
+      name: path[is]
+      schema:
+        items:
+          type: string
+        type: array
+    pathEndsWithFilter:
+      in: query
+      name: path[end]
       schema:
         type: string
-    destinationIPIsFilter:
+    specIsFilter:
       in: query
-      name: destinationIP[is]
+      name: spec[is]
       schema:
         items:
           type: string
-        type: array
-    sourceIPIsFilter:
-      in: query
-      name: sourceIP[is]
-      schema:
-        items:
-          type: string
-        type: array
-    showNonApi:
-      in: query
-      name: showNonApi
-      required: true
-      schema:
-        type: boolean
-    specIsNotFilter:
-      in: query
-      name: spec[isNot]
-      schema:
-        items:
-          type: string
-        type: array
-    apiEventSortKey:
-      description: Sort key
-      in: query
-      name: sortKey
-      required: true
-      schema:
-        $ref: ../common/openapi.yaml#/components/schemas/ApiEventSortKey
-    methodIsFilter:
-      in: query
-      name: method[is]
-      schema:
-        items:
-          $ref: ../common/openapi.yaml#/components/schemas/HttpMethod
-        type: array
-    statusCodeLteFilter:
-      description: less than or equal
-      in: query
-      name: statusCode[lte]
-      schema:
-        type: string
-    statusCodeIsNotFilter:
-      in: query
-      name: statusCode[isNot]
-      schema:
-        items:
-          type: string
-        type: array
-    pageSize:
-      description: Maximum items to return
-      in: query
-      name: pageSize
-      required: true
-      schema:
-        maximum: 50
-        minimum: 1
-        type: integer
-    sortDir:
-      description: Sorting direction
-      in: query
-      name: sortDir
-      schema:
-        default: ASC
-        enum:
-        - ASC
-        - DESC
-        type: string
-    alertIsType:
-      in: query
-      name: alertType[is]
-      schema:
-        items:
-          type: string
-        type: array
-    specDiffTypeIsFilter:
-      in: query
-      name: specDiffType[is]
-      schema:
-        items:
-          $ref: ../common/openapi.yaml#/components/schemas/DiffType
         type: array
   responses:
     UnknownError:

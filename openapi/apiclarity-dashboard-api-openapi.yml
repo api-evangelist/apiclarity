@@ -63,6 +63,13 @@ paths:
       operationId: getDashboardApiUsageMostUsed
       x-operation-id-source: derived
 components:
+  responses:
+    UnknownError:
+      content:
+        application/json:
+          schema:
+            $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
+      description: unknown error
   parameters:
     endTime:
       description: End time of the query
@@ -80,10 +87,3 @@ components:
       schema:
         format: date-time
         type: string
-  responses:
-    UnknownError:
-      content:
-        application/json:
-          schema:
-            $ref: ../common/openapi.yaml#/components/schemas/ApiResponse
-      description: unknown error
