@@ -1,0 +1,49 @@
+slug: apiclarity
+provider: APIClarity
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: local-fuzzer
+  spec_file: apiclarity-local-fuzzer-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.76
+  evidence: '"Retreive last update status for an API under fuzzing"; schemas "Vulnerabilities", "RawFindingsSeverity",
+    "FuzzingStatusAndReport"'
+  reason: The tag exposes fuzzing test runs against APIs and retrieval of findings/vulnerability reports
+    with severities — active security testing to discover and report vulnerabilities, i.e. Vulnerability
+    Management rather than product QA.
+- tag: bfla
+  spec_file: apiclarity-bfla-api-openapi.yml
+  capability_id: BC-620
+  capability_id_l1: BC-620
+  capability_name: Cybersecurity Management
+  confidence: 0.75
+  evidence: PUT /authorizationModel/{apiID}/learning/start, PUT /authorizationModel/{apiID}/detection/start,
+    GET /modules/bfla/apiFindings/{apiID} 'Get findings for an API and module'
+  reason: Operations learn an authorization model per API then run detection against it and surface findings
+    — broken function-level authorization detection, squarely cybersecurity. Left at L1 because evidence
+    straddles access-control modelling (BC-620.20) and violation detection (BC-620.30).
+- tag: local-bfla
+  spec_file: apiclarity-local-bfla-api-openapi.yml
+  capability_id: BC-620
+  capability_id_l1: BC-620
+  capability_name: Cybersecurity Management
+  confidence: 0.75
+  evidence: '"Get the event with the annotations and bfla status"; schemas "BFLAStatus", "DetectedUser";
+    vendor "detects ... broken function-level authorization"'
+  reason: Operations approve/deny an authorization model per API and inspect traffic events for broken
+    function-level authorization status — a security control/detection surface, so Cybersecurity Management
+    at L1. The mix of authorization-model stewardship and violation detection leaves the L2 (IAM vs threat
+    detection) genuinely ambiguous, so no L2 asserted.

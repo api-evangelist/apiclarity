@@ -706,6 +706,9 @@ apis:
     url: >-
       https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
 common:
+  - type: CapabilityMap
+    url: capabilities/apiclarity-capability-edges.yml
+    name: APIClarity Business Capability Map
   - type: Overlay
     url: overlays/apiclarity-api-events-api-overlay.yaml
   - type: Overlay
