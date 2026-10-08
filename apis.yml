@@ -706,6 +706,8 @@ apis:
     url: >-
       https://github.com/openclarity/apiclarity/tree/master/api3#apiclarity-notification-specification
 common:
+  - type: FinOps
+    url: finops/apiclarity-finops.yml
   - type: CapabilityMap
     url: capabilities/apiclarity-capability-edges.yml
     name: APIClarity Business Capability Map
