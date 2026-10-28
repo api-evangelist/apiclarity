@@ -1,4 +1,4 @@
-# APIClarity (apiclarity)
+# APIClarity
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,71 +64,171 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-APIClarity is an open source API security and observability tool that analyzes API traffic to reconstruct OpenAPI specifications, detect shadow and zombie APIs, identify API differences and changes, and provide API security alerts. It is part of the OpenClarity project and works with Kubernetes service meshes and API gateways for cloud-native API traffic observability.
+APIClarity is an open source (Apache-2.0) API security and observability tool that captures API traffic in a Kubernetes environment, reconstructs OpenAPI specifications from what it observes, and detects shadow APIs, zombie APIs, specification drift and broken function-level authorization. It integrates with Istio, Kong, Tyk, Kuma, a tap DaemonSet and an OpenTelemetry Collector as traffic sources, and ships as a Helm chart you deploy into your own cluster — there is no hosted service, no vendor account and no vendor API host. It was part of the OpenClarity project. APIClarity has reached end of life: the source repository was archived read-only by its owner on 2026-05-29, the last release was v0.14.5 on 2023-05-05, and both project websites (openclarity.io and apiclarity.io) now return HTTP 404. The source, the eleven published specifications, the Helm chart repository and the container images all remain publicly readable, which is what this profile is built from.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/apiclarity/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/apiclarity/refs/heads/main/apis.yml)
+**Areas:** API Observability · API Security · API Traffic Analysis · Cisco · Kubernetes · Open Source · OpenAPI Reconstruction · OpenClarity · Service Mesh · Shadow APIs
 
-## Scope
+## APIClarity on APIs.io
 
-- **Type:** Index
+Everything profiled for APIClarity is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/apiclarity/](https://apis.io/providers/apiclarity/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (21)
 
-- API Observability
-- API Security
-- API Traffic Analysis
-- Cisco
-- Kubernetes
-- Open Source
-- OpenAPI Reconstruction
-- OpenClarity
-- Service Mesh
-- Shadow APIs
+- [APIClarity Control API](https://apis.io/apis/apiclarity/apiclarity-control-api/) — Control-plane endpoints for trace sources and discovered APIs.
+- [APIClarity Features API](https://apis.io/apis/apiclarity/apiclarity-features-api/) — Enabled features in the deployment.
+- [APIClarity API Events API](https://apis.io/apis/apiclarity/apiclarity-apievents-api/) — The ApiEvents API from APIClarity — 4 operation(s) for apievents.
+- [APIClarity API Findings API](https://apis.io/apis/apiclarity/apiclarity-apifindings-api/) — The ApiFindings API from APIClarity — 2 operation(s) for apifindings.
+- [APIClarity API Inventory API](https://apis.io/apis/apiclarity/apiclarity-apiinventory-api/) — The ApiInventory API from APIClarity — 11 operation(s) for apiinventory.
+- [APIClarity Bfla API](https://apis.io/apis/apiclarity/apiclarity-bfla-api/) — The bfla API from APIClarity — 16 operation(s) for bfla.
+- [APIClarity Dashboard API](https://apis.io/apis/apiclarity/apiclarity-dashboard-api/) — The Dashboard API from APIClarity — 3 operation(s) for dashboard.
+- [APIClarity Enable API](https://apis.io/apis/apiclarity/apiclarity-enable-api/) — The Enable API from APIClarity — 1 operation(s) for enable.
+- [APIClarity Event Annotations API](https://apis.io/apis/apiclarity/apiclarity-eventannotations-api/) — The EventAnnotations API from APIClarity — 1 operation(s) for eventannotations.
+- [APIClarity Fuzzer API](https://apis.io/apis/apiclarity/apiclarity-fuzzer-api/) — The fuzzer API from APIClarity — 8 operation(s) for fuzzer.
+- [APIClarity Hosts To Trace API](https://apis.io/apis/apiclarity/apiclarity-hoststotrace-api/) — The HostsToTrace API from APIClarity — 1 operation(s) for hoststotrace.
+- [APIClarity Local Bfla API](https://apis.io/apis/apiclarity/apiclarity-local-bfla-api/) — The local-bfla API from APIClarity — 10 operation(s) for local-bfla.
+- [APIClarity Local Fuzzer API](https://apis.io/apis/apiclarity/apiclarity-local-fuzzer-api/) — The local-fuzzer API from APIClarity — 10 operation(s) for local-fuzzer.
+- [APIClarity Modules API](https://apis.io/apis/apiclarity/apiclarity-modules-api/) — The Modules API from APIClarity — 14 operation(s) for modules.
+- [APIClarity Notification API](https://apis.io/apis/apiclarity/apiclarity-notification-api/) — The Notification API from APIClarity — 1 operation(s) for notification.
+- [APIClarity Start API](https://apis.io/apis/apiclarity/apiclarity-start-api/) — The Start API from APIClarity — 1 operation(s) for start.
+- [APIClarity State API](https://apis.io/apis/apiclarity/apiclarity-state-api/) — The State API from APIClarity — 1 operation(s) for state.
+- [APIClarity Stop API](https://apis.io/apis/apiclarity/apiclarity-stop-api/) — The Stop API from APIClarity — 1 operation(s) for stop.
+- [APIClarity Telemetry API](https://apis.io/apis/apiclarity/apiclarity-telemetry-api/) — The Telemetry API from APIClarity — 1 operation(s) for telemetry.
+- [APIClarity Version API](https://apis.io/apis/apiclarity/apiclarity-version-api/) — The Version API from APIClarity — 1 operation(s) for version.
+- [APIClarity API Usage API](https://apis.io/apis/apiclarity/apiclarity-api-usage-api/) — The API Usage API from APIClarity — 1 operation(s) for api usage.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-26
-- **Modified:** 2026-04-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### AsyncAPI (1)
 
-### APIClarity API
+Event-driven and webhook contracts.
 
-The APIClarity API provides programmatic access to API traffic analysis, reconstructed OpenAPI specifications, API inventory, and security findings. It allows users to query discovered APIs, review spec diffs between observed and documented API behavior, and manage API security alerts.
+- [Apiclarity Notifications Webhooks](https://apis.io/asyncapis/apiclarity/apiclarity-notifications-webhooks/)
 
-- **Human URL:** [https://github.com/openclarity/apiclarity](https://github.com/openclarity/apiclarity)
+#### MCP servers (1)
 
-#### Tags
+Model Context Protocol servers that expose the API to agents.
 
-- API Inventory
-- API Security
-- API Traffic Analysis
-- OpenAPI Reconstruction
-- Shadow APIs
+- [apiclarity-mcp.yml](https://apis.io/servers/apiclarity/apiclarity-mcp-yml/)
 
-#### Properties
+#### Agentic access (1)
 
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Apiclarity Agentic Access](https://apis.io/agentic-access/apiclarity/apiclarity-agentic-access/)
+
+#### Collections (5)
+
+Postman and Open Collection request collections.
+
+- [APIClarity API](https://apis.io/collections/apiclarity/open-apiclarity/)
+- [APIClarity API Events API](https://apis.io/collections/apiclarity/open-apiclarity-api-events-api/)
+- [APIClarity API Events API Inventory API](https://apis.io/collections/apiclarity/open-apiclarity-api-inventory-api/)
+- [APIClarity API Events Control API](https://apis.io/collections/apiclarity/open-apiclarity-control-api/)
+- [APIClarity API Events Features API](https://apis.io/collections/apiclarity/open-apiclarity-features-api/)
+
+#### Overlays (11)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Apiclarity Api Events Api Overlay](https://apis.io/overlays/apiclarity/apiclarity-api-events-api-overlay/)
+- [Apiclarity Api Inventory Api Overlay](https://apis.io/overlays/apiclarity/apiclarity-api-inventory-api-overlay/)
+- [Apiclarity Bfla Module Overlay](https://apis.io/overlays/apiclarity/apiclarity-bfla-module-overlay/)
+- [Apiclarity Control Api Overlay](https://apis.io/overlays/apiclarity/apiclarity-control-api-overlay/)
+- [Apiclarity Features Api Overlay](https://apis.io/overlays/apiclarity/apiclarity-features-api-overlay/)
+- [Apiclarity Fuzzer Module Overlay](https://apis.io/overlays/apiclarity/apiclarity-fuzzer-module-overlay/)
+- [Apiclarity Notifications Overlay](https://apis.io/overlays/apiclarity/apiclarity-notifications-overlay/)
+- [Apiclarity Plugins Telemetry Swagger Overlay](https://apis.io/overlays/apiclarity/apiclarity-plugins-telemetry-swagger-overlay/)
+- [Apiclarity Spec Differ Module Overlay](https://apis.io/overlays/apiclarity/apiclarity-spec-differ-module-overlay/)
+- [Apiclarity Spec Reconstructor Module Overlay](https://apis.io/overlays/apiclarity/apiclarity-spec-reconstructor-module-overlay/)
+- [Apiclarity Trace Analyzer Module Overlay](https://apis.io/overlays/apiclarity/apiclarity-trace-analyzer-module-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Apiclarity Authentication](https://apis.io/security/apiclarity/apiclarity-authentication/)
+- [Apiclarity Domain Security](https://apis.io/security/apiclarity/apiclarity-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Apiclarity Plans Pricing](https://apis.io/plans/apiclarity/apiclarity-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Apiclarity Rate Limits](https://apis.io/rate-limits/apiclarity/apiclarity-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Apiclarity Finops](https://apis.io/finops/apiclarity/apiclarity-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://github.com/openclarity/apiclarity)
 - [Documentation](https://github.com/openclarity/apiclarity#readme)
-- [OpenAPI](https://github.com/openclarity/apiclarity/blob/master/api/server/restapi/spec.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Getting Started](https://github.com/openclarity/apiclarity#getting-started)
-- [GitHub Repository](https://github.com/openclarity/apiclarity)
-- [Postman Collection](collections/apiclarity.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/apiclarity.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Getting started](https://github.com/openclarity/apiclarity#getting-started)
+- [API reference](https://github.com/openclarity/apiclarity/tree/master/api3)
+- [Support](https://github.com/openclarity/apiclarity/issues)
+- [GitHub](https://github.com/openclarity)
 
-## Common Properties
+## API Evangelist rating
 
-- [Website](https://openclarity.io)
-- [GitHub Organization](https://github.com/openclarity)
-- [GitHub Repository](https://github.com/openclarity/apiclarity)
-- [Documentation](https://github.com/openclarity/apiclarity#readme)
-- [Issues](https://github.com/openclarity/apiclarity/issues)
-- [Releases](https://github.com/openclarity/apiclarity/releases)
-- [License](https://github.com/openclarity/apiclarity/blob/master/LICENSE)
-- [Slack](https://outshift.slack.com)
-- [Features](undefined)
-- [Use Cases](undefined)
+**Kin Score 34.4** — thin · rubric 0.24.0 · scored 2026-10-17
 
-## Maintainers
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 45.9 |
+| Contract governance | 4.5 |
+| Operational transparency | 26.3 |
+| Developer ergonomics | 61.3 |
+| Access clarity | 0.0 |
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Agent readiness 32.5** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/apiclarity/](https://apis.io/providers/apiclarity/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for APIClarity: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/apiclarity/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
